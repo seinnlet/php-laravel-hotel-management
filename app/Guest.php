@@ -20,4 +20,9 @@ class Guest extends Model
     {
         return $this->belongsTo('App\Membertype');
     }
+
+    public function bookings()
+    {
+        return $this->hasMany('App\Booking');
+    }
 }
