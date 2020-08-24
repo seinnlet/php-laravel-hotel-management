@@ -16,6 +16,13 @@ class CreateMembertypesTable extends Migration
         Schema::create('membertypes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('earnpoints');
+            $table->integer('laundrydiscount')->default('0');
+            $table->integer('fooddiscount')->default('0');
+            $table->text('additionalbenefits')->nullable();
+            $table->integer('numberofstays')->default('0');       // for membertype restriction
+            $table->integer('numberofnights')->default('0');      // for membertype restriction
+            $table->integer('paidamount')->default('0');          // for membertype restriction
             $table->timestamps();
         });
     }

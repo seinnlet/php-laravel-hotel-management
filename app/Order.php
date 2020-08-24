@@ -11,7 +11,7 @@ class Order extends Model
     ];
 
     // many to many relationships
-    public function foods()
+    public function food()
     {
     	return $this->belongsToMany('App\Food')
 									->withPivot('qty')

@@ -5,16 +5,16 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
-{
+{   
     protected $fillable = [
-        'checkindate', 'checkoutdate', 'noofadult', 'noofchildren', 'estimatedarrivaltime', 'totalcost', 'grandtotal', 'status', 'note', 'guest_id', 'user_id'
+        'checkindate', 'checkoutdate', 'bookingtype', 'noofadult', 'noofchildren', 'estimatedarrivaltime', 'totalcost', 'grandtotal', 'status', 'note', 'pointsused', 'guest_id', 'staff_id'
     ];
 
     // many to many relationship
     public function rooms()
     {
         return $this->belongsToMany('App\Room')
-                    ->withPivot('note', 'extrabed')
+                    ->withPivot('note', 'extrabed', 'status')
                     ->withTimestamps();
     }
 
@@ -25,9 +25,9 @@ class Booking extends Model
     }
 
     // one to many relationships
-    public function user()
+    public function staff()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Staff');
     }
 
     public function guest()

@@ -18,6 +18,7 @@ class CreateRoomServiceTable extends Migration
             $table->unsignedBigInteger('room_id');
             $table->unsignedBigInteger('service_id');
             $table->integer('totalcharges');
+            $table->integer('totalqty');
             $table->timestamps();
 
             $table->foreign('room_id')  

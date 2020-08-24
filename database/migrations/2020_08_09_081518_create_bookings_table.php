@@ -17,6 +17,7 @@ class CreateBookingsTable extends Migration
             $table->id();
             $table->date('checkindate');
             $table->date('checkoutdate');
+            $table->string('bookingtype', 30);
             $table->integer('noofadult');
             $table->integer('noofchildren');
             $table->string('estimatedarrivaltime')->nullable();
@@ -24,13 +25,14 @@ class CreateBookingsTable extends Migration
             $table->integer('grandtotal');
             $table->string('status', 20);
             $table->text('note')->nullable();
+            $table->integer('pointsused')->default('0');
             $table->unsignedBigInteger('guest_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('staff_id')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')  
+            $table->foreign('staff_id')  
                     ->references('id')
-                    ->on('users')
+                    ->on('staff')
                     ->onDelete('cascade');
 
             $table->foreign('guest_id') 

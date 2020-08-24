@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Membertype extends Model
 {
     protected $fillable = [
-        'name'
+        'name', 'earnpoints', 'laundrydiscount', 'fooddiscount', 'additionalbenefits', 'numberofstays', 'numberofnights', 'paidamount'
     ];
 
     // one to many relationship
-    public function members()
+    public function guests()
     {
-        return $this->hasMany('App\Member');
+        return $this->hasMany('App\Guest');
     }
 }

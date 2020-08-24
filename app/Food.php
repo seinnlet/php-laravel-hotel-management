@@ -16,4 +16,9 @@ class Food extends Model
                     ->withPivot('qty')
                     ->withTimestamps();
     }
+
+    public function foodcategory()
+    {
+        return $this->belongsTo('App\Foodcategory');
+    }
 }
