@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Room;
 
 class RoomTableSeeder extends Seeder
 {
@@ -11,52 +12,96 @@ class RoomTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('rooms')->insert(
-            ['roomno' => 'AS_001', 'status' => 1, 'roomtype_id' => 1]
-        );
-        DB::table('rooms')->insert(
-            ['roomno' => 'AS_002', 'status' => 1, 'roomtype_id' => 1],
-        );
-        DB::table('rooms')->insert(
-            ['roomno' => 'AS_003', 'status' => 1, 'roomtype_id' => 1],
-        );
+        $room = new Room;
+        $room->roomno = 'AS_001';
+        $room->status = 1;
+        $room->roomtype_id = 1;
+        $room->save();
 
-        DB::table('rooms')->insert(
-            ['roomno' => 'AD_001', 'status' => 1, 'roomtype_id' => 2],
-        );
-        DB::table('rooms')->insert(
-            ['roomno' => 'AD_002', 'status' => 1, 'roomtype_id' => 2],
-        );
-        DB::table('rooms')->insert(
-            ['roomno' => 'AD_003', 'status' => 1, 'roomtype_id' => 2],
-        );
+        $room = new Room;
+        $room->roomno = 'AS_002';
+        $room->status = 1;
+        $room->roomtype_id = 1;
+        $room->save();
 
-        DB::table('rooms')->insert(
-            ['roomno' => 'AT_001', 'status' => 1, 'roomtype_id' => 3],
-        );
-        DB::table('rooms')->insert(
-            ['roomno' => 'AT_002', 'status' => 1, 'roomtype_id' => 3],
-        );
+        $room = new Room;
+        $room->roomno = 'AS_003';
+        $room->status = 1;
+        $room->roomtype_id = 1;
+        $room->save();
 
-        DB::table('rooms')->insert(
-            ['roomno' => 'AQ_001', 'status' => 1, 'roomtype_id' => 4],
-        );
-        DB::table('rooms')->insert(
-            ['roomno' => 'AQ_002', 'status' => 1, 'roomtype_id' => 4],
-        );
+        
+        $room = new Room;
+        $room->roomno = 'AD_001';
+        $room->status = 1;
+        $room->roomtype_id = 2;
+        $room->save();
 
-        DB::table('rooms')->insert(
-            ['roomno' => 'AJS_001', 'status' => 1, 'roomtype_id' => 5],
-        );
-        DB::table('rooms')->insert(
-            ['roomno' => 'AJS_002', 'status' => 1, 'roomtype_id' => 5],
-        );
+        $room = new Room;
+        $room->roomno = 'AD_002';
+        $room->status = 1;
+        $room->roomtype_id = 2;
+        $room->save();
 
-        DB::table('rooms')->insert(
-            ['roomno' => 'ASS_001', 'status' => 1, 'roomtype_id' => 6],
-        );
-        DB::table('rooms')->insert(
-            ['roomno' => 'ASS_002', 'status' => 1, 'roomtype_id' => 6]
-        );
+        $room = new Room;
+        $room->roomno = 'AD_003';
+        $room->status = 1;
+        $room->roomtype_id = 2;
+        $room->save();
+
+        
+        $room = new Room;
+        $room->roomno = 'AT_001';
+        $room->status = 1;
+        $room->roomtype_id = 3;
+        $room->save();
+
+        $room = new Room;
+        $room->roomno = 'AT_002';
+        $room->status = 1;
+        $room->roomtype_id = 3;
+        $room->save();
+
+
+        $room = new Room;
+        $room->roomno = 'AQ_001';
+        $room->status = 1;
+        $room->roomtype_id = 4;
+        $room->save();
+
+        $room = new Room;
+        $room->roomno = 'AQ_002';
+        $room->status = 1;
+        $room->roomtype_id = 4;
+        $room->save();
+
+
+
+        $room = new Room;
+        $room->roomno = 'AJS_001';
+        $room->status = 1;
+        $room->roomtype_id = 4;
+        $room->save();
+
+        $room = new Room;
+        $room->roomno = 'AJS_002';
+        $room->status = 1;
+        $room->roomtype_id = 4;
+        $room->save();
+
+
+        $room = new Room;
+        $room->roomno = 'ASS_001';
+        $room->status = 1;
+        $room->roomtype_id = 5;
+        $room->save();
+
+        $room = new Room;
+        $room->roomno = 'ASS_002';
+        $room->status = 1;
+        $room->roomtype_id = 5;
+        $room->save();
+
+        
     }
 }

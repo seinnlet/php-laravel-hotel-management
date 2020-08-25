@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Service;
 
 class ServiceTableSeeder extends Seeder
 {
@@ -12,16 +12,20 @@ class ServiceTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('services')->insert([
-            'name' => 'Laundry', 'unitcharge' => 2
-        ]);
+        $service = new Service;
+        $service->name = 'Laundry';
+        $service->unitcharge = 2;
+        $service->save();
+        
+        $service = new Service;
+        $service->name = 'Ironing';
+        $service->unitcharge = 2;
+        $service->save();
 
-        DB::table('services')->insert([
-            'name' => 'Ironing', 'unitcharge' => 2
-        ]);
+        $service = new Service;
+        $service->name = 'Extra Bedding Items';
+        $service->unitcharge = 5;
+        $service->save();
 
-        DB::table('services')->insert([
-            'name' => 'Extra Bedding Items', 'unitcharge' => 3
-        ]);
     }
 }

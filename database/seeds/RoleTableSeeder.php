@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class RoleTableSeeder extends Seeder
 {
@@ -13,25 +13,30 @@ class RoleTableSeeder extends Seeder
     public function run()
     {		
     	// in staff
-        DB::table('roles')->insert([
-        	'name' => 'admin', 'guard_name' => 'web'
-        ]);
+        $role = new Role;
+        $role->name = 'admin';
+        $role->guard_name = 'web';
+        $role->save();
+
+        $role = new Role;
+        $role->name = 'reservation staff';
+        $role->guard_name = 'web';
+        $role->save();
         
-        DB::table('roles')->insert([
-        	'name' => 'reservation staff', 'guard_name' => 'web'
-        ]);
+        $role = new Role;
+        $role->name = 'service staff';
+        $role->guard_name = 'web';
+        $role->save();
 
-        DB::table('roles')->insert([
-        	'name' => 'service staff', 'guard_name' => 'web'
-        ]);
-
-        DB::table('roles')->insert([
-        	'name' => 'chef', 'guard_name' => 'web'
-        ]);
+        $role = new Role;
+        $role->name = 'chef';
+        $role->guard_name = 'web';
+        $role->save();
 
         // in guest
-        DB::table('roles')->insert([
-        	'name' => 'guest', 'guard_name' => 'web'
-        ]);
+        $role = new Role;
+        $role->name = 'guest';
+        $role->guard_name = 'web';
+        $role->save();
     }
 }

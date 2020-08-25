@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Foodcategory;
 
 class FoodCategoryTableSeeder extends Seeder
 {
@@ -12,20 +12,24 @@ class FoodCategoryTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('foodcategories')->insert([
-            'name' => 'Drink'
-        ]);
-        DB::table('foodcategories')->insert([
-            'name' => 'Main Dish'
-        ]);
-        DB::table('foodcategories')->insert([
-            'name' => 'Side Dish'
-        ]);
-        DB::table('foodcategories')->insert([
-            'name' => 'Seafood'
-        ]);
-        DB::table('foodcategories')->insert([
-            'name' => 'Dessert'
-        ]);
+        $foodcategory = new Foodcategory;
+        $foodcategory->name = 'Drink';
+        $foodcategory->save();
+
+        $foodcategory = new Foodcategory;
+        $foodcategory->name = 'Main Dish';
+        $foodcategory->save();
+
+        $foodcategory = new Foodcategory;
+        $foodcategory->name = 'Side Dish';
+        $foodcategory->save();
+
+        $foodcategory = new Foodcategory;
+        $foodcategory->name = 'Seafood';
+        $foodcategory->save();
+
+        $foodcategory = new Foodcategory;
+        $foodcategory->name = 'Dessert';
+        $foodcategory->save();
     }
 }
