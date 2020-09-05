@@ -17,14 +17,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,800">
   <!-- orion icons-->
   <link rel="stylesheet" href="{{ asset('backend/css/orionicons.css') }}">
+  @yield('css')
+
   <!-- theme stylesheet-->
   <link rel="stylesheet" href="{{ asset('backend/css/style.sea.css') }}" id="theme-stylesheet">
   
   <!-- Favicon-->
   <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend/img/favicon.png') }}">
 
-  @yield('css')
-  
 </head>
 <body>
   <!-- navbar-->
@@ -201,7 +201,7 @@
   </div>
   
   <!-- JavaScript files-->
-  <script src="{{ asset('backend/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('backend/js/jquery.min.js') }}"></script>
   <script src="{{ asset('backend/vendor/popper.js/umd/popper.min.js') }}"> </script>
   <script src="{{ asset('backend/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('backend/vendor/jquery.cookie/jquery.cookie.js') }}"> </script>
@@ -210,6 +210,7 @@
   
   <script src="{{ asset('backend/js/front.js') }}"></script>
 
+  @include('sweetalert::alert')
   @yield('script')
 
 </body>

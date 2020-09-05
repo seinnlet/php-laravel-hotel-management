@@ -25,7 +25,7 @@ class MemberTypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.membertype.create');
     }
 
     /**
@@ -36,7 +36,43 @@ class MemberTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages = [
+            'name.unique' => '* This Member Type is already Existed.',
+            'name.required' => '* Please enter Member Type Name.',
+            'numberofstays.required' => '* Please define minimum number of stays for new member type.',
+            'numberofnights.required' => '* Please define minimum number of nights for new member type.',
+            'paidamount.required' => '* Please define minimum paid amount for new member type.',
+            'earnpoints.min' => '* Please enter 0 - 100 value.',
+            'laundrydiscount.min' => '* Please enter 0 - 100 value.',
+            'fooddiscount.min' => '* Please enter 0 - 100 value.',
+            'numberofstays.min' => '* Please enter 0 - 100 value.',
+            'numberofnights.min' => '* Please enter 0 - 100 value.',
+            'paidamount.min' => '* Please enter positive value.'
+        ];
+
+        $request->validate([
+            'name' => 'required|unique:membertypes',
+            'earnpoints' => 'min:0|max:100',
+            'laundrydiscount' => 'min:0|max:100',
+            'fooddiscount' => 'min:0|max:100',
+            'numberofstays' => 'required|min:0|max:100|numeric',
+            'numberofnights' => 'required|min:0|max:100|numeric',
+            'paidamount' => 'required|min:0|max:1000000|numeric',
+        ], $messages);
+
+        // store data
+        $membertype = new Membertype;
+        $membertype->name = $request->name;
+        $membertype->earnpoints = ($request->earnpoints) ? $request->earnpoints : 0;
+        $membertype->laundrydiscount = ($request->laundrydiscount) ? $request->laundrydiscount : 0;
+        $membertype->fooddiscount = ($request->fooddiscount) ? $request->fooddiscount : 0;
+        $membertype->additionalbenefits = $request->additionalbenefits;
+        $membertype->numberofstays = $request->numberofstays;
+        $membertype->numberofnights = $request->numberofnights;
+        $membertype->paidamount = $request->paidamount;
+        $membertype->save();
+
+        return redirect()->route('membertypes.index')->withSuccessMessage('New Member Type is Successfully Added.');
     }
 
     /**
@@ -81,6 +117,9 @@ class MemberTypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $membertype = Membertype::find($id);
+        $membertype->delete();
+
+        return redirect()->route('membertypes.index')->withSuccessMessage($membertype->name. ' is Successfully Deleted.');
     }
 }

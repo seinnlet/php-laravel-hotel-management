@@ -154,7 +154,7 @@ button {
 }
 
 .input-group-text {
-  border-radius: 2rem;
+  font-size: .9rem;
 }
 
 .bg-hover-gradient-primary {
@@ -1262,10 +1262,9 @@ button {
   text-transform: uppercase;
   font-size: 1rem;
   letter-spacing: 2px;
-  margin-bottom: 40px;
 }
 
-.td-action a {
+.td-action a, .td-action button {
   display: inline-block;
   width: 36px;
   height: 36px;
@@ -1274,15 +1273,36 @@ button {
   color: #999;
   border-radius: 18px;
   margin-right: 10px;
+  border-style: none;
+  background-color: #fff;
 }
-.td-action a:hover {
-  background-color: #f7f7f7;
+.td-action a:hover, .td-action button:hover {
+  background-color: #f6f6f6;
 }
-.td-action a:active {
+.td-action a:active, .td-action button:active {
   background-color: #eee;
 }
 .td-action .a-detail:hover {
   color: #cda45e;
+}
+
+
+/* datatable edited */
+.dataTables_wrapper .dataTables_filter {
+  margin-bottom: 20px;
+}
+.dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_paginate {
+  margin-top: 20px;
+}
+.dataTables_wrapper .dataTables_filter input {
+  border: 1px solid #aaa;
+}
+.dataTables_wrapper .dataTables_filter input:focus {
+  outline: none;
+}
+table.dataTable tbody th, table.dataTable tbody td {
+  padding: 12px 20px;
+  vertical-align: middle;
 }
 table.dataTable tbody tr:hover {
   background-color: #fcfcfc;
@@ -1641,13 +1661,17 @@ STYLE SWITCHER FOR DEMO
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #2d7776;
-  border-color: #296e6d;
+  background-color: #d4ad6c;
+  border-color: #d4ad6c;
 }
 
 .btn-primary:focus, .btn-primary.focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(55, 147, 146, 0.5);
-  box-shadow: 0 0 0 0.2rem rgba(55, 147, 146, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(205, 164, 94, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(205, 164, 94, 0.25);
+  background-color: #d4ad6c;
+  border-color: #d4ad6c;
+  opacity: 0.9;
+  text-decoration: none;
 }
 
 .btn-primary.disabled, .btn-primary:disabled {
@@ -1659,14 +1683,16 @@ STYLE SWITCHER FOR DEMO
 .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #296e6d;
-  border-color: #266564;
+  background-color: #d4ad6c;
+  border-color: #d4ad6c;
+  text-decoration: none;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-primary.dropdown-toggle:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(55, 147, 146, 0.5);
-  box-shadow: 0 0 0 0.2rem rgba(55, 147, 146, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(205, 164, 94, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(205, 164, 94, 0.25);
+  text-decoration: none;
 }
 
 .btn-secondary {
@@ -3390,7 +3416,7 @@ a.text-violet:hover, a.text-violet:focus {
 }
 
 .text-blue, .td-action .a-edit:hover {
-  color: #33BBE3 !important;
+  color: #3085D6 !important;
 }
 
 a.text-blue:hover, a.text-blue:focus {
@@ -3981,6 +4007,7 @@ select.form-control-lg:not([size]):not([multiple]) {
 
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
   background-color: #cda45e;
+  border-color: #cda45e;
 }
 
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
@@ -3990,6 +4017,7 @@ select.form-control-lg:not([size]):not([multiple]) {
 
 .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before {
   background-color: #cda45e;
+  border-color: #cda45e;
 }
 
 .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::after {
@@ -4011,6 +4039,7 @@ select.form-control-lg:not([size]):not([multiple]) {
 
 .custom-radio .custom-control-input:checked ~ .custom-control-label::before {
   background-color: #cda45e;
+  border-color: #cda45e;
 }
 
 .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
