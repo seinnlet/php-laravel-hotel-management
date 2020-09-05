@@ -21,4 +21,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// backend
+
 Route::get('dashboard', 'BackendController@dashboard')->name('dashboard');
+
+Route::resource('membertypes', 'MemberTypeController');

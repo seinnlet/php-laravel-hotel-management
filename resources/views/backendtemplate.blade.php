@@ -31,7 +31,7 @@
   <header class="header">
     <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow">
       <a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a>
-      <a href="index.html" class="navbar-brand font-weight-bold text-uppercase text-base">Hotel Riza</a>
+      <a href="{{ route('dashboard') }}" class="navbar-brand font-weight-bold text-uppercase text-base"><i class="fas fa-map-marker-alt"></i> Hotel Riza</a>
       <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
         <li class="nav-item">
           <form id="searchForm" class="ml-auto d-none d-lg-block">
@@ -111,67 +111,67 @@
 
       <ul class="sidebar-menu list-unstyled">
         <li class="sidebar-list-item">
-          <a href="index.html" class="sidebar-link text-muted active">
-            <i class="fas fa-home mr-3"></i><span>Home</span>
+          <a href="{{ route('dashboard') }}" class="sidebar-link text-muted {{request()->routeIs('dashboard') ? 'active' : '' }}">
+            <i class="fas fa-home mr-3 text-gray"></i><span>Home</span>
           </a>
         </li>
         <li class="sidebar-list-item">
           <a href="charts.html" class="sidebar-link text-muted">
-            <i class="o-sales-up-1 mr-3 text-gray"></i><span>Charts</span>
+            <i class="fas fa-phone-volume mr-3 text-gray"></i><span>Booking List</span>
           </a>
         </li>
         <li class="sidebar-list-item">
           <a href="tables.html" class="sidebar-link text-muted">
-            <i class="o-table-content-1 mr-3 text-gray"></i><span>Tables</span>
+            <i class="far fa-address-book mr-3 text-gray"></i><span>Guests</span>
           </a>
         </li>
         <li class="sidebar-list-item">
-          <a href="forms.html" class="sidebar-link text-muted">
-            <i class="o-survey-1 mr-3 text-gray"></i><span>Forms</span>
+          <a href="{{ route('membertypes.index') }}" class="sidebar-link text-muted {{request()->routeIs('membertypes*') ? 'active' : '' }}">
+            <i class="far fa-address-card mr-3 text-gray"></i><span>Member Types</span>
           </a>
-        </li>
-        <li class="sidebar-list-item">
-          <a href="#" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted">
-            <i class="o-wireframe-1 mr-3 text-gray"></i><span>Pages</span>
-          </a>
-          <div id="pages" class="collapse">
-            <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page one</a></li>
-              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page two</a></li>
-              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page three</a></li>
-              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page four</a></li>
-            </ul>
-          </div>
         </li>
         <li class="sidebar-list-item">
           <a href="login.html" class="sidebar-link text-muted">
-            <i class="o-exit-1 mr-3 text-gray"></i><span>Login</span>
+            <i class="fas fa-user-friends mr-3 text-gray"></i><span>Staff</span>
           </a>
         </li>
       </ul>
 
-      <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">EXTRAS</div>
+      <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-3 font-weight-bold small headings-font-family">Room & Service</div>
 
       <ul class="sidebar-menu list-unstyled">
         <li class="sidebar-list-item">
           <a href="#" class="sidebar-link text-muted">
-            <i class="o-database-1 mr-3 text-gray"></i><span>Demo</span>
+            <i class="fas fa-door-open mr-3 text-gray"></i><span>Room Types</span>
           </a>
         </li>
         <li class="sidebar-list-item">
           <a href="#" class="sidebar-link text-muted">
-            <i class="o-imac-screen-1 mr-3 text-gray"></i><span>Demo</span>
+            <i class="fas fa-key mr-3 text-gray"></i><span>Rooms</span>
           </a>
         </li>
         <li class="sidebar-list-item">
-          <a href="#" class="sidebar-link text-muted">
-            <i class="o-paperwork-1 mr-3 text-gray"></i><span>Demo</span>
+          <a href="#" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted">
+            <i class="fas fa-concierge-bell mr-3 text-gray"></i><span>Services</span>
           </a>
+          <div id="pages" class="collapse">
+            <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Service Types</a></li>
+              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Used Services</a></li>
+            </ul>
+          </div>
         </li>
         <li class="sidebar-list-item">
-          <a href="#" class="sidebar-link text-muted">
-            <i class="o-wireframe-1 mr-3 text-gray"></i><span>Demo</span>
+          <a href="#" data-toggle="collapse" data-target="#pages2" aria-expanded="false" aria-controls="pages2" class="sidebar-link text-muted">
+            <i class="fas fa-utensils mr-3 text-gray"></i><span>Food</span>
           </a>
+          <div id="pages2" class="collapse">
+            <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Food Categories</a></li>
+              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Menu</a></li>
+              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Order List</a></li>
+            </ul>
+          </div>
         </li>
       </ul>
 
@@ -188,7 +188,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-6 text-center text-md-left text-primary">
-              <p class="mb-2 mb-md-0">Your company &copy; 2018-2020</p>
+              <p class="mb-2 mb-md-0">Hotel Management Laravel Project &copy; 2020.</p>
             </div>
             <div class="col-md-6 text-center text-md-right text-gray-400">
               <p class="mb-0">Design by <a href="https://bootstrapious.com/admin-templates" class="external text-gray-400">Bootstrapious</a></p>
@@ -205,9 +205,9 @@
   <script src="{{ asset('backend/vendor/popper.js/umd/popper.min.js') }}"> </script>
   <script src="{{ asset('backend/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('backend/vendor/jquery.cookie/jquery.cookie.js') }}"> </script>
-  <script src="{{ asset('backend/vendor/chart.js/Chart.min.js') }}"></script>
+  
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-  <script src="{{ asset('backend/js/charts-home.js') }}"></script>
+  
   <script src="{{ asset('backend/js/front.js') }}"></script>
 
   @yield('script')

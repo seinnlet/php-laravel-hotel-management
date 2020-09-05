@@ -1257,6 +1257,37 @@ button {
   right: 0;
 }
 
+.title-heading {
+  color: #cda45e;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+}
+
+.td-action a {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  text-align: center;
+  line-height: 36px;
+  color: #999;
+  border-radius: 18px;
+  margin-right: 10px;
+}
+.td-action a:hover {
+  background-color: #f7f7f7;
+}
+.td-action a:active {
+  background-color: #eee;
+}
+.td-action .a-detail:hover {
+  color: #cda45e;
+}
+table.dataTable tbody tr:hover {
+  background-color: #fcfcfc;
+}
+
 /*
 *
 * =====================
@@ -1375,15 +1406,17 @@ button {
 }
 
 .sidebar-link i {
-  font-size: 1.1rem;
+  font-size: 1rem;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+  width: 22px;
 }
 
 .sidebar-link span {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   display: inline-block;
+  font-size: .85rem;
 }
 
 .overflow-hidden {
@@ -2906,9 +2939,9 @@ h5,
 
 h6,
 .h6 {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   letter-spacing: 0.1em;
-  color: #444;
+  color: #777;
 }
 
 .lead {
@@ -3332,7 +3365,7 @@ a.text-warning:hover, a.text-warning:focus {
   color: #d39e00 !important;
 }
 
-.text-danger {
+.text-danger, .td-action .a-delete:hover {
   color: #dc3545 !important;
 }
 
@@ -3356,8 +3389,8 @@ a.text-violet:hover, a.text-violet:focus {
   color: #d372b6 !important;
 }
 
-.text-blue {
-  color: #4C84FF !important;
+.text-blue, .td-action .a-edit:hover {
+  color: #33BBE3 !important;
 }
 
 a.text-blue:hover, a.text-blue:focus {

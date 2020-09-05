@@ -322,3 +322,10 @@
         </section>
 
   @endsection
+
+  @section('script')
+
+    <script src="{{ asset('backend/vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ asset('backend/js/charts-home.js') }}"></script>
+
+  @endsection
