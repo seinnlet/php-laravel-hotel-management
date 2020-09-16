@@ -4,9 +4,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Hotel Riza - @yield('title')</title>
-  <meta name="description" content="">
+  <meta name="description" content="Sample Hotel Management">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="all,follow">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- Bootstrap CSS-->
   <link rel="stylesheet" href="{{ asset('backend/vendor/bootstrap/css/bootstrap.min.css') }}">
@@ -14,9 +15,8 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('backend/vendor/fontawesome/css/all.min.css') }}">
 
   <!-- Google fonts - Popppins for copy-->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,800">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,600,800">
   <!-- orion icons-->
-  <link rel="stylesheet" href="{{ asset('backend/css/orionicons.css') }}">
   @yield('css')
 
   <!-- theme stylesheet-->
@@ -141,12 +141,12 @@
 
       <ul class="sidebar-menu list-unstyled">
         <li class="sidebar-list-item">
-          <a href="#" class="sidebar-link text-muted">
+          <a href="{{ route('roomtypes.index') }}" class="sidebar-link text-muted {{request()->routeIs('roomtypes*') ? 'active' : '' }}">
             <i class="fas fa-door-open mr-3 text-gray"></i><span>Room Types</span>
           </a>
         </li>
         <li class="sidebar-list-item">
-          <a href="#" class="sidebar-link text-muted">
+          <a href="{{ route('rooms.index') }}" class="sidebar-link text-muted {{request()->routeIs('rooms*') ? 'active' : '' }}">
             <i class="fas fa-key mr-3 text-gray"></i><span>Rooms</span>
           </a>
         </li>

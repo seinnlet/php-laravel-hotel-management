@@ -14,28 +14,28 @@ class RoleTableSeeder extends Seeder
     {		
     	// in staff
         $role = new Role;
-        $role->name = 'admin';
+        $role->name = 'Admin';
         $role->guard_name = 'web';
         $role->save();
 
         $role = new Role;
-        $role->name = 'reservation staff';
+        $role->name = 'Reservation Staff';
         $role->guard_name = 'web';
         $role->save();
         
         $role = new Role;
-        $role->name = 'service staff';
+        $role->name = 'Service Staff';
         $role->guard_name = 'web';
         $role->save();
 
         $role = new Role;
-        $role->name = 'chef';
+        $role->name = 'Chef';
         $role->guard_name = 'web';
         $role->save();
 
         // in guest
         $role = new Role;
-        $role->name = 'guest';
+        $role->name = 'Guest';
         $role->guard_name = 'web';
         $role->save();
     }

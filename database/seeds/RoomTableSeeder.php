@@ -13,64 +13,64 @@ class RoomTableSeeder extends Seeder
     public function run()
     {
         $room = new Room;
-        $room->roomno = 'AS_001';
+        $room->roomno = '101';
         $room->status = 1;
         $room->roomtype_id = 1;
         $room->save();
 
         $room = new Room;
-        $room->roomno = 'AS_002';
+        $room->roomno = '102';
         $room->status = 1;
         $room->roomtype_id = 1;
         $room->save();
 
         $room = new Room;
-        $room->roomno = 'AS_003';
+        $room->roomno = '201';
         $room->status = 1;
         $room->roomtype_id = 1;
         $room->save();
 
         
         $room = new Room;
-        $room->roomno = 'AD_001';
+        $room->roomno = '202';
         $room->status = 1;
         $room->roomtype_id = 2;
         $room->save();
 
         $room = new Room;
-        $room->roomno = 'AD_002';
+        $room->roomno = '203';
         $room->status = 1;
         $room->roomtype_id = 2;
         $room->save();
 
         $room = new Room;
-        $room->roomno = 'AD_003';
+        $room->roomno = '204';
         $room->status = 1;
         $room->roomtype_id = 2;
         $room->save();
 
         
         $room = new Room;
-        $room->roomno = 'AT_001';
+        $room->roomno = '301';
         $room->status = 1;
         $room->roomtype_id = 3;
         $room->save();
 
         $room = new Room;
-        $room->roomno = 'AT_002';
+        $room->roomno = '501';
         $room->status = 1;
         $room->roomtype_id = 3;
         $room->save();
 
 
         $room = new Room;
-        $room->roomno = 'AQ_001';
+        $room->roomno = '302';
         $room->status = 1;
         $room->roomtype_id = 4;
         $room->save();
 
         $room = new Room;
-        $room->roomno = 'AQ_002';
+        $room->roomno = '502';
         $room->status = 1;
         $room->roomtype_id = 4;
         $room->save();
@@ -78,28 +78,40 @@ class RoomTableSeeder extends Seeder
 
 
         $room = new Room;
-        $room->roomno = 'AJS_001';
+        $room->roomno = '601';
         $room->status = 1;
         $room->roomtype_id = 4;
         $room->save();
 
         $room = new Room;
-        $room->roomno = 'AJS_002';
+        $room->roomno = '602';
         $room->status = 1;
         $room->roomtype_id = 4;
         $room->save();
 
 
         $room = new Room;
-        $room->roomno = 'ASS_001';
+        $room->roomno = '701';
         $room->status = 1;
         $room->roomtype_id = 5;
         $room->save();
 
         $room = new Room;
-        $room->roomno = 'ASS_002';
+        $room->roomno = '702';
         $room->status = 1;
         $room->roomtype_id = 5;
+        $room->save();
+
+        $room = new Room;
+        $room->roomno = '801';
+        $room->status = 1;
+        $room->roomtype_id = 6;
+        $room->save();
+
+        $room = new Room;
+        $room->roomno = '901';
+        $room->status = 1;
+        $room->roomtype_id = 6;
         $room->save();
 
         

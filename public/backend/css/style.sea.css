@@ -1285,7 +1285,9 @@ button {
 .td-action .a-detail:hover {
   color: #cda45e;
 }
-
+.font-weight-medium {
+  font-weight: 600;
+}
 
 /* datatable edited */
 .dataTables_wrapper .dataTables_filter {
@@ -2285,8 +2287,8 @@ STYLE SWITCHER FOR DEMO
 }
 
 .btn-outline-primary:focus, .btn-outline-primary.focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(55, 147, 146, 0.5);
-  box-shadow: 0 0 0 0.2rem rgba(55, 147, 146, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(205, 164, 94, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(205, 164, 94, 0.25);
 }
 
 .btn-outline-primary.disabled, .btn-outline-primary:disabled {
@@ -3485,6 +3487,10 @@ a.text-gray-500:hover, a.text-gray-500:focus {
 
 a.text-dark:hover, a.text-dark:focus {
   color: #1d2124 !important;
+}
+
+.badge {
+  font-weight: 500;
 }
 
 .badge-primary {

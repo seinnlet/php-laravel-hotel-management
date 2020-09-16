@@ -21,7 +21,7 @@ class CreateRoomtypesTable extends Migration
             $table->integer('noofpeople');
             $table->integer('noofbed');
             $table->string('image1');
-            $table->string('image2');
+            $table->string('image2')->nullable();
             $table->string('image3')->nullable();
             $table->timestamps();
         });

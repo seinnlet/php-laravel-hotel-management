@@ -26,3 +26,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('dashboard', 'BackendController@dashboard')->name('dashboard');
 
 Route::resource('membertypes', 'MemberTypeController');
+
+Route::resource('roomtypes', 'RoomTypeController');
+
+Route::resource('rooms', 'RoomController');
+Route::get('getroomno/{floor}', 'RoomController@getRoomNo')->name('rooms.getroomno');
