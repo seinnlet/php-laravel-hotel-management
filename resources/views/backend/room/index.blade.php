@@ -24,7 +24,7 @@
       	{{-- data table --}}
 
       	<div class="table-responsive pb-5">
-				  <table class="table" id="datatable">
+				  <table class="table" id="datatable" style="width: 100%">
 				    <thead>
 				    	<tr>
 				    		<td>No.</td>

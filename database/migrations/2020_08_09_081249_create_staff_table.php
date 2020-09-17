@@ -15,8 +15,9 @@ class CreateStaffTable extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
-            $table->string('profilepicture');
+            $table->string('profilepicture')->default('backend/img/staff/default.png');
             $table->string('phone', 30);
+            $table->string('gender', 10);
             $table->string('address');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

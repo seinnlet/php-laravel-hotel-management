@@ -22,12 +22,15 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // backend
+Route::middleware('auth')->group(function () {
+	Route::get('dashboard', 'BackendController@dashboard')->name('dashboard');
 
-Route::get('dashboard', 'BackendController@dashboard')->name('dashboard');
+	Route::resource('membertypes', 'MemberTypeController');
 
-Route::resource('membertypes', 'MemberTypeController');
+	Route::resource('roomtypes', 'RoomTypeController');
 
-Route::resource('roomtypes', 'RoomTypeController');
+	Route::resource('rooms', 'RoomController');
+	Route::get('getroomno/{floor}', 'RoomController@getRoomNo')->name('rooms.getroomno');
 
-Route::resource('rooms', 'RoomController');
-Route::get('getroomno/{floor}', 'RoomController@getRoomNo')->name('rooms.getroomno');
+	Route::resource('staff', 'StaffController');
+});

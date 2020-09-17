@@ -87,16 +87,20 @@
         </li>
 
         <li class="nav-item dropdown ml-auto">
-          <a id="userInfo" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img src="{{ asset('backend/img/avatar-6.jpg') }}" alt="Jason Doe" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow"></a>
+          <a id="userInfo" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img src="{{ asset(Auth::user()->staff->profilepicture) }}" alt="Jason Doe" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow"></a>
           <div aria-labelledby="userInfo" class="dropdown-menu">
             <a href="#" class="dropdown-item">
-              <strong class="d-block text-uppercase headings-font-family">Mark Stephen</strong><small>Web Developer</small>
+              <strong class="d-block text-uppercase headings-font-family">{{ Auth::user()->name }}</strong><small>{{ Auth::user()->getRoleNames()->first() }}</small>
             </a>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">Settings</a>
             <a href="#" class="dropdown-item">Activity log</a>
             <div class="dropdown-divider"></div>
-            <a href="login.html" class="dropdown-item">Logout</a>
+            <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();">Logout</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
           </div>
         </li>
 
@@ -131,7 +135,7 @@
           </a>
         </li>
         <li class="sidebar-list-item">
-          <a href="login.html" class="sidebar-link text-muted">
+          <a href="{{ route('staff.index') }}" class="sidebar-link text-muted {{request()->routeIs('staff*') ? 'active' : '' }}">
             <i class="fas fa-user-friends mr-3 text-gray"></i><span>Staff</span>
           </a>
         </li>
