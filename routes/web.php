@@ -33,4 +33,8 @@ Route::middleware('auth')->group(function () {
 	Route::get('getroomno/{floor}', 'RoomController@getRoomNo')->name('rooms.getroomno');
 
 	Route::resource('staff', 'StaffController');
+
+	Route::resource('guests', 'GuestController');
+
+	Route::resource('bookings', 'BookingController');
 });

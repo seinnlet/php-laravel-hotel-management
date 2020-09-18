@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     protected $fillable = [
-        'booking_id', 'paymenttype', 'status'
+        'booking_id', 'paymenttype', 'advancepaymentpercentage', 'advancepayment', 'status'
     ];
 
     // one to one relationship

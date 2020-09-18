@@ -39,11 +39,11 @@
 
 							<div class="form-group">
 								<label for="email">{{ __('Email Address') }}</label>
-								<input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="info@example.com">
+								<input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="info@example.com" autofocus>
 
 								@error('email')
-								<span class="invalid-feedback" role="alert">
-									<strong>{{ $message }}</strong>
+								<span class="text-danger" role="alert">
+									{{ $message }}
 								</span>
 								@enderror
 							</div>
@@ -53,8 +53,8 @@
 								<input id="password" type="password" class="form-control" name="password" required autocomplete="current-password" placeholder="&#10045;&#10045;&#10045;&#10045;&#10045;">
 
 								@error('password')
-								<span class="invalid-feedback" role="alert">
-									<strong>{{ $message }}</strong>
+								<span class="text-danger" role="alert">
+									{{ $message }}
 								</span>
 								@enderror
 							</div>

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Staff extends Model
 {
     protected $fillable = [
-        'profilepicture', 'phone', 'address', 'user_id'
+        'profilepicture', 'phone', 'gender', 'address', 'user_id'
     ];
 
     // one to many relationship

@@ -1384,7 +1384,7 @@ table.dataTable tbody tr:hover {
   align-items: center;
   -webkit-transition: background 0.3s;
   transition: background 0.3s;
-  padding: 0.9rem 1.5rem;
+  padding: 0.8rem 1.5rem;
 }
 
 .sidebar-link[data-toggle="collapse"] {
@@ -2896,7 +2896,6 @@ STYLE SWITCHER FOR DEMO
   padding: 0.25rem 1.8rem;
   font-size: 0.7875rem;
   line-height: 1.5;
-  border-radius: 2rem;
 }
 
 /*
@@ -4152,7 +4151,7 @@ code {
 }
 
 .card-header {
-  padding: 1.5rem 2rem;
+  padding: 1.25rem 2rem;
   background-color: white;
   border-bottom: none;
   -webkit-box-shadow: 0 0.125rem 0.8rem rgba(0, 0, 0, 0.1);
@@ -4261,4 +4260,8 @@ code {
 
 .dropdown-item.disabled, .dropdown-item:disabled {
   color: #6c757d;
+}
+
+.footer {
+  font-size: .8rem;
 }

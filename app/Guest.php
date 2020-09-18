@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Guest extends Model
 {
     protected $fillable = [
-        'guestname', 'guestemail', 'profilepicture', 'phone1', 'phone2', 'city', 'country', 'points', 'memberstartdate', 'user_id', 'staff_id', 'membertype_id'
+        'profilepicture', 'phone1', 'phone2', 'city', 'country', 'points', 'memberstartdate', 'user_id', 'staff_id', 'membertype_id'
     ];
 
     // one to one relationship

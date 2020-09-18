@@ -17,6 +17,8 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('booking_id');
             $table->string('paymenttype', 100);
+            $table->integer('advancepaymentpercentage');
+            $table->integer('advancepayment');
             $table->string('status', 20);
             $table->timestamps();
 

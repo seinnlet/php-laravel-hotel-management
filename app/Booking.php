@@ -7,7 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {   
     protected $fillable = [
-        'checkindate', 'checkoutdate', 'bookingtype', 'noofadult', 'noofchildren', 'estimatedarrivaltime', 'totalcost', 'grandtotal', 'status', 'note', 'pointsused', 'guest_id', 'staff_id'
+        'bookingid',
+        'bookdate',
+        'checkindatetime', 
+        'checkoutdatetime', 
+        'duration',
+        'bookingtype', 
+        'noofadult', 
+        'noofchildren', 
+        'estimatedarrivaltime', 
+        'earlycheckin',
+        'latecheckout',
+        'note', 
+        'totalcost', 
+        'grandtotal', 
+        'pointsused', 
+        'status', 
+        'guest_id', 
+        'staff_id'
     ];
 
     // many to many relationship

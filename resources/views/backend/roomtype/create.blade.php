@@ -43,7 +43,7 @@
 							  <div class="input-group-prepend">
 							    <span class="input-group-text">$</span>
 							  </div>
-							  <input type="number" class="form-control" name="pricepernight" id="pricepernight" min="0" placeholder="Price per Night" value="{{ old('pricepernight') }}" min="0">
+							  <input type="number" class="form-control" name="pricepernight" id="pricepernight" min="0" placeholder="Price per Night" value="{{ old('pricepernight') }}">
                 <div class="input-group-append">
                   <span class="input-group-text">.00</span>
                 </div>

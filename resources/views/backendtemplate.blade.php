@@ -29,7 +29,7 @@
 <body>
   <!-- navbar-->
   <header class="header">
-    <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow">
+    <nav class="navbar navbar-expand-lg px-4 bg-white shadow">
       <a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a>
       <a href="{{ route('dashboard') }}" class="navbar-brand font-weight-bold text-uppercase text-base"><i class="fas fa-map-marker-alt"></i> Hotel Riza</a>
       <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
@@ -119,64 +119,90 @@
             <i class="fas fa-home mr-3 text-gray"></i><span>Home</span>
           </a>
         </li>
-        <li class="sidebar-list-item">
-          <a href="charts.html" class="sidebar-link text-muted">
-            <i class="fas fa-phone-volume mr-3 text-gray"></i><span>Booking List</span>
-          </a>
-        </li>
-        <li class="sidebar-list-item">
-          <a href="tables.html" class="sidebar-link text-muted">
-            <i class="far fa-address-book mr-3 text-gray"></i><span>Guests</span>
-          </a>
-        </li>
-        <li class="sidebar-list-item">
-          <a href="{{ route('membertypes.index') }}" class="sidebar-link text-muted {{request()->routeIs('membertypes*') ? 'active' : '' }}">
-            <i class="far fa-address-card mr-3 text-gray"></i><span>Member Types</span>
-          </a>
-        </li>
-        <li class="sidebar-list-item">
-          <a href="{{ route('staff.index') }}" class="sidebar-link text-muted {{request()->routeIs('staff*') ? 'active' : '' }}">
-            <i class="fas fa-user-friends mr-3 text-gray"></i><span>Staff</span>
-          </a>
-        </li>
+
+        @role('Reservation Staff')
+          <li class="sidebar-list-item">
+            <a href="" class="sidebar-link text-muted">
+              <i class="fas fa-sign-in-alt mr-3 text-gray"></i><span>Check in</span>
+            </a>
+          </li>
+          <li class="sidebar-list-item">
+            <a href="" class="sidebar-link text-muted">
+              <i class="fas fa-sign-out-alt mr-3 text-gray"></i><span>Check out</span>
+            </a>
+          </li>
+        @endrole
+
+        @hasanyrole('Admin|Reservation Staff')
+          <li class="sidebar-list-item">
+            <a href="{{ route('bookings.index') }}" class="sidebar-link text-muted {{request()->routeIs('bookings*') ? 'active' : '' }}">
+              <i class="fas fa-phone-volume mr-3 text-gray"></i><span>Booking List</span>
+            </a>
+          </li>
+          <li class="sidebar-list-item">
+            <a href="{{ route('guests.index') }}" class="sidebar-link text-muted {{request()->routeIs('guests*') ? 'active' : '' }}">
+              <i class="far fa-address-book mr-3 text-gray"></i><span>Guests</span>
+            </a>
+          </li>
+          <li class="sidebar-list-item">
+            <a href="{{ route('membertypes.index') }}" class="sidebar-link text-muted {{request()->routeIs('membertypes*') ? 'active' : '' }}">
+              <i class="far fa-address-card mr-3 text-gray"></i><span>Member Types</span>
+            </a>
+          </li>
+        @endhasanyrole
+
+        @role('Admin')
+          <li class="sidebar-list-item">
+            <a href="{{ route('staff.index') }}" class="sidebar-link text-muted {{request()->routeIs('staff*') ? 'active' : '' }}">
+              <i class="fas fa-user-friends mr-3 text-gray"></i><span>Staff</span>
+            </a>
+          </li>
+        @endrole
       </ul>
 
       <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-3 font-weight-bold small headings-font-family">Room & Service</div>
 
       <ul class="sidebar-menu list-unstyled">
-        <li class="sidebar-list-item">
-          <a href="{{ route('roomtypes.index') }}" class="sidebar-link text-muted {{request()->routeIs('roomtypes*') ? 'active' : '' }}">
-            <i class="fas fa-door-open mr-3 text-gray"></i><span>Room Types</span>
-          </a>
-        </li>
-        <li class="sidebar-list-item">
-          <a href="{{ route('rooms.index') }}" class="sidebar-link text-muted {{request()->routeIs('rooms*') ? 'active' : '' }}">
-            <i class="fas fa-key mr-3 text-gray"></i><span>Rooms</span>
-          </a>
-        </li>
-        <li class="sidebar-list-item">
-          <a href="#" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted">
-            <i class="fas fa-concierge-bell mr-3 text-gray"></i><span>Services</span>
-          </a>
-          <div id="pages" class="collapse">
-            <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Service Types</a></li>
-              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Used Services</a></li>
-            </ul>
-          </div>
-        </li>
-        <li class="sidebar-list-item">
-          <a href="#" data-toggle="collapse" data-target="#pages2" aria-expanded="false" aria-controls="pages2" class="sidebar-link text-muted">
-            <i class="fas fa-utensils mr-3 text-gray"></i><span>Food</span>
-          </a>
-          <div id="pages2" class="collapse">
-            <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Food Categories</a></li>
-              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Menu</a></li>
-              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Order List</a></li>
-            </ul>
-          </div>
-        </li>
+        @hasanyrole('Admin|Reservation Staff|Service Staff')
+          <li class="sidebar-list-item">
+            <a href="{{ route('roomtypes.index') }}" class="sidebar-link text-muted {{request()->routeIs('roomtypes*') ? 'active' : '' }}">
+              <i class="fas fa-door-open mr-3 text-gray"></i><span>Room Types</span>
+            </a>
+          </li>
+          <li class="sidebar-list-item">
+            <a href="{{ route('rooms.index') }}" class="sidebar-link text-muted {{request()->routeIs('rooms*') ? 'active' : '' }}">
+              <i class="fas fa-key mr-3 text-gray"></i><span>Rooms</span>
+            </a>
+          </li>
+        @endhasanyrole
+        @hasanyrole('Admin|Service Staff')
+          <li class="sidebar-list-item">
+            <a href="#" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted">
+              <i class="fas fa-concierge-bell mr-3 text-gray"></i><span>Services</span>
+            </a>
+            <div id="pages" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Service Types</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Used Services</a></li>
+              </ul>
+            </div>
+          </li>
+        @endhasanyrole
+
+        @hasanyrole('Admin|Chef|Service Staff')
+          <li class="sidebar-list-item">
+            <a href="#" data-toggle="collapse" data-target="#pages2" aria-expanded="false" aria-controls="pages2" class="sidebar-link text-muted">
+              <i class="fas fa-utensils mr-3 text-gray"></i><span>Food</span>
+            </a>
+            <div id="pages2" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Food Categories</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Menu</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Order List</a></li>
+              </ul>
+            </div>
+          </li>
+        @endhasanyrole
       </ul>
 
     </div>
