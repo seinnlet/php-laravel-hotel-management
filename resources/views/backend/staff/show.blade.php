@@ -2,19 +2,6 @@
 
 @section('title', 'Detail Roomtype')
 
-@section('css')
-<style type="text/css">	
-	@media (max-width: 768px) {
-	  .div-profilepicture {
-	  	text-align: center;
-		}
-		.div-profilepicture img {
-			width: 40%;
-		}
-	}
-</style>
-@endsection
-
 @section('content')
 	<section class="py-5">
 		<div class="mb-4">
@@ -30,8 +17,8 @@
       </div>
       <div class="card-body">
       	<div class="row">
-      		<div class="col-md-3 pl-md-3 pr-md-4 pr-lg-5 div-profilepicture mb-5">
-      			<img src="{{ asset($user->staff->profilepicture) }}" alt="StaffProfile" class="img-fluid rounded-circle shadow-sm">
+      		<div class="col-md-3 mb-5 text-center">
+	      		<img src="{{ asset($user->staff->profilepicture) }}" alt="StaffProfile" class="shadow rounded-circle" style="width: 160px; height: 160px; object-fit:cover;">
       		</div>
       		<div class="col-md-9">
       			<table class="table table-borderless" style="font-size: .85rem;">

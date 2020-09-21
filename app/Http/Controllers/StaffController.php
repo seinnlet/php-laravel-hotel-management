@@ -7,6 +7,8 @@ use App\Staff;
 use App\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
 
 class StaffController extends Controller
 {
@@ -99,7 +101,8 @@ class StaffController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('backend.staff.edit', compact('user'));
     }
 
     /**
@@ -111,7 +114,47 @@ class StaffController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $messages = [
+            'email.unique' => '* This Email Address is already Existed.',
+            'name.required' => '* Please enter Full Name.',
+            'email.required' => '* Please enter Email Address.',
+            'phone.required' => '* Please enter Phone Number.',
+            'address.required' => '* Please enter Address.',
+        ];
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:App\User,email,'.$id,
+            'phone' => 'required',
+            'address' => 'required',
+        ], $messages);
+
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+
+        $oldprofile = $request->oldprofile;
+        if ($request->profilestatus == "old") {
+            $profile = $oldprofile;
+        } else {
+            // upload
+            $imagename = date('Ymd').time().'.'.$request->newprofile->extension();
+            $request->newprofile->move(public_path('backend/img/staff/'), $imagename);
+            $profile = 'backend/img/staff/'.$imagename;
+            // delete
+            $file = public_path($oldprofile);
+            if (File::exists($file) && $oldprofile!="backend/img/staff/default.png") {
+                File::delete($file);
+            }
+        }
+        $staff = Staff::where('user_id', $id)->first();
+        $staff->profilepicture = $profile;
+        $staff->phone = $request->phone;
+        $staff->address = $request->address;
+        $staff->save();
+
+        return redirect()->route('staff.show', Auth::id())->withSuccessMessage('Your Profile is Successfully Updated.');
     }
 
     /**
