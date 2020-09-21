@@ -47,12 +47,19 @@
 				    		<tr>
 				    			<td>{{ $i }}.</td>
 				    			<td>{{ $booking->bookingid }}</td>
-				    			<td>{{ $booking->checkindate }}</td>
+				    			<td><small>{{ $booking->bookstartdate }} to {{ $booking->bookenddate }}</small></td>
 				    			<td>{{ $booking->duration }}</td>
-				    			<td></td>
-				    			<td></td>
+				    			<td>{{ $booking->guest->user->name }}</td>
 				    			<td>
-				    				
+				    				@if ($booking->status == "booked")
+				    					<span class="badge badge-primary badge-pill">Booked</span>
+				    				@endif
+				    			</td>
+				    			<td class="td-action">
+				    				<span data-toggle="tooltip" title="Detail">
+					    				<a class="a-detail btn-detail" href="{{ route('bookings.show', $booking->id) }}" 
+					    				><i class="fas fa-external-link-alt"></i></a>
+				    				</span>
 				    			</td>
 				    		</tr>
 				    		@php $i++ @endphp

@@ -89,7 +89,7 @@
         <li class="nav-item dropdown ml-auto">
           <a id="userInfo" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img src="{{ asset(Auth::user()->staff->profilepicture) }}" alt="Jason Doe" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow"></a>
           <div aria-labelledby="userInfo" class="dropdown-menu">
-            <a href="#" class="dropdown-item">
+            <a href="{{ route('staff.show', Auth::id()) }}" class="dropdown-item">
               <strong class="d-block text-uppercase headings-font-family">{{ Auth::user()->name }}</strong><small>{{ Auth::user()->getRoleNames()->first() }}</small>
             </a>
             <div class="dropdown-divider"></div>

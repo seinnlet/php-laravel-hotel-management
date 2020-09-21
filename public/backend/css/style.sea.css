@@ -2305,8 +2305,8 @@ STYLE SWITCHER FOR DEMO
 
 .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-primary.dropdown-toggle:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(55, 147, 146, 0.5);
-  box-shadow: 0 0 0 0.2rem rgba(55, 147, 146, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(205, 164, 94, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(205, 164, 94, 0.25);
 }
 
 .btn-outline-secondary {

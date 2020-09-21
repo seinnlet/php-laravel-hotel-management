@@ -18,6 +18,9 @@ class StaffController extends Controller
     public function index()
     {
         $users = User::with('roles')->get();
+        $users = $users->reject(function ($user, $key) {
+            return $user->hasRole('Guest');
+        });
         return view('backend.staff.index', compact('users'));
     }
 
@@ -84,7 +87,8 @@ class StaffController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('backend.staff.show', compact('user'));
     }
 
     /**

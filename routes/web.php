@@ -37,4 +37,7 @@ Route::middleware('auth')->group(function () {
 	Route::resource('guests', 'GuestController');
 
 	Route::resource('bookings', 'BookingController');
+	Route::get('getguestdata/{id}', 'BookingController@getGuestData')->name('bookings.getguestdata');
+	Route::get('getavailablerooms/{startdate}/{enddate}', 'BookingController@getAvailableRooms')->name('bookings.getavailablerooms');
+	Route::get('gettotalcost', 'BookingController@getTotalCost')->name('bookings.gettotalcost');
 });

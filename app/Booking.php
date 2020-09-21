@@ -8,7 +8,8 @@ class Booking extends Model
 {   
     protected $fillable = [
         'bookingid',
-        'bookdate',
+        'bookstartdate',
+        'bookenddate',
         'checkindatetime', 
         'checkoutdatetime', 
         'duration',

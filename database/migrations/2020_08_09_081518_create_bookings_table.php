@@ -17,7 +17,8 @@ class CreateBookingsTable extends Migration
             $table->id();
             $table->string('bookingid', 30);
             
-            $table->date('bookdate');
+            $table->date('bookstartdate');
+            $table->date('bookenddate');
             $table->dateTime('checkindatetime')->nullable();
             $table->dateTime('checkoutdatetime')->nullable();
             $table->integer('duration');

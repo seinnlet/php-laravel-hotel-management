@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Staff;
 use App\User;
+use App\Guest;
 use Illuminate\Support\Facades\Hash;
 
 class UserTableSeeder extends Seeder
@@ -25,8 +26,8 @@ class UserTableSeeder extends Seeder
      	$staff = new Staff;
      	$staff->user_id = $user->id;
      	$staff->gender = 'Female';
-      $staff->phone = '0912345678';
-      $staff->address = 'Yangon, Myanmar';
+        $staff->phone = '0912345678';
+        $staff->address = 'Yangon, Myanmar';
      	$staff->save();
 
   		// reservation staff
@@ -40,8 +41,8 @@ class UserTableSeeder extends Seeder
      	$staff = new Staff;
      	$staff->user_id = $user->id;
      	$staff->gender = 'Male';
-      $staff->phone = '0112345678';
-      $staff->address = 'Tokyo, Japan';
+        $staff->phone = '0112345678';
+        $staff->address = 'Tokyo, Japan';
      	$staff->save();
 
   		// service staff
@@ -55,8 +56,8 @@ class UserTableSeeder extends Seeder
      	$staff = new Staff;
      	$staff->user_id = $user->id;
      	$staff->gender = 'Female';
-      $staff->phone = '0187654321';
-      $staff->address = 'Kyoto, Japan';
+        $staff->phone = '0187654321';
+        $staff->address = 'Kyoto, Japan';
      	$staff->save();
 
   		// chef
@@ -70,8 +71,43 @@ class UserTableSeeder extends Seeder
      	$staff = new Staff;
      	$staff->user_id = $user->id;
      	$staff->gender = 'Male';
-      $staff->phone = '0912345678';
-      $staff->address = 'Tokyo, Japan';
+        $staff->phone = '0912345678';
+        $staff->address = 'Tokyo, Japan';
      	$staff->save();
+
+        // guest 
+        $user = new User;
+        $user->name = 'Miyuki';
+        $user->email = 'miyuki@gmail.com';
+        $user->password = Hash::make('12345678');
+        $user->assignRole('Guest');
+        $user->save();
+
+        $guest = new Guest;
+        $guest->user_id = $user->id;
+        $guest->staff_id = '2';
+        $guest->membertype_id = '1';
+        $guest->memberstartdate = '2020-02-02';
+        $guest->phone1 = '0912345678';
+        $guest->phone2 = '09443030111';
+        $guest->city = 'Yangon';
+        $guest->country = 'Myanmar';
+        $guest->save();
+
+        // guest 
+        $user = new User;
+        $user->name = 'Takane';
+        $user->email = 'takane@gmail.com';
+        $user->password = Hash::make('12345678');
+        $user->assignRole('Guest');
+        $user->save();
+
+        $guest = new Guest;
+        $guest->user_id = $user->id;
+        $guest->staff_id = '2';
+        $guest->phone1 = '0912345678';
+        $guest->city = 'Okinawa';
+        $guest->country = 'Japan';
+        $guest->save();
     }
 }

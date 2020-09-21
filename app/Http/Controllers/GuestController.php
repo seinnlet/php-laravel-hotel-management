@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Guest;
-use App\User;
 
 class GuestController extends Controller
 {
@@ -15,8 +14,8 @@ class GuestController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('backend.guest.index', compact('users'));
+        $guests = Guest::orderBy('created_at')->get();
+        return view('backend.guest.index', compact('guests'));
     }
 
     /**
