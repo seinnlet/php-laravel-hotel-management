@@ -169,7 +169,9 @@ class BookingController extends Controller
      */
     public function show($id)
     {
-        //
+        $booking = Booking::find($id);
+        $roomtypes = Roomtype::all();
+        return view('backend.booking.show', compact('booking', 'roomtypes'));
     }
 
     /**
@@ -211,6 +213,7 @@ class BookingController extends Controller
         $user = User::find($id);
         $membertypename = $user->guest->membertype ? $user->guest->membertype->name : 'Not a Member yet';
         return response()->json([
+                    'guest_id'=> $user->guest->id,
                     'name'=> $user->name,
                     'email'=> $user->email,
                     'phone1'=> $user->guest->phone1,
@@ -252,5 +255,14 @@ class BookingController extends Controller
         }
         $totalcost = $totalcost * (int)$request->duration;
         return response()->json(['totalcost' => $totalcost]);
+    }
+
+    public function getCheckinList()
+    {
+        $today = date('Y-m-d');
+        $bookings = Booking::where('bookstartdate', '>=', $today)
+                            ->orderBy('bookstartdate', 'desc')->get();
+        // dd($bookings);
+        return view('backend.booking.checkin', compact('bookings'));
     }
 }

@@ -122,7 +122,7 @@
 
         @role('Reservation Staff')
           <li class="sidebar-list-item">
-            <a href="" class="sidebar-link text-muted">
+            <a href="{{ route('bookings.checkinindex') }}" class="sidebar-link text-muted {{request()->is('checkin*') ? 'active' : '' }}">
               <i class="fas fa-sign-in-alt mr-3 text-gray"></i><span>Check in</span>
             </a>
           </li>
@@ -135,7 +135,7 @@
 
         @hasanyrole('Admin|Reservation Staff')
           <li class="sidebar-list-item">
-            <a href="{{ route('bookings.index') }}" class="sidebar-link text-muted {{request()->routeIs('bookings*') ? 'active' : '' }}">
+            <a href="{{ route('bookings.index') }}" class="sidebar-link text-muted {{request()->is('bookings*') ? 'active' : '' }}">
               <i class="fas fa-phone-volume mr-3 text-gray"></i><span>Booking List</span>
             </a>
           </li>

@@ -13,7 +13,7 @@ class RoomTypeTableSeeder extends Seeder
     public function run()
     {
         $roomtype = new Roomtype;
-        $roomtype->name = 'Single';
+        $roomtype->name = 'Single Room';
         $roomtype->pricepernight = 30;
         $roomtype->description = 'Each room of the hotel commands resplendent views. Free high-speed wireless internet in all rooms.';
         $roomtype->noofpeople = 1;
@@ -25,7 +25,7 @@ class RoomTypeTableSeeder extends Seeder
 
 
         $roomtype = new Roomtype;
-        $roomtype->name = 'Double';
+        $roomtype->name = 'Double Room';
         $roomtype->pricepernight = 40;
         $roomtype->description = 'Each room of the hotel commands resplendent views. Free high-speed wireless internet in all rooms.';
         $roomtype->noofpeople = 2;
@@ -37,7 +37,7 @@ class RoomTypeTableSeeder extends Seeder
 
 
         $roomtype = new Roomtype;
-        $roomtype->name = 'Triple';
+        $roomtype->name = 'Triple Room';
         $roomtype->pricepernight = 40;
         $roomtype->description = 'Each room of the hotel commands resplendent views. Free high-speed wireless internet in all rooms.';
         $roomtype->noofpeople = 3;
@@ -49,7 +49,7 @@ class RoomTypeTableSeeder extends Seeder
 
 
         $roomtype = new Roomtype;
-        $roomtype->name = 'Quad';
+        $roomtype->name = 'King Size Room';
         $roomtype->pricepernight = 45;
         $roomtype->description = 'Each room of the hotel commands resplendent views. Free high-speed wireless internet in all rooms.';
         $roomtype->noofpeople = 4;

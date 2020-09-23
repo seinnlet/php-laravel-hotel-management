@@ -612,7 +612,7 @@
               $('#g-from').text(data.city + ', ' + data.country)
               $('#g-membertype').text(data.membertype)
               $('#g-points').text(data.points)
-              $('#guest_id').val(userid);
+              $('#guest_id').val(data.guest_id);
             },
             error:function(e) {
               console.log(e)
