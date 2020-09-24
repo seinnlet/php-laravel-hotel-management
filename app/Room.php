@@ -14,7 +14,7 @@ class Room extends Model
     public function bookings()
     {
     	return $this->belongsToMany('App\Booking')
-					->withPivot('note', 'extrabed', 'status')
+					->withPivot('extrabed')
 					->withTimestamps();
     }
 

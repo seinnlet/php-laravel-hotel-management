@@ -127,7 +127,7 @@
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="" class="sidebar-link text-muted">
+            <a href="{{ route('bookings.checkoutindex') }}" class="sidebar-link text-muted {{request()->is('checkout*') ? 'active' : '' }}">
               <i class="fas fa-sign-out-alt mr-3 text-gray"></i><span>Check out</span>
             </a>
           </li>

@@ -21,8 +21,10 @@ class Booking extends Model
         'latecheckout',
         'note', 
         'totalcost', 
-        'grandtotal', 
         'pointsused', 
+        'propertydamagecost',
+        'notebystaff',
+        'grandtotal', 
         'status', 
         'guest_id', 
         'staff_id'
@@ -32,7 +34,7 @@ class Booking extends Model
     public function rooms()
     {
         return $this->belongsToMany('App\Room')
-                    ->withPivot('note', 'extrabed', 'status')
+                    ->withPivot('extrabed')
                     ->withTimestamps();
     }
 

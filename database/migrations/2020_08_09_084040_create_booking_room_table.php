@@ -17,9 +17,7 @@ class CreateBookingRoomTable extends Migration
             $table->id();
             $table->unsignedBigInteger('booking_id');
             $table->unsignedBigInteger('room_id');
-            $table->text('note')->nullable();
             $table->tinyInteger('extrabed');
-            $table->string('status', 20);   
             $table->timestamps();
 
             $table->foreign('booking_id')  

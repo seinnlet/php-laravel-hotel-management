@@ -16,29 +16,37 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 // backend
-Route::middleware('auth')->group(function () {
+Route::group(['middleware' => ['auth','role:Admin|Reservation Staff|Service Staff|Chef']], function () {
 	Route::get('dashboard', 'BackendController@dashboard')->name('dashboard');
 
-	Route::resource('membertypes', 'MemberTypeController');
+	Route::resources([
+		'membertypes' => 'MemberTypeController',
+		'roomtypes' => 'RoomTypeController',
+		'rooms' => 'RoomController',
+		'staff' => 'StaffController',
+		'guests' => 'GuestController',
+		'bookings' => 'BookingController',
+	]); 
 
-	Route::resource('roomtypes', 'RoomTypeController');
-
-	Route::resource('rooms', 'RoomController');
+	// ajax
 	Route::get('getroomno/{floor}', 'RoomController@getRoomNo')->name('rooms.getroomno');
-
-	Route::resource('staff', 'StaffController');
-
-	Route::resource('guests', 'GuestController');
-
-	Route::resource('bookings', 'BookingController');
 	Route::get('getguestdata/{id}', 'BookingController@getGuestData')->name('bookings.getguestdata');
 	Route::get('getavailablerooms/{startdate}/{enddate}', 'BookingController@getAvailableRooms')->name('bookings.getavailablerooms');
 	Route::get('gettotalcost', 'BookingController@getTotalCost')->name('bookings.gettotalcost');
-	Route::get('checkin', 'BookingController@getCheckinList')->name('bookings.checkinindex');
+
+	// booking check in, check out routes
+	Route::prefix('checkin')->name('bookings.')->group(function () {
+		Route::get('/', 'BookingController@getCheckinList')->name('checkinindex');
+		Route::get('/{id}', 'BookingController@getCheckinDetail')->name('checkindetail');
+		Route::post('/{id}/update', 'BookingController@updateBookingRoom')->name('updatebookingroom');
+		Route::get('/{id}/store', 'BookingController@checkin')->name('checkin');
+	});
+	Route::prefix('checkout')->name('bookings.')->group(function () {
+		Route::get('/', 'BookingController@getCheckoutList')->name('checkoutindex');
+	});
 });

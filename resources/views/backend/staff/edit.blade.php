@@ -41,83 +41,90 @@
         <h3 class="h6 mb-0">Personal Info</h3>
       </div>
       <div class="card-body">
-  			<form class="form-horizontal" method="post" action="{{ route('staff.update', $user->id) }}" enctype="multipart/form-data">
-      		@csrf
-          @method('PUT')
-	      	<div class="row">
-	      		<div class="col-md-3 div-profilepicture mb-5">
-	      			<input type="hidden" name="profilestatus" value="old" id="profilestatus">
-	      			<input type="hidden" name="oldprofile" value="{{ $user->staff->profilepicture }}">
-	      		
-	      			<div class="image-editor text-center">
-					      <div class="cropit-preview"></div>
-					      <button class="btn btn-outline-secondary btn-sm btn-change" type="button">Change New</button>
-					      <div id="div-new" style="display: none;">
-					      	<input type="file" class="cropit-image-input form-control-sm" name="newprofile">
-						      <button class="btn btn-outline-secondary btn-sm btn-cancel" type="button">Cancel</button>
-					      </div>
-						      
-					    </div>
+      	@if (Auth::id() == request()->segment(2))
+      		<form class="form-horizontal" method="post" action="{{ route('staff.update', $user->id) }}" enctype="multipart/form-data">
+	      		@csrf
+	          @method('PUT')
+		      	<div class="row">
+		      		<div class="col-md-3 div-profilepicture mb-5">
+		      			<input type="hidden" name="profilestatus" value="old" id="profilestatus">
+		      			<input type="hidden" name="oldprofile" value="{{ $user->staff->profilepicture }}">
+		      		
+		      			<div class="image-editor text-center">
+						      <div class="cropit-preview"></div>
+						      <button class="btn btn-outline-secondary btn-sm btn-change" type="button">Change New</button>
+						      <div id="div-new" style="display: none;">
+						      	<input type="file" class="cropit-image-input form-control-sm" name="newprofile">
+							      <button class="btn btn-outline-secondary btn-sm btn-cancel" type="button">Cancel</button>
+						      </div>
+							      
+						    </div>
 
+		      		</div>
+		      		<div class="col-md-9">
+
+			          <div class="form-row mb-4">
+			          	<label class="col-3 col-form-label" for="name">Name : </label>
+			          	<div class="col-9">
+			          		<input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->name) }}">
+			          		@error('name')
+								     	<div class="error-message text-danger pl-1 mt-1">
+							     			<small>{{ $message }}</small>
+							     		</div>
+							     	@enderror
+			          	</div>
+			          </div>
+
+			          <div class="form-row mb-4">
+			          	<label class="col-3 col-form-label" for="email">Email : </label>
+			          	<div class="col-9">
+			          		<input type="email" name="email" id="email" class="form-control" value="{{ old('email', $user->email) }}">
+			          		@error('email')
+								     	<div class="error-message text-danger pl-1 mt-1">
+							     			<small>{{ $message }}</small>
+							     		</div>
+							     	@enderror
+			          	</div>
+			          </div>
+
+			          <div class="form-row mb-4">
+			          	<label class="col-3 col-form-label" for="phone">Phone : </label>
+			          	<div class="col-9">
+			          		<input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone', $user->staff->phone) }}">
+			          		@error('phone')
+								     	<div class="error-message text-danger pl-1 mt-1">
+							     			<small>{{ $message }}</small>
+							     		</div>
+							     	@enderror
+			          	</div>
+			          </div>
+
+			          <div class="form-row mb-4">
+			          	<label class="col-3 col-form-label" for="address">Address : </label>
+			          	<div class="col-9">
+			          		<textarea class="form-control" id="address" name="address" rows="4">{{ old('address', $user->staff->address) }}</textarea>
+			          		@error('address')
+								     	<div class="error-message text-danger pl-1 mt-1">
+							     			<small>{{ $message }}</small>
+							     		</div>
+							     	@enderror
+			          	</div>
+			          </div>
+
+			          <div class="form-row mb-4">
+			          	<div class="col-md-9 ml-auto">
+				          	<button type="submit" class="btn btn-primary">Update</button>
+			          	</div>
+			          </div>
+
+	      			</div>
 	      		</div>
-	      		<div class="col-md-9">
-
-		          <div class="form-row mb-4">
-		          	<label class="col-3 col-form-label" for="name">Name : </label>
-		          	<div class="col-9">
-		          		<input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->name) }}">
-		          		@error('name')
-							     	<div class="error-message text-danger pl-1 mt-1">
-						     			<small>{{ $message }}</small>
-						     		</div>
-						     	@enderror
-		          	</div>
-		          </div>
-
-		          <div class="form-row mb-4">
-		          	<label class="col-3 col-form-label" for="email">Email : </label>
-		          	<div class="col-9">
-		          		<input type="email" name="email" id="email" class="form-control" value="{{ old('email', $user->email) }}">
-		          		@error('email')
-							     	<div class="error-message text-danger pl-1 mt-1">
-						     			<small>{{ $message }}</small>
-						     		</div>
-						     	@enderror
-		          	</div>
-		          </div>
-
-		          <div class="form-row mb-4">
-		          	<label class="col-3 col-form-label" for="phone">Phone : </label>
-		          	<div class="col-9">
-		          		<input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone', $user->staff->phone) }}">
-		          		@error('phone')
-							     	<div class="error-message text-danger pl-1 mt-1">
-						     			<small>{{ $message }}</small>
-						     		</div>
-						     	@enderror
-		          	</div>
-		          </div>
-
-		          <div class="form-row mb-4">
-		          	<label class="col-3 col-form-label" for="address">Address : </label>
-		          	<div class="col-9">
-		          		<textarea class="form-control" id="address" name="address" rows="4">{{ old('address', $user->staff->address) }}</textarea>
-		          		@error('address')
-							     	<div class="error-message text-danger pl-1 mt-1">
-						     			<small>{{ $message }}</small>
-						     		</div>
-						     	@enderror
-		          	</div>
-		          </div>
-
-		          <div class="form-row mb-4">
-		          	<div class="col-md-9 ml-auto">
-			          	<button type="submit" class="btn btn-primary">Update</button>
-		          	</div>
-		          </div>
-      			</div>
-		      </form>
-      	</div>
+			    
+			    </form>
+			  @else 
+			  	<p>You can't Edit other people's profile.</p>
+      	@endif
+	  			
       </div>
 
     </div>

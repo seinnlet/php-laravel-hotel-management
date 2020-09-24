@@ -152,8 +152,7 @@ class BookingController extends Controller
                                       ->orWhereBetween('bookenddate', [$startdate, $enddate]);
                                 })->where('roomtype_id', $roomtype_id)->first();
                     $room_id = $room->id;
-                    $extrabed = $request->extrabed[$i]; 
-                    $booking->rooms()->attach($room_id,['extrabed'=>$extrabed, 'status'=>'booked']);
+                    $booking->rooms()->attach($room_id,['extrabed'=> 0]);
                 }
             }
         }
@@ -257,12 +256,60 @@ class BookingController extends Controller
         return response()->json(['totalcost' => $totalcost]);
     }
 
+    // check in
     public function getCheckinList()
     {
         $today = date('Y-m-d');
         $bookings = Booking::where('bookstartdate', '>=', $today)
+                            ->where('status', 'booked')
                             ->orderBy('bookstartdate', 'desc')->get();
         // dd($bookings);
         return view('backend.booking.checkin', compact('bookings'));
+    }
+    public function getCheckinDetail($id)
+    {
+        // dd($id);
+        $booking = Booking::find($id);
+        $roomtypes = Roomtype::all();
+        return view('backend.booking.checkindetail', compact('booking', 'roomtypes'));
+    }
+    public function updateBookingRoom(Request $request, $id)
+    {
+        // dd($request);
+        $price = 0;
+        $booking = Booking::find($id);
+
+        for ($i=0; $i < count($request->room_id); $i++) { 
+            if ($request->cancel[$i] == 0) {
+                 $booking->rooms()->updateExistingPivot($request->room_id[$i],['extrabed'=>$request->extrabed[$i]]);
+            } else {
+                $booking->rooms()->detach($request->room_id[$i]);
+                $room = Room::find($request->room_id[$i]);
+                $price = $booking->totalcost - ($room->roomtype->pricepernight * $booking->duration);
+                $booking->totalcost = $price;
+                $booking->save();
+            }
+        }
+        return redirect()->route('bookings.checkindetail', $booking->id)->withSuccessMessage('Room Detail is Successfully Updated.');
+    }
+    public function checkin($id)
+    {
+        $booking = Booking::find($id);
+        $booking->checkindatetime = date('Y-m-d H:i:s');
+        $booking->status = 'check in';
+        $booking->save();
+
+        return redirect()->route('bookings.checkoutindex')->withSuccessMessage('Check in Success!');
+    }
+
+    // checkout 
+    public function getCheckoutList()
+    {
+        $today = date('Y-m-d');
+        $bookings = Booking::where('bookstartdate', '>=', $today)
+                            ->where('status', 'check in')
+                            ->orderBy('bookenddate', 'asc')->get();
+        // dd($bookings);
+        return view('backend.booking.checkout', compact('bookings'));
     }
 }

@@ -1,6 +1,6 @@
 @extends('backendtemplate')
 
-@section('title', 'Checkin List')
+@section('title', 'Checkout List')
 
 @section('css')
 	<link rel="stylesheet" type="text/css" href="{{ asset('backend/vendor/datatables/datatables.min.css') }}">
@@ -10,7 +10,7 @@
 
 	<section class="py-5">
 		<div class="mb-4">
-			<h5 class="title-heading d-inline-block">Coming Up Booking List</h5>
+			<h5 class="title-heading d-inline-block">Current Check in List</h5>
 		</div>
 
 		<div class="card">
@@ -42,8 +42,8 @@
 				    			<td>{{ $booking->duration }}</td>
 				    			<td>{{ $booking->guest->user->name }}</td>
 				    			<td>
-				    				@if ($booking->status == "booked")
-				    					<span class="badge badge-primary badge-pill">Booked</span>
+				    				@if ($booking->status == "check in")
+				    					<span class="badge badge-success badge-pill text-capitalize">{{ $booking->status }}</span>
 				    				@endif
 				    			</td>
 				    			<td class="td-action">
@@ -68,7 +68,7 @@
 
 @section('script')
 	<script type="text/javascript" src="{{ asset('backend/vendor/datatables/datatables.min.js') }}"></script>
-	
+
 	<script type="text/javascript">
 		$(document).ready( function () {
 	    $('#datatable').DataTable();

@@ -183,7 +183,7 @@
 	      		<tbody>
 	      			<tr>
 		      			<th>Room Total Cost : </th>
-		      			<td>$ {{ number_format($roomtype->pricepernight, 2) }}</td>
+		      			<td>$ {{ number_format($booking->totalcost, 2) }}</td>
 		      		</tr>
 		      		<tr>
 		      			<th>Extra Services Total Cost : </th>
@@ -195,7 +195,7 @@
 		      				@if ($totalextrabed)
 		      					$ {{ number_format($totalextrabed * 10, 2) }} 
 		      				@else
-		      					{{-- false expr --}}
+		      					$ 0.00
 		      				@endif
 		      			</td>
 		      		</tr>

@@ -282,21 +282,15 @@
                         <button type="button" class="btn btn-outline-secondary btn-add btn-sm px-2 d-block mx-auto"><i class="fas fa-plus"></i></button>
                       </div>
                     </div>
-                    <div class="col-12 mb-3">
-                      <div class="custom-control custom-checkbox">
-                        <input type="hidden" name="extrabed[]" value="0" class="extrabedvalue">
-                        <input id="extrabed1" type="checkbox" class="custom-control-input extrabed">
-                        <label for="extrabed1" class="custom-control-label label-extrabed">Extra Bed</label>
-                      </div>
-                    </div>
+                    
                   </div>
                 </div>
                 <div class="form-row">
-                  <div class="col-6">
-                    <button class="btn btn-sm btn-outline-primary btn-block btn-check" type="button" data-toggle="tooltip" title="Date haven't been Chosen">Check Availability</button>
+                  <div class="col-6 mt-4">
+                    <button class="btn btn-sm py-2 btn-outline-primary btn-block btn-check" type="button" data-toggle="tooltip" title="Date haven't been Chosen">Check Availability</button>
                   </div>
-                  <div class="col-6">
-                    <button class="btn btn-sm btn-primary btn-block btn-confirm" type="button" data-toggle="tooltip" title="Date haven't been Chosen">Confirm Room</button>
+                  <div class="col-6 mt-4">
+                    <button class="btn btn-sm py-2 btn-primary btn-block btn-confirm" type="button" data-toggle="tooltip" title="Date haven't been Chosen">Confirm Room</button>
                   </div>
                 </div>
                     
@@ -560,21 +554,12 @@
                         <button type="button" class="btn btn-outline-secondary btn-add btn-sm px-2 d-block mx-auto"><i class="fas fa-plus"></i></button>
                       </div>
                     </div>
-                    <div class="col-12 mb-3">
-                      <div class="custom-control custom-checkbox">
-                        <input type="hidden" name="extrabed[]" value="0" class="extrabedvalue">
-                        <input id="extrabed1" type="checkbox" class="custom-control-input extrabed">
-                        <label for="extrabed1" class="custom-control-label label-extrabed">Extra Bed</label>
-                      </div>
-                    </div>
                   </div>
                   `;
         $('#div-dynamic-input').append(html);
         $(this).prev('label').text('Remove');
         $(this).addClass('btn-outline-danger btn-remove').removeClass('btn-outline-secondary btn-add');
         $(this).html(`<i class="fas fa-minus"></i>`);
-        $(this).closest('.form-row').find('.extrabed').attr('id', 'extrabed'+i);
-        $(this).closest('.form-row').find('.label-extrabed').attr('for', 'extrabed'+i);
       });
       $('form').on('click', '.btn-remove', function() {
         $(this).closest('.form-row').remove();
@@ -582,13 +567,6 @@
       $('form').on('keypress', '.noofroom', function(e) {
         if (e.which != 8 && e.which != 0 && (e.which < 49 || e.which > 57)) {
           return false;
-        }
-      });
-      $('form').on('click', '.extrabed', function() {
-        if ($(this).prev('.extrabedvalue').val() == 0) {
-          $(this).prev('.extrabedvalue').val(1)
-        } else {
-          $(this).prev('.extrabedvalue').val(0)
         }
       });
       // ---- end of add remove input field ----
