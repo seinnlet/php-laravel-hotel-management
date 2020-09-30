@@ -13,7 +13,7 @@ class Service extends Model
     public function rooms()
     {
     	return $this->belongsToMany('App\Room')
-									->withPivot('totalcharges', 'totalqty')
+									->withPivot('totalcharges', 'totalqty', 'note')
 									->withTimestamps();
     }
 }

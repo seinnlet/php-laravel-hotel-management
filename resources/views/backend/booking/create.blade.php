@@ -317,12 +317,6 @@
                   <label for="earlycheckin" class="custom-control-label">Early Check In</label>
                 </div>
               </div>
-              <div class="col-6 col-md-3 mb-4">
-                <div class="custom-control custom-checkbox col-form-label">
-                  <input id="latecheckout" name="latecheckout" type="checkbox" class="custom-control-input" @if (old('latecheckout')) checked @endif>
-                  <label for="latecheckout" class="custom-control-label">Late Check Out</label>
-                </div>
-              </div>
             </div>
 
             <div class="row">
@@ -375,27 +369,13 @@
             </div>
 
             <div class="row mb-4">
-              <label class="col-form-label col-md-3">Advance Payment (%): <sup class="text-danger">*</sup></label>
-              <div class="col-form-label col-md-9">
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input id="half" value="50" type="radio" name="advancepaymentpercentage" class="custom-control-input" checked>
-                  <label for="half" class="custom-control-label">50%</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input id="full" value="100" type="radio" name="advancepaymentpercentage" class="custom-control-input">
-                  <label for="full" class="custom-control-label">100%</label>
-                </div>
-              </div>
-            </div>
-
-            <div class="row mb-4">
-              <label class="col-form-label col-md-3" for="advancepayment">Advance Payment: <sup class="text-danger">*</sup></label>
+              <label class="col-form-label col-md-3" for="depositamount">Deposit Amount: <sup class="text-danger">*</sup></label>
               <div class="col-md-9">
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">$</span>
                   </div>
-                  <input type="number" class="form-control bg-white" name="advancepayment" id="advancepayment" value="{{ old('advancepayment') }}" readonly>
+                  <input type="number" class="form-control bg-white" name="depositamount" id="depositamount" value="{{ old('depositamount') }}" readonly>
                   <div class="input-group-append">
                     <span class="input-group-text">.00</span>
                   </div>
@@ -475,14 +455,9 @@
       // ---- date validation ----
       $('#bookdate').on('change', function() {
         startdate = new Date($(this).val());
-        todate = new Date().setDate(startdate.getDate() + 1);
-        mindate = new Date(todate);
-        month = '' + (mindate.getMonth() + 1),
-        day = '' + mindate.getDate(),
-        year = mindate.getFullYear();
-        month = month.length < 2 ? '0' + month : month;
-        day = day.length < 2 ? '0' + day : day;
-        $('#todate').attr('min', [year, month, day].join('-'));
+        startdate.setDate(startdate.getDate() + 1);
+        var mindate = startdate.toISOString().substr(0,10);
+        $('#todate').attr('min', mindate);
       });
       $('#todate').on('change', function() {
         startdate = new Date($('#bookdate').val());
@@ -493,6 +468,7 @@
           $('#duration').val(days);
         }
         $('.btn-check').tooltip('disable')
+        $('.btn-confirm').tooltip('disable')
       });
       // ---- end of date validation ----
 
@@ -509,20 +485,6 @@
         }
       });
       // ---- end of show hide for new guest & returning guest ----
-
-
-
-      $('input[type=radio][name=advancepaymentpercentage]').change(function() {
-        totalcost = $('#totalcost').val();
-        halfcost = totalcost / 2;
-        if (totalcost) {
-          if (this.value == '100') {
-            $('#advancepayment').val(totalcost)
-          } else {
-            $('#advancepayment').val(halfcost)
-          }
-        }
-      });
 
 
 
@@ -671,7 +633,7 @@
                 data: {roomtype: roomtype, noofroom: noofroom, duration: duration },
                 success:function(response){
                   $('#totalcost').val(response.totalcost);
-                  $('#advancepayment').val(response.totalcost / 2);
+                  $('#depositamount').val(response.depositamount);
                 }
               })
 

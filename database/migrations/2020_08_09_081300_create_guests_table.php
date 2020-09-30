@@ -15,8 +15,6 @@ class CreateGuestsTable extends Migration
     {
         Schema::create('guests', function (Blueprint $table) {
             $table->id();
-            // $table->string('guestname'); // for non online booking guest
-            // $table->string('guestemail')->unique();
             $table->string('profilepicture')->default('backend/img/guest/user.png');
             $table->string('phone1', 30);
             $table->string('phone2', 30)->nullable();
@@ -24,6 +22,7 @@ class CreateGuestsTable extends Migration
             $table->string('country', 50);
             $table->integer('points')->default('0');
             $table->date('memberstartdate')->nullable();
+            $table->string('member_id', 30)->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('staff_id')->nullable();
             $table->unsignedBigInteger('membertype_id')->nullable();

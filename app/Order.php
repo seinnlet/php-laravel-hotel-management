@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $fillable = [
-        'room_id', 'totalprice'
+        'room_id', 'totalprice', 'note', 'status'
     ];
 
     // many to many relationships

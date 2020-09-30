@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             RoomTypeTableSeeder::class,
             RoomTableSeeder::class,
             ServiceTableSeeder::class,
-            FoodCategoryTableSeeder::class
+            FoodCategoryTableSeeder::class,
+            FoodTableSeeder::class
         ]);
     		
     }

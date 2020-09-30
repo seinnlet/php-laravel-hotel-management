@@ -16,7 +16,7 @@ class CreateServicesTable extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('unitcharge');
+            $table->unsignedDecimal('unitcharge', 8, 2);
             $table->timestamps();
         });
     }

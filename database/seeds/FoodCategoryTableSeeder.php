@@ -25,7 +25,7 @@ class FoodCategoryTableSeeder extends Seeder
         $foodcategory->save();
 
         $foodcategory = new Foodcategory;
-        $foodcategory->name = 'Seafood';
+        $foodcategory->name = 'Sushi';
         $foodcategory->save();
 
         $foodcategory = new Foodcategory;

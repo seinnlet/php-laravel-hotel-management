@@ -6,7 +6,7 @@
 	<style type="text/css">
 		table td, table th {
 			font-size: .8rem;
-			color: #6c757d;
+			color: #464C51;
 		}
 		table th {
 			font-weight: 600;
@@ -107,9 +107,6 @@
 		      			<td colspan="4">
 		      				@if ($booking->earlycheckin)
 		      					<span class="text-primary"><i class="fas fa-check"></i></span> <span class="mr-3">Early Check in</span>
-		      				@endif
-		      				@if ($booking->latecheckout)
-		      					<span class="text-primary"><i class="fas fa-check"></i></span>  Late Check out
 		      				@endif
 		      			</td>
  							</tr>
@@ -227,9 +224,7 @@
                 <td>
                   {{ $booking->payment->paymenttype }} <br>
                   @if ($booking->payment->status == "paid deposit")
-                    (<small><em>{{ $booking->payment->advancepaymentpercentage }} % of room cost paid</em></small>)
-                  @else
-
+                    (<small><em>Deposit Amount: $ {{ number_format($booking->payment->depositamount, 2) }}</em></small>)
                   @endif
                 </td>
               </tr>
@@ -253,7 +248,7 @@
                 <th>Notes: <span class="font-weight-normal">{{ $booking->note }}</span></th>
                 <td>
                   @php $today = date('Y-m-d') @endphp
-                  <a href="{{ route('bookings.checkin', $booking->id) }}" class="btn btn-success btn-sm btn-block py-2  @if ($today != $booking->bookstartdate) disabled @endif">Check In Now</a>
+                  <a href="{{ route('bookings.checkin', $booking->id) }}" class="btn btn-success btn-sm btn-block py-2  @if ($today != $booking->bookstartdate || $booking->status !='booked') disabled @endif">Check In Now</a>
                 </td>
               </tr>
             </tbody>

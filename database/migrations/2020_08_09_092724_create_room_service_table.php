@@ -17,8 +17,9 @@ class CreateRoomServiceTable extends Migration
             $table->id();
             $table->unsignedBigInteger('room_id');
             $table->unsignedBigInteger('service_id');
-            $table->integer('totalcharges');
+            $table->unsignedDecimal('totalcharges', 8, 2);
             $table->integer('totalqty');
+            $table->text('note')->nullable();
             $table->timestamps();
 
             $table->foreign('room_id')  

@@ -157,8 +157,6 @@
       	$('#div-new').hide();
       	$('.btn-change').show();
       	$('.image-editor').cropit('imageSrc', '{{ asset($user->staff->profilepicture) }}');
-      	// $('.cropit-preview-image').attr('src', '');
-      	// $('.cropit-preview-image').attr('style', 'transform-origin: left top; will-change: transform; transform: translate(0px, 0px) scale(0.308594) rotate(0deg);');
       	$('#profilestatus').val('old');
       });
 		})

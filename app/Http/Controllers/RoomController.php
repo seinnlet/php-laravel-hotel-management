@@ -146,4 +146,28 @@ class RoomController extends Controller
         $roomno = $room ? $room->roomno : '';
         return response()->json(['latestroomno'=> $roomno]);
     }
+
+    public function clean($id)
+    {
+        $room = Room::find($id);
+        $isclean = false;
+        if ($room->status != 3) {
+            $room->status = 3;
+            $room->save();
+            $isclean = true;
+        } else {
+            $checkroom = Room::whereHas('bookings', function ($query) {
+                    $query->where('bookings.status', 'check in'); })
+                    ->where('id', $id)->get();
+            if(count($checkroom)) {
+                $room->status = 2;
+                $room->save();
+            } else {
+                $room->status = 1;
+                $room->save();
+            }
+        }
+
+        return redirect()->route('rooms.index')->withSuccessMessage('Room '. $room->roomno . ' is '.  ($isclean ? 'now being Cleaned.' : ' has been Cleaned.'));
+    }
 }

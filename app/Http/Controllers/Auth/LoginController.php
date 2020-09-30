@@ -49,7 +49,7 @@ class LoginController extends Controller
         {
             $this->redirectTo='/';
         }
-        else if($roles[0] =='Admin' || $roles[0] =='Reservation Staff' || $roles[0] =='Service Staff' || $roles[0] =='Chef')
+        else if($roles[0] =='Admin' || $roles[0] =='Reservation Staff' || $roles[0] =='Service Staff' || $roles[0] =='Kitchen Staff')
         {
             $this->redirectTo='/dashboard';
         }

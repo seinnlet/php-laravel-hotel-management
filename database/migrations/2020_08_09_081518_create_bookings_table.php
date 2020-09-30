@@ -29,14 +29,14 @@ class CreateBookingsTable extends Migration
             
             $table->string('estimatedarrivaltime')->nullable();
             $table->tinyInteger('earlycheckin');
-            $table->tinyInteger('latecheckout');
             $table->text('note')->nullable();
             
             $table->integer('totalcost');   // original rooms total cost
             $table->integer('pointsused')->default('0');
-            $table->integer('propertydamagecost')->default('0');
+            $table->unsignedDecimal('taxamount', 8, 2)->default('0');
+            $table->unsignedDecimal('propertydamagecost', 8, 2)->default('0');
             $table->text('notebystaff')->nullable();
-            $table->integer('grandtotal')->default('0');  // services + member points
+            $table->unsignedDecimal('grandtotal', 8, 2)->default('0');  // services + member points
             
             $table->string('status', 20);
             $table->unsignedBigInteger('guest_id');

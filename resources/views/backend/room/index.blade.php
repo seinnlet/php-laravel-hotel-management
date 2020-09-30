@@ -45,11 +45,11 @@
 				    			<td>{{ $room->roomtype->name }}</td>
 				    			<td>
 				    				@if ($room->status == 1)
-				    					<span class="badge badge-success badge-pill">Available</span>
+				    					<span class="badge badge-primary badge-pill">Available</span>
 				    				@elseif ($room->status == 2)
-				    					<span class="badge badge-primary badge-pill">Booked</span>
-				    				@else 
-				    					<span class="badge badge-info badge-pill">Checkin</span>
+				    					<span class="badge badge-success badge-pill">Check in</span>
+				    				@elseif ($room->status == 3)
+				    					<span class="badge badge-info badge-pill">Cleaning</span>
 				    				@endif
 				    			</td>
 				    			<td><em>{{ $room->created_at->format('Y-m-d') }}</em></td>
@@ -61,6 +61,14 @@
 		          				@method('DELETE')
 					    				<button type="button" class="a-delete" data-toggle="tooltip" title="Delete" onclick="confirmDelete('delete-room{{ $room->id }}')"><i class="fas fa-times-circle"></i></button>
 					    			</form>
+					    			@role('Service Staff')
+					    				@if ($room->status != 3)
+					    					<a href="{{ route('rooms.clean', $room->id) }}" class="a-detail" data-toggle="tooltip" title="Clean Room"><i class="fas fa-hand-sparkles"></i></a>
+					    				@else
+					    					<a href="{{ route('rooms.clean', $room->id) }}" class="a-detail" data-toggle="tooltip" title="Finished"><i class="fas fa-door-closed"></i></a>
+					    				@endif
+						    			
+						    		@endrole 
 				    			</td>
 				    		</tr>
 				    		@php $i++ @endphp

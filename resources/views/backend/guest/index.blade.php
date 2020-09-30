@@ -11,7 +11,7 @@
 	<section class="py-5">
 		<div class="mb-4">
 			<h5 class="title-heading d-inline-block float-left">Guest</h5>
-			<a href="{{ route('guests.create') }}" class="btn btn-primary float-right rounded"><i class="fas fa-user-plus fa-sm mr-2 text-gray-100"></i> New Membership</a>
+			<a href="#" class="btn btn-primary float-right rounded"><i class="fas fa-upload fa-sm mr-2 text-gray-100"></i> Generate Report</a>
 			<div class="clearfix"></div>
 		</div>
 
@@ -52,6 +52,12 @@
 					    			<span data-toggle="tooltip" title="Detail">
 					    				<a class="a-detail btn-detail" href="{{ route('guests.show', $guest->id) }}"><i class="fas fa-external-link-alt"></i></a>
 				    				</span>
+
+				    				@if (!$guest->membertype_id)
+					    				<span data-toggle="tooltip" title="Add to Member">
+						    				<a class="a-detail btn-detail" href="{{ route('guests.createmember', $guest->id) }}"><i class="fas fa-user-plus"></i></a>
+					    				</span>
+					    			@endif
 				    			</td>
 				    		</tr>
 				    		@php $i++ @endphp

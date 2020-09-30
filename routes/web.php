@@ -18,7 +18,7 @@ Route::get('/', 'FrontendController@index')->name('home');
 Auth::routes();
 
 // backend
-Route::group(['middleware' => ['auth','role:Admin|Reservation Staff|Service Staff|Chef']], function () {
+Route::group(['middleware' => ['auth','role:Admin|Reservation Staff|Service Staff|Kitchen Staff']], function () {
 	Route::get('dashboard', 'BackendController@dashboard')->name('dashboard');
 
 	Route::resources([
@@ -28,6 +28,10 @@ Route::group(['middleware' => ['auth','role:Admin|Reservation Staff|Service Staf
 		'staff' => 'StaffController',
 		'guests' => 'GuestController',
 		'bookings' => 'BookingController',
+		'foodcategories' => 'FoodcategoryController',
+		'menus' => 'MenuController',
+		'orders' => 'OrderController',
+		'services' => 'ServiceController',
 	]); 
 
 	// ajax
@@ -45,5 +49,19 @@ Route::group(['middleware' => ['auth','role:Admin|Reservation Staff|Service Staf
 	});
 	Route::prefix('checkout')->name('bookings.')->group(function () {
 		Route::get('/', 'BookingController@getCheckoutList')->name('checkoutindex');
+		Route::get('/{id}', 'BookingController@getCheckoutDetail')->name('checkoutdetail');
+		Route::post('/{id}/updatelatecheckout', 'BookingController@updateLateCheckout')->name('updatelatecheckout');
+		Route::post('/{id}/store', 'BookingController@checkout')->name('checkout');
 	});
+
+	// register member 
+	Route::prefix('guests')->name('guests.')->group(function () {
+		Route::get('/{id}/createmember', 'GuestController@createMember')->name('createmember');
+		Route::post('/{id}/storemember', 'GuestController@storeMember')->name('storemember');
+	});
+
+	// service usage
+	Route::post('services/{id}/use', 'ServiceController@useService')->name('services.use');
+	Route::get('usedservices', 'ServiceController@usageList')->name('services.list');
+	Route::get('rooms/{id}/clean', 'RoomController@clean')->name('rooms.clean');
 });

@@ -3707,7 +3707,7 @@ a.text-dark:hover, a.text-dark:focus {
   border: 0;
 }
 
-.form-control:focus {
+.form-control:focus, .custom-file-input:focus {
   color: #495057;
   background-color: #fff;
   border-color: #f2cd8f;
@@ -3715,7 +3715,6 @@ a.text-dark:hover, a.text-dark:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(205, 164, 94, 0.25);
   box-shadow: 0 0 0 0.2rem rgba(205, 164, 94, 0.25);
 }
-
 .form-control::-webkit-input-placeholder {
   color: #6c757d;
 }
@@ -4263,4 +4262,96 @@ code {
 
 .footer {
   font-size: .8rem;
+}
+
+.menu #menu-flters {
+  padding: 0;
+  margin: 0 auto 0 auto;
+  list-style: none;
+  text-align: center;
+  border-radius: 50px;
+}
+
+.menu #menu-flters li {
+  cursor: pointer;
+  display: inline-block;
+  padding: 8px 12px 10px 12px;
+  line-height: 1;
+  color: #6c757d;
+  margin-bottom: 10px;
+  transition: all ease-in-out 0.3s;
+  border-radius: 50px;
+}
+
+.menu #menu-flters li:hover, .menu #menu-flters li.filter-active {
+  color: #cda45e;
+}
+
+.menu #menu-flters li:last-child {
+  margin-right: 0;
+}
+
+.menu .menu-item {
+  margin-top: 50px;
+}
+
+.menu .menu-img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 50%;
+  float: left;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+}
+
+.menu .menu-content {
+  margin-left: 85px;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.menu .menu-content::after {
+  content: "......................................................................"
+ "...................................................................."
+ "....................................................................";
+  position: absolute;
+  left: 20px;
+  right: 0;
+  top: -4px;
+  z-index: 1;
+  color: #bab3a6;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.menu .menu-content a {
+  padding-right: 10px;
+  position: relative;
+  z-index: 3;
+  font-weight: 700;
+  color: white;
+  transition: 0.3s;
+  background-color: #fff;
+  color: #6c757d;
+}
+
+.menu .menu-content a:hover {
+  color: #cda45e;
+}
+
+.menu .menu-content span {
+  background: #fff;
+  position: relative;
+  z-index: 3;
+  padding: 0 10px;
+  font-weight: 600;
+  color: #cda45e;
+}
+
+.menu .menu-ingredients {
+  margin-left: 85px;
+  font-style: italic;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.7);
 }

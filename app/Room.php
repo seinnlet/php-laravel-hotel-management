@@ -14,14 +14,14 @@ class Room extends Model
     public function bookings()
     {
     	return $this->belongsToMany('App\Booking')
-					->withPivot('extrabed')
+					->withPivot('extrabed', 'latecheckout')
 					->withTimestamps();
     }
 
     public function services()
     {
     	return $this->belongsToMany('App\Service')
-					->withPivot('totalcharges', 'totalqty')
+					->withPivot('totalcharges', 'totalqty', 'note')
 					->withTimestamps();
     }
 

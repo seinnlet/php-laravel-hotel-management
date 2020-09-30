@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Guest;
+use App\Membertype;
+use App\Booking;
 
 class GuestController extends Controller
 {
@@ -47,7 +49,8 @@ class GuestController extends Controller
      */
     public function show($id)
     {
-        //
+        $guest = Guest::find($id);
+        return view('backend.guest.show', compact('guest'));
     }
 
     /**
@@ -82,5 +85,25 @@ class GuestController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function createMember($id)
+    {
+        $guest = Guest::find($id);
+        $membertypes = Membertype::all();
+        $lastmember = Guest::orderBy('member_id', 'desc')->first();
+        $explode = explode('-', $lastmember->member_id);
+        $member_id = date('Y-md-').(++$explode[2]);
+        return view('backend.guest.createmember', compact('guest', 'membertypes', 'member_id'));
+    }
+    public function storeMember(Request $request, $id)
+    {   
+        $guest = Guest::find($id);
+        $guest->memberstartdate = $request->memberstartdate;
+        $guest->membertype_id = $request->membertype_id;
+        $guest->member_id = $request->member_id;
+        $guest->save();
+
+        return redirect()->route('guests.index')->withSuccessMessage('New Member is Successfully Added.');
     }
 }

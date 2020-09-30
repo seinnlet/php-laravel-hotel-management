@@ -18,10 +18,10 @@ class Booking extends Model
         'noofchildren', 
         'estimatedarrivaltime', 
         'earlycheckin',
-        'latecheckout',
         'note', 
         'totalcost', 
         'pointsused', 
+        'taxamount', 
         'propertydamagecost',
         'notebystaff',
         'grandtotal', 
@@ -34,7 +34,7 @@ class Booking extends Model
     public function rooms()
     {
         return $this->belongsToMany('App\Room')
-                    ->withPivot('extrabed')
+                    ->withPivot('extrabed', 'latecheckout')
                     ->withTimestamps();
     }
 

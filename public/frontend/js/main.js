@@ -189,6 +189,7 @@
     $("body").niceScroll({
       cursorwidth: "8px",
       cursorborder: "1px solid rgba(12, 11, 9, 0.6)",
+      cursorfixedheight: 100
     });
   });
 

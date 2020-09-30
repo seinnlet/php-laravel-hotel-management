@@ -68,7 +68,7 @@
 								</div>
 								<div class="float-right text-right">
 									@if (Route::has('password.request'))
-									<a class="btn btn-link" href="{{ route('password.request') }}">
+									<a class="btn btn-link btn-sm" href="{{ route('password.request') }}">
 										{{ __('Forgot Your Password?') }}
 									</a>
 									@endif
@@ -103,7 +103,14 @@
 
 @section('script')
 	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
 	<script>
 	  AOS.init();
+	  $(function () {
+	  	$("body").niceScroll({
+        cursorwidth: "8px",
+        cursorborder: "1px solid rgba(12, 11, 9, 0.6)",
+   		});
+	  })
 	</script>
 @endsection

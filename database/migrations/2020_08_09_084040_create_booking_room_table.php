@@ -18,6 +18,7 @@ class CreateBookingRoomTable extends Migration
             $table->unsignedBigInteger('booking_id');
             $table->unsignedBigInteger('room_id');
             $table->tinyInteger('extrabed');
+            $table->tinyInteger('latecheckout')->default('0');
             $table->timestamps();
 
             $table->foreign('booking_id')  

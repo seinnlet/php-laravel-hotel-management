@@ -7,8 +7,11 @@ $(function () {
     $('.sidebar-toggler').on('click', function () {
         $('.sidebar').toggleClass('shrink show');
     });
-
-
+    $("body").niceScroll({
+        cursorwidth: "8px",
+        cursorborder: "1px solid rgba(12, 11, 9, 0.6)",
+        smoothscroll: true,
+    });
 
     // ------------------------------------------------------ //
     // For demo purposes, can be deleted

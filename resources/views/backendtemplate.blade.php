@@ -182,23 +182,23 @@
             </a>
             <div id="pages" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Service Types</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Used Services</a></li>
+                <li class="sidebar-list-item"><a href="{{ route('services.index') }}" class="sidebar-link text-muted pl-lg-5 {{request()->is('services*') ? 'active' : '' }}">Service Types</a></li>
+                <li class="sidebar-list-item"><a href="{{ route('services.list') }}" class="sidebar-link text-muted pl-lg-5 {{request()->is('usedservices') ? 'active' : '' }}">Used Services</a></li>
               </ul>
             </div>
           </li>
         @endhasanyrole
 
-        @hasanyrole('Admin|Chef|Service Staff')
+        @hasanyrole('Admin|Kitchen Staff')
           <li class="sidebar-list-item">
             <a href="#" data-toggle="collapse" data-target="#pages2" aria-expanded="false" aria-controls="pages2" class="sidebar-link text-muted">
               <i class="fas fa-utensils mr-3 text-gray"></i><span>Food</span>
             </a>
             <div id="pages2" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Food Categories</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Menu</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Order List</a></li>
+                <li class="sidebar-list-item"><a href="{{ route('foodcategories.index') }}" class="sidebar-link text-muted pl-lg-5 {{request()->routeIs('foodcategories*') ? 'active' : '' }}">Food Categories</a></li>
+                <li class="sidebar-list-item"><a href="{{ route('menus.index') }}" class="sidebar-link text-muted pl-lg-5 {{request()->routeIs('menus*') ? 'active' : '' }}">Menu</a></li>
+                <li class="sidebar-list-item"><a href="{{ route('orders.index') }}" class="sidebar-link text-muted pl-lg-5 {{request()->routeIs('orders*') ? 'active' : '' }}">Order List</a></li>
               </ul>
             </div>
           </li>
@@ -234,6 +234,7 @@
   <script src="{{ asset('backend/js/jquery.min.js') }}"></script>
   <script src="{{ asset('backend/vendor/popper.js/umd/popper.min.js') }}"> </script>
   <script src="{{ asset('backend/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('frontend/vendor/jquery.nicescroll/jquery.nicescroll.js') }}"></script>
   <script src="{{ asset('backend/vendor/jquery.cookie/jquery.cookie.js') }}"> </script>
   
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
@@ -242,6 +243,17 @@
 
   @include('sweetalert::alert')
   @yield('script')
+  <script type="text/javascript">
+    $(function () {
+      @if (request()->is('foodcategories*') || request()->is('menus*') || request()->is('orders*'))
+        $('#pages2').collapse('show');
+      @endif
 
+      @if (request()->is('services*') || request()->is('usedservices'))
+        $('#pages').collapse('show');
+      @endif 
+    })
+   
+  </script>
 </body>
 </html>

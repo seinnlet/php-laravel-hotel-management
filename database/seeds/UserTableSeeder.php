@@ -60,12 +60,12 @@ class UserTableSeeder extends Seeder
         $staff->address = 'Kyoto, Japan';
      	$staff->save();
 
-  		// chef
+  		// Restaurant
      	$user = new User;
     	$user->name = 'Aruto';
     	$user->email = 'aruto@gmail.com';
     	$user->password = Hash::make('staff@hotelriza');
-    	$user->assignRole('Chef');
+    	$user->assignRole('Kitchen Staff');
     	$user->save();
 
      	$staff = new Staff;
@@ -88,6 +88,7 @@ class UserTableSeeder extends Seeder
         $guest->staff_id = '2';
         $guest->membertype_id = '1';
         $guest->memberstartdate = '2020-02-02';
+        $guest->member_id = '2020-0202-1';
         $guest->phone1 = '0912345678';
         $guest->phone2 = '09443030111';
         $guest->city = 'Yangon';

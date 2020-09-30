@@ -10,7 +10,8 @@
   <title>Hotel Riza - @yield('title')</title>
 
   <!-- Scripts -->
-  <script src="{{ asset('js/app.js') }}" defer></script>
+  <script src="{{ asset('js/app.js') }}"></script>
+  <script src="{{ asset('frontend/vendor/jquery.nicescroll/jquery.nicescroll.js') }}"></script>
 
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">

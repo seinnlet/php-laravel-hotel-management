@@ -173,7 +173,7 @@
 	      				<td>
 	      					{{ $booking->payment->paymenttype }} <br>
 	      					@if ($booking->payment->status == "paid deposit")
-	      						(<small><em>{{ $booking->payment->advancepaymentpercentage }} % of room cost paid</em></small>)
+	      						(<small><em>Deposit Amount: $ {{ number_format($booking->payment->depositamount, 2) }}</em></small>)
 	      					@else
 
 	      					@endif

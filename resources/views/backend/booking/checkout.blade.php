@@ -48,7 +48,7 @@
 				    			</td>
 				    			<td class="td-action">
 				    				<span data-toggle="tooltip" title="Detail">
-					    				<a class="a-detail btn-detail" href="{{ route('bookings.checkindetail', $booking->id) }}" 
+					    				<a class="a-detail btn-detail" href="{{ route('bookings.checkoutdetail', $booking->id) }}" 
 					    				><i class="fas fa-external-link-alt"></i></a>
 				    				</span>
 				    			</td>

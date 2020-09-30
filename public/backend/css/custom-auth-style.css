@@ -65,7 +65,14 @@ h2 {
   padding: 2.3rem 3rem 1.3rem;
   font-size: .9rem;
 }
-
+@media (max-width: 440px) {
+  .card-header {
+    padding: 1rem 1.5rem;
+  }
+  .card-body {
+    padding: 2.3rem 1.5rem 1.3rem;
+  }
+}
 .form-control {
 	border-radius: unset;
 	border: none;

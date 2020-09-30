@@ -9,6 +9,7 @@ use App\Roomtype;
 use App\Country;
 use App\User;
 use App\Guest;
+use App\Order;
 use App\Room;
 use Spatie\Permission\Models\Role;
 use Illuminate\Database\Eloquent\Builder;
@@ -121,10 +122,8 @@ class BookingController extends Controller
         $booking->noofchildren = $request->noofchildren ? $request->noofchildren : 0;
         $booking->estimatedarrivaltime = $request->estimatedarrivaltime;
         $booking->earlycheckin = $request->earlycheckin ? 1 : 0;
-        $booking->latecheckout = $request->latecheckout ? 1 : 0;
         $booking->note = $request->note;
         $booking->totalcost = $request->totalcost;
-        $booking->grandtotal = 0;
         $booking->status = 'booked';
         $booking->guest_id = $guest_id;
         $booking->staff_id = Auth::user()->staff->id;
@@ -133,8 +132,7 @@ class BookingController extends Controller
         $payment = new Payment;
         $payment->booking_id = $booking->id;
         $payment->paymenttype = $request->paymenttype;
-        $payment->advancepaymentpercentage = $request->advancepaymentpercentage;
-        $payment->advancepayment = $request->advancepayment;
+        $payment->depositamount = $request->depositamount;
         $payment->status = 'paid deposit';
         $payment->save();
 
@@ -242,18 +240,18 @@ class BookingController extends Controller
     {
         // dd($request);
         $count = count($request->roomtype);
-        $totalcost = 0;
+        $totalcost = 0; $depositamount = 0;
 
         $roomtypes = Roomtype::all();
         for ($i=0; $i < $count; $i++) { 
             foreach ($roomtypes as $roomtype) {
                 if ($roomtype->id == $request->roomtype[$i]) {
-                    $totalcost += (int)$roomtype->pricepernight * (int) $request->noofroom[$i];
+                    $depositamount += (int)$roomtype->pricepernight * (int) $request->noofroom[$i];
                 }
             }
         }
-        $totalcost = $totalcost * (int)$request->duration;
-        return response()->json(['totalcost' => $totalcost]);
+        $totalcost = $depositamount * (int)$request->duration;
+        return response()->json(['totalcost' => $totalcost, 'depositamount' => $depositamount]);
     }
 
     // check in
@@ -299,6 +297,12 @@ class BookingController extends Controller
         $booking->status = 'check in';
         $booking->save();
 
+        foreach ($booking->rooms as $bookingroom) {
+            $room = Room::find($bookingroom->pivot->room_id);
+            $room->status = 2;
+            $room->save();
+        }
+
         return redirect()->route('bookings.checkoutindex')->withSuccessMessage('Check in Success!');
     }
 
@@ -306,10 +310,79 @@ class BookingController extends Controller
     public function getCheckoutList()
     {
         $today = date('Y-m-d');
-        $bookings = Booking::where('bookstartdate', '>=', $today)
+        $bookings = Booking::where('bookstartdate', '<=', $today)
                             ->where('status', 'check in')
                             ->orderBy('bookenddate', 'asc')->get();
         // dd($bookings);
         return view('backend.booking.checkout', compact('bookings'));
+    }
+
+    public function getCheckoutDetail($id)
+    {
+        $booking = Booking::find($id);
+        $roomtypes = Roomtype::all();
+        $starttime = $booking->checkindatetime;
+        $endtime = date('Y-m-d H:i:s');
+        $servicerooms = Room::with('services')
+                    ->whereHas('services', function ($q) use ($starttime, $endtime) {
+                        $q->whereBetween('room_service.created_at', [$starttime, $endtime]); 
+                    })->get();
+        $orders = Order::with('food')->whereBetween('created_at', [$starttime, $endtime])->get();
+        // dd($orders);
+
+        return view('backend.booking.checkoutdetail', compact('booking', 'roomtypes', 'servicerooms', 'orders'));
+    }
+
+    public function updateLateCheckout(Request $request, $id)
+    {
+        $booking = Booking::find($id);
+
+        for ($i=0; $i < count($request->room_id); $i++) { 
+            $booking->rooms()->updateExistingPivot($request->room_id[$i],['latecheckout'=>$request->latecheckout[$i]]);
+        }
+
+        return redirect()->route('bookings.checkoutdetail', $id)->withSuccessMessage('Late Checkout is Successfully Updated.');
+    }
+
+    public function checkout(Request $request, $id)
+    {
+        $booking = Booking::find($id);
+
+        $booking->checkoutdatetime = date('Y-m-d H:i:s');
+        $booking->taxamount = $request->taxamount;
+        $booking->grandtotal = $request->grandtotal;
+
+        if ($request->chkpropertydamagecost) {
+            $booking->propertydamagecost = $request->propertydamagecost;
+            $booking->notebystaff = $request->notebystaff;
+        }
+
+        $newpoints = round(($booking->guest->membertype->earnpoints / 100) * $request->grandtotal);
+        $reducepoints = 0;
+        if ($request->chkpointsused) {
+            $booking->pointsused = $request->pointsused;
+            $reducepoints = $request->pointsused;
+        }
+    
+        $booking->status = "check out";
+        $booking->save();
+
+        $guest = Guest::find($booking->guest_id);
+        $guest->points = ($booking->guest->points + $newpoints) - $reducepoints;
+        $guest->save();
+
+        // change room status 
+        foreach ($booking->rooms as $broom) {
+            $room = Room::find($broom->id);
+            $room->status = 1;
+            $room->save();
+        }
+
+        // payment status 
+        $payment = Payment::where('booking_id', $id)->first();
+        $payment->status = 'complete';
+        $payment->save();
+
+        return redirect()->route('bookings.show', $id)->withSuccessMessage('Checkout Successful!');
     }
 }
