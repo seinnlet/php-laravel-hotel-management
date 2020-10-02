@@ -27,7 +27,7 @@
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('frontend/css/style.css') }}" rel="stylesheet">
-
+  @yield('css')
   <!-- =======================================================
   * Template Name: Restaurantly - v1.1.0
   * Template URL: https://bootstrapmade.com/restaurantly-restaurant-template/
@@ -62,12 +62,40 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="{{ route('home') }}">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#roomtypes">Rooms</a></li>
-          <li><a href="#testimonials">Reviews</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li class="book-a-table text-center"><a href="{{ route('login') }}">Log in</a></li>
+          <li {{ request()->routeIs('home') ? 'class=active' : '' }}>
+            <a href="{{ route('home') }}">Home</a>
+          </li>
+          <li>
+            <a href="{{ request()->is('/') ? '#about' : route('home').'#about' }}">About</a>
+          </li>
+          <li {{ request()->routeIs('roomtypes.list') ? 'class=active' : '' }}>
+            <a href="{{ request()->is('/') ? '#roomtypes' : route('roomtypes.list') }}">Rooms</a>
+          </li>
+          <li>
+            <a href="{{ request()->is('/') ? '#testimonials' : route('home').'#testimonials' }}">Reviews</a>
+          </li>
+          <li>
+            <a href="{{ request()->is('/') ? '#contact' : route('home').'#contact' }}">Contact</a>
+          </li>
+          @guest
+            <li class="book-a-table text-center">
+                <a href="{{ route('login') }}">Log in</a>
+            </li>
+          @else
+            <li>
+              <a href="#" class="dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} </a>
+
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">My Profile</a>
+                <a class="dropdown-item" href="#">My Bookings</a>
+                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();">Log out</a>
+              </div>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  @csrf
+              </form>
+            </li>
+          @endguest
         </ul>
       </nav><!-- .nav-menu -->
 
@@ -104,22 +132,32 @@
           <div class="col-lg-2 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('home') }}">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#roomtypes">Rooms</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#testimonials">Reviews</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#contact">Contact us</a></li>
+              <li>
+                <i class="bx bx-chevron-right"></i> <a href="{{ route('home') }}">Home</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i> <a href="{{ request()->is('/') ? '#about' : route('home').'#about' }}">About us</a>
+              </li>
+              <li {{ request()->segment(2) == 'list' ? 'class=active' : '' }}>
+                <i class="bx bx-chevron-right"></i> <a href="{{ route('roomtypes.list') }}">Rooms</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i> <a href="{{ request()->is('/') ? '#testimonials' : route('home').'#testimonials' }}">Reviews</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i> <a href="{{ request()->is('/') ? '#contact' : route('home').'#contact' }}">Contact us</a>
+              </li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Top Room Types</h4>
+            <h4>Popular Room Types</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Single Room</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Double Room</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Family Room</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">King Size Room</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Superior Suite</a></li>
+              @foreach ($footerroomtypes as $froomtype)
+                <li {{ $froomtype->id == request()->segment(2) ? 'class=active' : '' }}>
+                  <i class="bx bx-chevron-right"></i> <a href="{{ route('roomtypes.detail', $froomtype->id) }}">{{ $froomtype->name }}</a>
+                </li>
+              @endforeach
             </ul>
           </div>
 
@@ -164,7 +202,7 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset('frontend/js/main.js') }}"></script>
-
+  @yield('script')
 </body>
 
 </html>

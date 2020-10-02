@@ -317,6 +317,16 @@ h1, h2, h3, h4, h5, h6 {
   right: 15px;
 }
 
+.nav-menu .dropdown-menu .dropdown-item {
+  color: #0c0b09;
+  padding: .75rem 1.5rem;
+}
+
+.nav-menu .dropdown-menu .dropdown-item.active, .nav-menu .dropdown-menu .dropdown-item:active {
+  background-color: #cda45e;
+  color: #fff;
+}
+
 @media (max-width: 1366px) {
   .nav-menu .drop-down .drop-down ul {
     left: -90%;
@@ -740,8 +750,9 @@ section {
 --------------------------------------------------------------*/
 .breadcrumbs {
   padding: 15px 0;
-  background: #1d1b16;
+  background: rgba(255, 255, 255, 0.93);
   margin-top: 110px;
+  color: #201D18;
 }
 
 @media (max-width: 992px) {
@@ -795,7 +806,7 @@ section {
   background-size: cover;*/
   position: relative;
   padding: 80px 0;
-  color: rgba(0, 0, 0, 0.8);
+  color: #0c0b09;
 }
 
 .about:before {
@@ -960,7 +971,7 @@ section {
 # Services
 --------------------------------------------------------------*/
 .services {
-  color: rgba(0, 0, 0, 0.8);
+  color: #0c0b09;
 }
 .services .shadow-sm:hover i {
   color: #cda45e;
@@ -1093,8 +1104,8 @@ section {
   line-height: 12px;
 }
 .roomtypes .img-wrap:hover img{
-  transform: scale(1.1);
-  -webkit-transform: scale(1.1);
+  transform: scale(1.05);
+  -webkit-transform: scale(1.05);
 }
 .roomtypes .text-wrap {
   padding: 2rem 1.5rem;
@@ -1161,8 +1172,8 @@ section {
   padding-right: 5px;
   border-radius: 2px;
 }
-.roomtypes .btn-view {
-  border: 2px solid #cda45e;
+.roomtypes .btn-view, .inner-page .btn-view {
+  border: 1.5px solid #cda45e;
   color: #cda45e;
   padding: 8px 25px;
   text-transform: uppercase;
@@ -1171,7 +1182,7 @@ section {
   letter-spacing: 1px;
   transition: 0.3s;
 }
-.roomtypes .btn-view:hover {
+.roomtypes .btn-view:hover, .inner-page .btn-view:hover {
   background: #cda45e;
   color: #fff;
 }
@@ -1482,7 +1493,7 @@ section {
   animation: animate-loading 1s linear infinite;
 }
 
-.contact .php-email-form input, .contact .php-email-form textarea {
+.contact .php-email-form input, .contact .php-email-form textarea, .side-text input {
   border-radius: 0;
   box-shadow: none;
   font-size: 14px;
@@ -1491,31 +1502,37 @@ section {
   color: #222;
 }
 
-.contact .php-email-form input::-webkit-input-placeholder, .contact .php-email-form textarea::-webkit-input-placeholder {
+.contact .php-email-form input::-webkit-input-placeholder, .contact .php-email-form textarea::-webkit-input-placeholder, 
+.side-text input::-webkit-input-placeholder {
   color: #a49b89;
 }
 
-.contact .php-email-form input::-moz-placeholder, .contact .php-email-form textarea::-moz-placeholder {
+.contact .php-email-form input::-moz-placeholder, .contact .php-email-form textarea::-moz-placeholder, 
+.side-text input::-moz-placeholder {
   color: #a49b89;
 }
 
-.contact .php-email-form input:-ms-input-placeholder, .contact .php-email-form textarea:-ms-input-placeholder {
+.contact .php-email-form input:-ms-input-placeholder, .contact .php-email-form textarea:-ms-input-placeholder, 
+.side-text input:-ms-input-placeholder {
   color: #a49b89;
 }
 
-.contact .php-email-form input::-ms-input-placeholder, .contact .php-email-form textarea::-ms-input-placeholder {
+.contact .php-email-form input::-ms-input-placeholder, .contact .php-email-form textarea::-ms-input-placeholder, 
+.side-text input::-ms-input-placeholder {
   color: #a49b89;
 }
 
-.contact .php-email-form input::placeholder, .contact .php-email-form textarea::placeholder {
+.contact .php-email-form input::placeholder, .contact .php-email-form textarea::placeholder, 
+.side-text input::placeholder {
   color: #a49b89;
 }
 
-.contact .php-email-form input:focus, .contact .php-email-form textarea:focus {
-  border-color: #cda45e;
+.contact .php-email-form input:focus, .contact .php-email-form textarea:focus, .side-text input:focus {
+  border-color: #cda45e !important;
+  box-shadow: none;
 }
 
-.contact .php-email-form input {
+.contact .php-email-form input, .side-text input {
   height: 44px;
 }
 
@@ -1662,6 +1679,10 @@ section {
   color: #cda45e;
 }
 
+#footer .footer-top .footer-links ul li.active a {
+  color: #cda45e;
+}
+
 #footer .footer-top .footer-newsletter form {
   margin-top: 30px;
   background: #28251f;
@@ -1711,4 +1732,86 @@ section {
   text-align: center;
   font-size: 13px;
   color: #fff;
+}
+
+.inner-page {
+  color: #0c0b09;
+  background-color: #fff;
+}
+
+.inner-page .side-text h5 {
+  color: #cda45e;
+  margin-bottom: 20px;
+}
+
+.inner-page .side-text .text-price {
+  background-color: #FBF9F4;
+  padding-right: 10px;
+  padding-left: 10px;
+  border-radius: 5px;
+}
+
+.inner-page hr {
+  margin: 2rem auto 1.5rem;
+  background-color: #fff;
+  border-top: 1px dashed #ccc !important;
+}
+
+.inner-page .side-text button {
+  outline: none; 
+  background: #cda45e;
+  border: 0;
+  padding: 10px 35px;
+  color: #fff;
+  display: block;
+  width: 100%;
+  margin: 1.5rem auto 0.5rem;
+}
+
+.inner-page .side-text .ripple {
+  background-position: center;
+  transition: background 0.8s;
+}
+.inner-page .side-text .ripple:hover {
+  background: #cda45e radial-gradient(circle, transparent 1%, #cda45e 1%) center/15000%;
+}
+.inner-page .side-text .ripple:active {
+  background-color: #E6D2AF;
+  background-size: 100%;
+  transition: background 0s;
+}
+
+.text-theme {
+  color: #cda45e;
+}
+
+.inner-page .description {
+  font-size: .9rem;
+  line-height: 2rem;
+}
+
+.inner-page .roomtypes .room-text {
+  padding: 1.5rem 2rem; 
+}
+
+.inner-page .roomtypes .room-text .room-title {
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 1.5rem;
+  float: left;
+  clear: left;
+}
+
+.inner-page .roomtypes .room-text .room-title::after {
+  content: '';
+  width: 0px;
+  height: 1px;
+  display: block;
+  background: #cda45e;
+  transition: 300ms;
+}
+
+.inner-page .roomtypes .room-text .room-title:hover::after {
+  width: 100%;
 }

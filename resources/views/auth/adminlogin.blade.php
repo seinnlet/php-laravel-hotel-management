@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Login')
+@section('title', 'Staff Login')
 
 @section('css')
 	<link rel="stylesheet" type="text/css" href="{{ asset('backend/css/custom-auth-style.css') }}">
@@ -11,7 +11,7 @@
 
 <div class="row inner">
 	
-	<div class="col-lg-4 div-side2 py-5 d-none d-lg-block" data-aos="fade-right" data-aos-duration="1000">
+	<div class="col-lg-4 div-side py-5 d-none d-lg-block" data-aos="fade-right" data-aos-duration="1000">
 		<img src="{{ asset('backend/img/login.jpg') }}" class="shadow-sm img-fluid w-50 rounded-circle mb-4">
 		<h1 class="my-5"><i class="fas fa-map-marker-alt fa-sm mr-2"></i> HOTEL RIZA.</h1>
 		<p class="p-contact">
@@ -25,12 +25,12 @@
 
 	<div class="col-lg-8 div-login-form py-5">
 
-		<div class="row justify-content-md-center user-login">
+		<div class="row justify-content-md-center staff-login">
 			<div class="col-md-10">
-				<h2>Welcome from HOTEL RIZA!</h2>
+				<h2>Welcome back HOTEL RIZA!</h2>
 				<div class="card" data-aos="zoom-in" data-aos-duration="1000">
 					<div class="card-header">
-						<h4 class="mb-0">Login Form</h4>
+						<h4 class="mb-0">Staff Login Form</h4>
 					</div>
 					<div class="card-body">
 						
@@ -38,7 +38,7 @@
 						@csrf
 
 							<div class="form-group">
-								<label for="email"><small>{{ __('Email Address') }}</small></label>
+								<label for="email">{{ __('Email Address') }}</label>
 								<input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="info@example.com" autofocus>
 
 								@error('email')
@@ -49,7 +49,7 @@
 							</div>
 
 							<div class="form-group">
-								<label for="password"><small>{{ __('Password') }}</small></label>
+								<label for="password">{{ __('Password') }}</label>
 								<input id="password" type="password" class="form-control" name="password" required autocomplete="current-password" placeholder="&#10045;&#10045;&#10045;&#10045;&#10045;">
 
 								@error('password')
@@ -63,7 +63,7 @@
 								<div class="float-left">
 									<div class="custom-control custom-checkbox">
 									  <input type="checkbox" class="custom-control-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-									  <label class="custom-control-label text-muted" for="remember"><small>{{ __('Remember Me') }}</small></label>
+									  <label class="custom-control-label text-muted" for="remember">{{ __('Remember Me') }}</label>
 									</div>
 								</div>
 								<div class="float-right text-right">
@@ -80,14 +80,11 @@
 								<div class="col-sm-6 mb-3 px-0 pr-sm-2">
 									<button type="submit" class="btn btn-primary btn-block py-2">{{ __('Login') }}</button>
 								</div>
-								<div class="col-sm-6 mb-4 px-0 pl-sm-2">
-									<a href="{{ route('register') }}" class="btn btn-outline-secondary btn-block py-2">Create Account</a>
+								<div class="col-sm-6 mb-5 px-0 pl-sm-2">
+									<a href="{{ route('home') }}" class="btn btn-outline-secondary btn-block py-2">Back to Home</a>
 								</div>
 							</div>
 							
-							<div class="form-group text-right mb-2">
-								<a href="{{ route('home') }}" class="btn btn-link pr-0"><i class="fas fa-angle-left"></i> Back to Home</a>
-							</div>
 						</form>
 
 					</div>	{{-- // end of card-body --}}

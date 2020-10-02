@@ -134,9 +134,6 @@
         }
         main_nav.find('a[href="#' + $(this).attr('id') + '"]').parent('li').addClass('active');
       }
-      if (cur_pos < 300) {
-        $(".nav-menu ul:first li:first").addClass('active');
-      }
     });
   });
 
@@ -189,7 +186,7 @@
     $("body").niceScroll({
       cursorwidth: "8px",
       cursorborder: "1px solid rgba(12, 11, 9, 0.6)",
-      cursorfixedheight: 100
+      smoothscroll: true,
     });
   });
 

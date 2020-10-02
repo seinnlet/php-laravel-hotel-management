@@ -187,8 +187,8 @@ button {
   top: 0;
   left: 0;
   display: block;
-  background: -webkit-gradient(linear, right top, left top, from(#379392), to(#1b4948)) !important;
-  background: linear-gradient(to left, #379392, #1b4948) !important;
+  background: -webkit-gradient(linear, right top, left top, from(#E3CCA4), to(#cda45e)) !important;
+  background: linear-gradient(to left, #E3CCA4, #cda45e) !important;
   opacity: 0;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;

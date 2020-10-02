@@ -208,21 +208,21 @@
 
         <div class="row inner">
           <div class="col-lg-6 inner-col border mb-5">
-            <a href="">
+            <a href="{{ route('roomtypes.detail', $bestroomtype->id) }}">
               <div class="img-wrap">
-                <img src="{{ asset('frontend/img/roomtype/s1.jpg') }}" class="img-fluid">
+                <img src="{{ asset($bestroomtype->image1) }}" class="img-fluid">
                 <span class="img-text"><i class="icofont-star"></i> Best Room of the Month</span>
               </div>
             </a>
             <div class="text-wrap">
-              <p class="p-title">Single Room</p>
+              <p class="p-title">{{ $bestroomtype->name }}</p>
               <div class="mt-4 mb-5">
                 <div class="float-left p-subtitle">
-                  <i class="icofont-ui-user-group"></i> 1 Guest | 
-                  <i class="icofont-bed"></i> 1 Bed
+                  <i class="icofont-ui-user-group"></i> {{ $bestroomtype->noofpeople }} {{ $bestroomtype->noofpeople == 1 ? 'Guest' : 'Guests' }} | 
+                  <i class="icofont-bed"></i> {{ $bestroomtype->noofbed }} {{ $bestroomtype->noofbed == 1 ? 'Bed' : 'Beds' }}
                 </div>
                 <div class="float-right text-right">
-                  <span class="text-price">$ 30.00 <small>/ NIGHT</small></span>
+                  <span class="text-price">$ {{ number_format($bestroomtype->pricepernight, 2) }} <small>/ NIGHT</small></span>
                 </div>
                 <div class="clearfix"></div>
               </div>
@@ -232,60 +232,29 @@
           <div class="col-lg-6 inner-col mb-5">
             
             <div class="row">
-              <div class="col-6 mb-5">
-                <a href="">
-                  <div class="square border">
-                    <div class="content">
-                      <img src="{{ asset('frontend/img/roomtype/d1.jpg') }}">
-                      <span class="content-text">Double Room</span>
-                      <span class="content-price">$ 20.00</span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-              <div class="col-6 mb-5">
-                <div class="square border">
-                  <a href="">
-                    <div class="content">
-                      <img src="{{ asset('frontend/img/roomtype/js1.jpg') }}">
-                      <span class="content-text">Junior Suite</span>
-                      <span class="content-price">$ 45.00</span>
+              @php $i = 1; @endphp
+              @foreach ($roomtypes as $roomtype)
+                <div class="col-6 {{ $i!=4 ? 'mb-5' : '' }} {{ $i==3 ? 'mb-sm-0' : '' }}">
+                  <a href="{{ route('roomtypes.detail', $roomtype->id) }}">
+                    <div class="square border">
+                      <div class="content">
+                        <img src="{{ asset($roomtype->image1) }}">
+                        <span class="content-text">{{ $roomtype->name }}</span>
+                        <span class="content-price">$ {{ number_format($roomtype->pricepernight, 2) }}</span>
+                      </div>
                     </div>
                   </a>
                 </div>
-              </div>
-
-              <div class="col-6 mb-5 mb-sm-0">
-                <div class="square border">
-                  <a href="">
-                    <div class="content">
-                      <img src="{{ asset('frontend/img/roomtype/t1.jpg') }}">
-                      <span class="content-text">Family Room</span>
-                      <span class="content-price">$ 45.00</span>
-                    </div>
-                  </a>
-                </div>
-              </div>
-
-              <div class="col-6">
-                <div class="square border">
-                  <a href="">
-                    <div class="content">
-                      <img src="{{ asset('frontend/img/roomtype/q1.jpg') }}">
-                      <span class="content-text">King Size Room</span>
-                      <span class="content-price">$ 50.00</span>
-                    </div>
-                  </a>
-                </div>
-              </div>
+                @php $i++; @endphp
+              @endforeach
+                
             </div>
 
           </div>
         </div>
 
         <div class="text-center my-3">
-          <a href="#" class="btn-view">View All Rooms</a>
+          <a href="{{ route('roomtypes.list') }}" class="btn-view">View All Rooms</a>
         </div>
 
       </div>
@@ -450,5 +419,24 @@
     </section><!-- End Contact Section -->
 
   </main><!-- End #main -->
+
+@endsection
+
+@section('script')
+  
+  <script type="text/javascript">
+    $(function () {
+
+      var nav_sections = $('section');
+      $(window).on('scroll', function() {
+        var cur_pos = $(this).scrollTop() + 200;
+        nav_sections.each(function() {
+           if (cur_pos < 300) {
+            $(".nav-menu ul:first li:first").addClass('active');
+          }
+        });
+      });
+    })
+  </script>
 
 @endsection

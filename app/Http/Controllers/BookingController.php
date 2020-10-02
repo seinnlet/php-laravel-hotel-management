@@ -168,7 +168,14 @@ class BookingController extends Controller
     {
         $booking = Booking::find($id);
         $roomtypes = Roomtype::all();
-        return view('backend.booking.show', compact('booking', 'roomtypes'));
+        $starttime = $booking->checkindatetime;
+        $endtime = $booking->checkoutdatetime;
+        $servicerooms = Room::with('services')
+                    ->whereHas('services', function ($q) use ($starttime, $endtime) {
+                        $q->whereBetween('room_service.created_at', [$starttime, $endtime]); 
+                    })->get();
+        $orders = Order::with('food')->whereBetween('created_at', [$starttime, $endtime])->get();
+        return view('backend.booking.show', compact('booking', 'roomtypes', 'servicerooms', 'orders'));
     }
 
     /**
@@ -357,7 +364,6 @@ class BookingController extends Controller
             $booking->notebystaff = $request->notebystaff;
         }
 
-        $newpoints = round(($booking->guest->membertype->earnpoints / 100) * $request->grandtotal);
         $reducepoints = 0;
         if ($request->chkpointsused) {
             $booking->pointsused = $request->pointsused;
@@ -367,9 +373,12 @@ class BookingController extends Controller
         $booking->status = "check out";
         $booking->save();
 
-        $guest = Guest::find($booking->guest_id);
-        $guest->points = ($booking->guest->points + $newpoints) - $reducepoints;
-        $guest->save();
+        if ($booking->guest->membertype_id) {
+            $newpoints = round(($booking->guest->membertype->earnpoints / 100) * $request->grandtotal);
+            $guest = Guest::find($booking->guest_id);
+            $guest->points = ($booking->guest->points + $newpoints) - $reducepoints;
+            $guest->save();
+        }
 
         // change room status 
         foreach ($booking->rooms as $broom) {

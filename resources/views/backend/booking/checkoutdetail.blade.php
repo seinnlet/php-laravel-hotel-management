@@ -146,9 +146,9 @@
 	      							@endif
 	      						</td>
 	      					</tr>
+  				    		@php $i++ @endphp
       					@endif
 			      			
-				    		@php $i++ @endphp
       				@endforeach
 
               @if ($latecheckout)

@@ -14,11 +14,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'FrontendController@index')->name('home');
+Route::prefix('roomtypes')->name('roomtypes.')->group(function () {
+	Route::get('/{id}/detail', 'FrontendController@roomtypedetail')->name('detail');
+	Route::get('/list', 'FrontendController@list')->name('list');
+});
 
 Auth::routes();
+Route::get('admin/login', 'LoginController@login')->name('admin.login');
 
 // backend
-Route::group(['middleware' => ['auth','role:Admin|Reservation Staff|Service Staff|Kitchen Staff']], function () {
+Route::group(['middleware' => ['admin','role:Admin|Reservation Staff|Service Staff|Kitchen Staff']], function () {
 	Route::get('dashboard', 'BackendController@dashboard')->name('dashboard');
 
 	Route::resources([
