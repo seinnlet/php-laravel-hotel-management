@@ -267,7 +267,7 @@ class BookingController extends Controller
         $today = date('Y-m-d');
         $bookings = Booking::where('bookstartdate', '>=', $today)
                             ->where('status', 'booked')
-                            ->orderBy('bookstartdate', 'desc')->get();
+                            ->orderBy('bookstartdate')->get();
         // dd($bookings);
         return view('backend.booking.checkin', compact('bookings'));
     }

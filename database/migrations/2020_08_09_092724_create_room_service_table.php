@@ -20,6 +20,7 @@ class CreateRoomServiceTable extends Migration
             $table->unsignedDecimal('totalcharges', 8, 2);
             $table->integer('totalqty');
             $table->text('note')->nullable();
+            $table->string('status', 10)->default('Request');
             $table->timestamps();
 
             $table->foreign('room_id')  

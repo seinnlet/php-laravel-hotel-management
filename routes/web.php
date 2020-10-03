@@ -67,6 +67,7 @@ Route::group(['middleware' => ['admin','role:Admin|Reservation Staff|Service Sta
 
 	// service usage
 	Route::post('services/{id}/use', 'ServiceController@useService')->name('services.use');
+	Route::get('services/{serviceid}/{roomid}/done', 'ServiceController@done')->name('services.done');
 	Route::get('usedservices', 'ServiceController@usageList')->name('services.list');
 	Route::get('rooms/{id}/clean', 'RoomController@clean')->name('rooms.clean');
 });

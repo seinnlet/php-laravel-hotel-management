@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Service;
 use App\Room;
+use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
@@ -153,7 +154,20 @@ class ServiceController extends Controller
 
     public function usageList()
     {
-        $rooms = Room::all();
-        return view('backend.service.usagelist', compact('rooms'));
+        $usedservices = DB::table('room_service')
+                ->join('services', 'room_service.service_id', '=', 'services.id')
+                ->join('rooms', 'room_service.room_id', '=', 'rooms.id')
+                ->select('room_service.*', 'rooms.roomno', 'services.name')
+                ->orderBy('room_service.created_at', 'desc')
+                ->get();
+        // dd($usedservices);
+        return view('backend.service.usagelist', compact('usedservices'));
+    }
+
+    public function done($service_id, $room_id)
+    {
+        $service = Service::find($service_id);
+        $service->rooms()->updateExistingPivot($room_id,['status'=> 'Done']);
+        return redirect()->route('services.list')->withSuccessMessage('Requested Service is Done.');
     }
 }

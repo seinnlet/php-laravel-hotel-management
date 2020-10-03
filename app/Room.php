@@ -21,7 +21,7 @@ class Room extends Model
     public function services()
     {
     	return $this->belongsToMany('App\Service')
-					->withPivot('totalcharges', 'totalqty', 'note')
+					->withPivot('totalcharges', 'totalqty', 'note', 'status')
 					->withTimestamps();
     }
 

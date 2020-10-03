@@ -59,7 +59,7 @@
 								@enderror
 							</div>
 
-							<div class="form-group my-4">
+							<div class="form-group mt-4 mb-5">
 								<div class="float-left">
 									<div class="custom-control custom-checkbox">
 									  <input type="checkbox" class="custom-control-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
