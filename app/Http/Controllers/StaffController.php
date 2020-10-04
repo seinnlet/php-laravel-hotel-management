@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\StaffPasswordMail;
+
 class StaffController extends Controller
 {
     /**
@@ -67,7 +71,12 @@ class StaffController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = Hash::make('staff@hotelriza');
+
+        $password = Str::random(8);
+        $gender = ($request->gender == "Male") ? 'Mr' : 'Ms';   
+        // dd($password);
+
+        $user->password = Hash::make($password);
         $user->assignRole($request->role);
         $user->save();
 
@@ -77,6 +86,14 @@ class StaffController extends Controller
         $staff->phone = $request->phone;
         $staff->address = $request->address;
         $staff->save();
+
+        // mail
+        $data = [
+            'name' => $request->name,
+            'gender' => $gender,
+            'password' => $password
+        ];
+        Mail::to($request->email)->send(new StaffPasswordMail($data));
 
         return redirect()->route('staff.index')->withSuccessMessage('New Staff is Successfully Added.');
     }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Check out Mail</title>
+	<title>Password Mail</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -27,12 +27,13 @@
 </head>
 <body>
 
-	<p>Dear Customer {{ $data['name'] }},</p>
-	<p>Warm greetings from Hotel Riza! Thank you for choosing our hotel for your recent visit to Riza.</p>
-	<p>Please kindly find in the attached your invoice and feel free to reach out should you need any further assistance.</p>
-	<p>We look forward to welcoming back in the future.</p>
+	<p>Dear {{ $data['gender'] }}. {{ $data['name'] }},</p>
+	<p>Your registration is successful. Welcome from Hotel Riza Family!</p>
+	<p>You can now log in and access your dashboard from this link <a href="{{ route('admin.login') }}" target="_blank">hotelriza.seinnletlethninn.me/admin/login</a>.</p>
+	<p>Your Password is : <strong>{{ $data['password'] }}</strong></p>
+	<p>If you have any questions or any technical issues, feel free to contact our technical team at technicalteam.hotelriza@gmail.com or +95 9123 121 1212.</p>
 	<br>
-	<p>With best regards,</p>
+	<p>Yours sincerely,</p>
 	<br>
 
 	<span class="title">HOTEL RIZA</span>

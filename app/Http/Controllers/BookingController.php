@@ -17,9 +17,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CheckoutMail;
+use App\Mail\GuestPasswordMail;
+use App\Mail\BookingMail;
 
 use PDF;
 
@@ -101,7 +104,8 @@ class BookingController extends Controller
             $user = new User;
             $user->name = $request->name;
             $user->email = $request->email;
-            $user->password = Hash::make('12345678');
+            $password = Str::random(8);
+            $user->password = Hash::make($password);
             $user->assignRole('Guest');
             $user->save();
 
@@ -160,6 +164,29 @@ class BookingController extends Controller
                     $booking->rooms()->attach($room_id,['extrabed'=> 0]);
                 }
             }
+        }
+
+        // mail 
+        if ($request->guesttype == "new") {
+            $data = [
+                'name' => $request->name,
+                'checkindate' => $booking->bookstartdate,
+                'checkoutdate' => $booking->bookenddate,
+                'noofrooms' => count($booking->rooms),
+                'email' => $request->email,
+                'password' => $password,
+            ];
+            Mail::to($request->email)->send(new GuestPasswordMail($data));
+        } else {
+            // $duration = $booking->duration . (($booking->duration == 1) ? ' night' : ' nights');
+            // $data = [
+            //     'name' => $booking->guest->user->name,
+            //     'checkindate' => $booking->bookstartdate,
+            //     'checkoutdate' => $booking->bookenddate,
+            //     'noofrooms' => count($booking->rooms),
+            //     'duration' => $duration
+            // ];
+            // Mail::to($booking->guest->user->email)->send(new BookingMail($data));
         }
                 
         return redirect()->route('bookings.index')->withSuccessMessage('New Booking is Successfully Recorded.');

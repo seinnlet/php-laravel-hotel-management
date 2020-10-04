@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Check out Mail</title>
+	<title>Booking Mail</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -28,9 +28,22 @@
 <body>
 
 	<p>Dear Customer {{ $data['name'] }},</p>
-	<p>Warm greetings from Hotel Riza! Thank you for choosing our hotel for your recent visit to Riza.</p>
-	<p>Please kindly find in the attached your invoice and feel free to reach out should you need any further assistance.</p>
-	<p>We look forward to welcoming back in the future.</p>
+	<p>Thank you for booking your stay at Hotel Riza. We have confirmed your booking with the following details as requested.</p>
+	<p>
+		Check in Date: {{ $data['checkindate'] }} <br>
+		Check out Date: {{ $data['checkoutdate'] }} <br>
+		No of Rooms: {{ $data['noofrooms'] }}
+	</p>
+	<p>You can also view your booking details by logging in on our website at <a href="{{ route('login') }}" target="_blank">hotelriza.seinnletlethninn.me/login</a>. </p>
+	<p>
+		Log in details are as follows. <br>
+		User Name: <strong>{{ $data['email'] }}</strong> <br>
+		Password : <strong>{{ $data['password'] }}</strong>
+	</p>
+	<p>
+		Free cancellation is eligible 5 days before the check in date.   
+	</p>
+
 	<br>
 	<p>With best regards,</p>
 	<br>
