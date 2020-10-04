@@ -20,8 +20,6 @@
   <!-- Font Awesome CSS-->
   <link rel="stylesheet" type="text/css" href="{{ asset('backend/vendor/fontawesome/css/all.min.css') }}">
 
-  <!-- Favicon-->
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend/img/favicon.png') }}">
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 

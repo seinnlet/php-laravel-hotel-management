@@ -51,6 +51,7 @@ Route::group(['middleware' => ['admin','role:Admin|Reservation Staff|Service Sta
 		Route::get('/{id}', 'BookingController@getCheckinDetail')->name('checkindetail');
 		Route::post('/{id}/update', 'BookingController@updateBookingRoom')->name('updatebookingroom');
 		Route::get('/{id}/store', 'BookingController@checkin')->name('checkin');
+		Route::get('/{id}/cancel', 'BookingController@cancel')->name('cancel');
 	});
 	Route::prefix('checkout')->name('bookings.')->group(function () {
 		Route::get('/', 'BookingController@getCheckoutList')->name('checkoutindex');

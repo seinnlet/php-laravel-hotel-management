@@ -23,7 +23,7 @@
       <div class="card-body">
 
 				<div class="mb-4">
-					<button class="btn btn-outline-primary btn-sm px-3"><i class="fas fa-filter fa-sm mr-2"></i>Current Checkin List</button>
+					<a href="{{ route('bookings.checkoutindex') }}" class="btn btn-outline-primary btn-sm px-3"><i class="fas fa-filter fa-sm mr-2"></i>Current Checkin List</a>
 					<button class="btn btn-outline-primary btn-sm px-3"><i class="fas fa-upload fa-sm mr-2"></i>Generate Report</button>
 				</div>
 
@@ -47,7 +47,7 @@
 				    		<tr>
 				    			<td>{{ $i }}.</td>
 				    			<td>{{ $booking->bookingid }}</td>
-				    			<td><small>{{ $booking->bookstartdate }} to {{ $booking->bookenddate }}</small></td>
+				    			<td><small>{{ ($booking->checkindatetime) ? date('Y-m-d', strtotime($booking->checkindatetime)) : $booking->bookstartdate }} to {{ ($booking->checkoutdatetime) ? date('Y-m-d', strtotime($booking->checkoutdatetime)) : $booking->bookenddate }}</small></td>
 				    			<td>{{ $booking->duration }}</td>
 				    			<td>{{ $booking->guest->user->name }}</td>
 				    			<td>

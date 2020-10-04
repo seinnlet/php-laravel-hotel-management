@@ -9,10 +9,6 @@
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="{{ asset('frontend/img/logo.png') }}" rel="icon">
-  <link href="{{ asset('frontend/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
-
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -117,7 +113,7 @@
                 Pyay Road, <br>
                 Yangon, Myanmar<br><br>
                 <strong>Phone:</strong> +95 9129 1299 198<br>
-                <strong>Email:</strong> hotelriza.610@gmail.com<br>
+                <strong>Email:</strong> hotelriza.info@gmail.com<br>
               </p>
               <div class="social-links mt-3">
                 <a href="https://twitter.com" target="_blank" class="twitter"><i class="bx bxl-twitter"></i></a>

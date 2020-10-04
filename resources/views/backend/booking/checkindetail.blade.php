@@ -28,17 +28,19 @@
 @section('content')
 	<section class="py-5">
 		<div class="mb-4">
-			<h5 class="title-heading d-inline-block float-left">Booking Detail</h5>
+			<h5 class="title-heading d-inline-block float-left">Booking Detail (Check in)</h5>
 			<a href="{{ route('bookings.checkinindex') }}" class="btn btn-primary float-right rounded"><i class="fas fa-angle-left fa-sm mr-2 text-gray-100"></i> Back</a>
 			<div class="clearfix"></div>
 		</div>
-
+      
 		{{-- form --}}
 		<div class="card">
       <div class="card-header">
         <h3 class="h6 mb-0">Booking ID: {{ $booking->bookingid }}</h3>
       </div>
       <div class="card-body">
+
+        @if ($booking->status == 'booked')
 
       	{{-- Detail Header Part --}}
       	<div class="row">
@@ -234,26 +236,48 @@
                 <th>Room Total Cost : </th>
                 <td>$ {{ number_format($booking->totalcost, 2) }}</td>
               </tr>
+              @if ($totalextrabed)
+                <tr>
+                  <th>Extra Bed : <span class="font-weight-light">($10.00 x {{ $totalextrabed }})</span> </th>
+                  <td>$ {{ number_format($totalextrabed * 10, 2) }} </td>
+                </tr>
+              @endif
+
+              {{-- cancel --}}
               <tr>
-                <th>Extra Bed : <span class="font-weight-light">({{ $totalextrabed }} X $10.00)</span> </th>
+                <th>Cancellation:</th>
                 <td>
-                  @if ($totalextrabed)
-                    $ {{ number_format($totalextrabed * 10, 2) }} 
-                  @else
-                    $ 0.00
-                  @endif
+                  <button data-id="{{$booking->id}}" class="btn btn-block btn-outline-secondary" id="btn-cancel"><small>Cancel this Booking</small></button>
                 </td>
               </tr>
+              {{-- cancel end --}}
+
               <tr>
                 <th>Notes: <span class="font-weight-normal">{{ $booking->note }}</span></th>
                 <td>
                   @php $today = date('Y-m-d') @endphp
-                  <a href="{{ route('bookings.checkin', $booking->id) }}" class="btn btn-success btn-sm btn-block py-2  @if ($today != $booking->bookstartdate || $booking->status !='booked') disabled @endif">Check In Now</a>
+                  <a href="{{ route('bookings.checkin', $booking->id) }}" class="btn btn-success btn-sm btn-block py-2  @if ($today < $booking->bookstartdate || $booking->status !='booked') disabled @endif">Check In Now</a>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
+
+              
+
+        @elseif ($booking->status == 'check in')
+
+          <p>This booking is already Checked In. <a href="{{ route('bookings.checkoutdetail', $booking->id) }}">Click here to View Detail</a></p>
+
+        @elseif ($booking->status == 'check out')
+
+          <p>This booking is already Checked Out. <a href="{{ route('bookings.show', $booking->id) }}">Click here to View Detail</a></p>
+
+        @else
+
+          <p>This booking was Cancelled. <a href="{{ route('bookings.show', $booking->id) }}">Click here to View Detail</a></p>
+
+        @endif
 
       </div>
     </div>
@@ -263,6 +287,8 @@
 @endsection
 
 @section('script')
+  @if ($booking->status == 'booked')
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript">
 		$(function () {
 			
@@ -290,6 +316,39 @@
         }
       });
 
+      $('tbody').on('click', '#btn-cancel', function() {
+        id = $(this).data('id')
+        
+        swal({
+          title: "Cancellation Confirm",
+          text: "Are you sure to Cancel this Booking?",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            
+            let url = '{{ route('bookings.cancel', ":id") }}'
+            url = url.replace(':id', id)
+
+            let successurl = '{{ route('bookings.show', ":id") }}'
+            successurl = successurl.replace(':id', id)
+
+            $.ajax({
+              type:'GET',
+              url: url,
+              success:function(data){
+                window.location = successurl;
+              }
+            });
+
+          }
+        });
+          
+      });
+
 		})
 	</script>
+  @endif
 @endsection

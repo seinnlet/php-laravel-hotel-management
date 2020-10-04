@@ -369,7 +369,7 @@
               <div class="email">
                 <i class="icofont-envelope"></i>
                 <h4>Email:</h4>
-                <p>hotelriza.610@gmail.com</p>
+                <p>hotelriza.info@gmail.com</p>
               </div>
 
               <div class="phone">

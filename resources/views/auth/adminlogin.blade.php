@@ -15,7 +15,7 @@
 		<img src="{{ asset('backend/img/login.jpg') }}" class="shadow-sm img-fluid w-50 rounded-circle mb-4">
 		<h1 class="my-5"><i class="fas fa-map-marker-alt fa-sm mr-2"></i> HOTEL RIZA.</h1>
 		<p class="p-contact">
-			+95 9129 1299 198 | hotelriza.610@gmail.com <br>
+			+95 9129 1299 198 | hotelriza.info@gmail.com <br>
 			Pyay Road, Yangon, Myanmar
 		</p>
 		<p class="p-since">

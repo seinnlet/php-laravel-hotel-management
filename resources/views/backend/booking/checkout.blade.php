@@ -37,8 +37,8 @@
 				    	@foreach ($bookings as $booking)
 				    		<tr>
 				    			<td>{{ $i }}.</td>
-				    			<td>{{ $booking->bookingid }}</td>
-				    			<td><small>{{ $booking->bookstartdate }} to {{ $booking->bookenddate }}</small></td>
+				    			<td><span @if ($booking->bookenddate == date('Y-m-d')) class="text-success" @endif>{{ $booking->bookingid }}</span></td>
+				    			<td><small>{{ date('Y-m-d', strtotime($booking->checkindatetime)) }} to <span @if ($booking->bookenddate == date('Y-m-d')) class="text-success" @endif>{{ $booking->bookenddate }}</span></small></td>
 				    			<td>{{ $booking->duration }}</td>
 				    			<td>{{ $booking->guest->user->name }}</td>
 				    			<td>

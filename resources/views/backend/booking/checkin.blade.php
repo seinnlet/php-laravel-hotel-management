@@ -10,7 +10,7 @@
 
 	<section class="py-5">
 		<div class="mb-4">
-			<h5 class="title-heading d-inline-block">Coming Up Booking List</h5>
+			<h5 class="title-heading d-inline-block">Coming Up Check in List</h5>
 		</div>
 
 		<div class="card">
@@ -38,7 +38,7 @@
 				    		<tr>
 				    			<td>{{ $i }}.</td>
 				    			<td>{{ $booking->bookingid }}</td>
-				    			<td><small>{{ $booking->bookstartdate }} to {{ $booking->bookenddate }}</small></td>
+				    			<td><small @if ($booking->bookstartdate == date('Y-m-d')) class="text-success" @elseif($booking->bookstartdate < date('Y-m-d')) class="text-danger" @endif>{{ $booking->bookstartdate }} to {{ $booking->bookenddate }}</small></td>
 				    			<td>{{ $booking->duration }}</td>
 				    			<td>{{ $booking->guest->user->name }}</td>
 				    			<td>

@@ -16,6 +16,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
+use Carbon\Carbon;
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CheckoutMail;
+
+use PDF;
+
 class BookingController extends Controller
 {
     /**
@@ -264,9 +271,7 @@ class BookingController extends Controller
     // check in
     public function getCheckinList()
     {
-        $today = date('Y-m-d');
-        $bookings = Booking::where('bookstartdate', '>=', $today)
-                            ->where('status', 'booked')
+        $bookings = Booking::where('status', 'booked')
                             ->orderBy('bookstartdate')->get();
         // dd($bookings);
         return view('backend.booking.checkin', compact('bookings'));
@@ -302,6 +307,15 @@ class BookingController extends Controller
         $booking = Booking::find($id);
         $booking->checkindatetime = date('Y-m-d H:i:s');
         $booking->status = 'check in';
+
+        $today = date('Y-m-d');
+        if ($booking->bookstartdate != $today) {
+            $end = Carbon::createFromFormat('Y-m-d', $booking->bookenddate);
+            $start = Carbon::createFromFormat('Y-m-d', (date('Y-m-d')));
+            $diff = $end->diffInDays($start);
+
+            $booking->duration = $diff;
+        }
         $booking->save();
 
         foreach ($booking->rooms as $bookingroom) {
@@ -317,9 +331,8 @@ class BookingController extends Controller
     public function getCheckoutList()
     {
         $today = date('Y-m-d');
-        $bookings = Booking::where('bookstartdate', '<=', $today)
-                            ->where('status', 'check in')
-                            ->orderBy('bookenddate', 'asc')->get();
+        $bookings = Booking::where('status', 'check in')
+                            ->orderBy('bookenddate')->get();
         // dd($bookings);
         return view('backend.booking.checkout', compact('bookings'));
     }
@@ -392,6 +405,35 @@ class BookingController extends Controller
         $payment->status = 'complete';
         $payment->save();
 
+        view()->share('booking',$booking);
+        $pdf = PDF::loadView('backend.pdf.invoice', $booking)->save(public_path('backend/pdf/'.$booking->bookingid.'.pdf'));
+
+        // mail
+        $data = [
+            'name' => $booking->guest->user->name,
+            'pdf' => 'backend/pdf/'.$booking->bookingid.'.pdf'
+        ];
+        Mail::to($booking->guest->user->email)->send(new CheckoutMail($data));
+
         return redirect()->route('bookings.show', $id)->withSuccessMessage('Checkout Successful!');
+    }
+
+    public function cancel($id)
+    {
+        $booking = Booking::find($id);
+        $booking->status = 'cancel';
+        $booking->save();
+
+        $start = Carbon::createFromFormat('Y-m-d', $booking->bookstartdate);
+        $today = Carbon::createFromFormat('Y-m-d', (date('Y-m-d')));
+        $diff = $start->diffInDays($today);
+
+        if ($diff > 5) {
+            $payment = Payment::where('booking_id', $id)->first();
+            $payment->status = 'refunded';
+            $payment->save();
+        }
+
+        return 'Cancellation Successful!';
     }
 }

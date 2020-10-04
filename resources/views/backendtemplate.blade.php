@@ -21,9 +21,6 @@
 
   <!-- theme stylesheet-->
   <link rel="stylesheet" href="{{ asset('backend/css/style.sea.css') }}" id="theme-stylesheet">
-  
-  <!-- Favicon-->
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend/img/favicon.png') }}">
 
 </head>
 <body>
@@ -93,8 +90,7 @@
               <strong class="d-block text-uppercase headings-font-family">{{ Auth::user()->name }}</strong><small>{{ Auth::user()->getRoleNames()->first() }}</small>
             </a>
             <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">Settings</a>
-            <a href="#" class="dropdown-item">Activity log</a>
+            <a href="#" class="dropdown-item">Change Password</a>
             <div class="dropdown-divider"></div>
             <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">Logout</a>

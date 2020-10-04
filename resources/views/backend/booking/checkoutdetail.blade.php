@@ -25,7 +25,7 @@
 @section('content')
 	<section class="py-5">
 		<div class="mb-4">
-			<h5 class="title-heading d-inline-block float-left">Booking Detail</h5>
+			<h5 class="title-heading d-inline-block float-left">Booking Detail (Check out)</h5>
 			<a href="{{ route('bookings.checkoutindex') }}" class="btn btn-primary float-right rounded"><i class="fas fa-angle-left fa-sm mr-2 text-gray-100"></i> Back</a>
 			<div class="clearfix"></div>
 		</div>
@@ -36,6 +36,9 @@
         <h3 class="h6 mb-0">Booking ID: {{ $booking->bookingid }}</h3>
       </div>
       <div class="card-body">
+
+      @if ($booking->status == "check in")
+          
       	{{-- Detail Header Part --}}
       	<div class="row">
       		<div class="col-md-6">
@@ -47,7 +50,7 @@
       				<tr>
       					<th>Duration :</th>
       					<td>
-      						{{ $booking->bookstartdate }} to {{ $booking->bookenddate }} <br>
+      						{{ date('Y-m-d', strtotime($booking->checkindatetime)) }} to {{ $booking->bookenddate }} <br>
       						<small><em>({{ $booking->duration }} {{ ($booking->duration == 1) ? 'Night' : 'Nights'}})</em></small>
       					</td>
       				</tr>
@@ -102,8 +105,9 @@
       					<th colspan="2">Booking Status : <span class="text-primary text-capitalize">{{ $booking->status }}</span></th>
 		      			<td colspan="4">
 		      				@if ($booking->earlycheckin)
-		      					<span class="text-primary"><i class="fas fa-check"></i></span> <span class="mr-3">Early Check in</span>
+		      					<span class="text-primary"><i class="fas fa-check"></i></span> Early Check in | 
 		      				@endif
+                  Check in Time: {{ date('H:i', strtotime($booking->checkindatetime)) }}
 		      			</td>
  							</tr>
       				<tr>
@@ -322,7 +326,7 @@
       	{{-- Payment --}}
         <h6 class="h6 mb-4">Payment</h6>
         <form action="{{ route('bookings.checkout', $booking->id) }}" method="post" class="checkoutform">
-           @csrf
+          @csrf
           <div class="table-responsive my-3">
 
             <table class="table table-sm table-striped">
@@ -460,12 +464,27 @@
 
         </form>
 
+      @elseif ($booking->status == 'booked')
+
+        <p>This booking hasn't been Checked In. <a href="{{ route('bookings.checkindetail', $booking->id) }}">Click here to View Detail</a></p>
+
+      @elseif ($booking->status == 'check out')
+
+        <p>This booking is already Checked Out. <a href="{{ route('bookings.show', $booking->id) }}">Click here to View Detail</a></p>
+
+      @else
+
+        <p>This booking was Cancelled. <a href="{{ route('bookings.show', $booking->id) }}">Click here to View Detail</a></p>
+          
+      @endif
+
       </div>
     </div>
   </section>
 @endsection
 
 @section('script')
+  @if ($booking->status == "check in")
   <script type="text/javascript">
     $(function () {
       $('.btn-edit').click(function() {
@@ -538,4 +557,5 @@
 
     })
   </script>
+  @endif
 @endsection

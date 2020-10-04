@@ -24,7 +24,12 @@
 	<section class="py-5">
 		<div class="mb-4">
 			<h5 class="title-heading d-inline-block float-left">Booking Detail</h5>
-			<a href="{{ route('bookings.checkinindex') }}" class="btn btn-primary float-right rounded"><i class="fas fa-angle-left fa-sm mr-2 text-gray-100"></i> Back</a>
+      @if ($booking->status == 'check out')
+        <a href="{{ asset('backend/pdf/'.$booking->bookingid.'.pdf') }}" class="btn btn-primary float-right rounded" target="_blank"><i class="fas fa-external-link-alt fa-sm mr-2 text-gray-100"></i> View Invoice</a>
+      @else
+        <a href="{{ route('bookings.index') }}" class="btn btn-primary float-right rounded"><i class="fas fa-angle-left fa-sm mr-2 text-gray-100"></i> Back</a>
+      @endif
+			
 			<div class="clearfix"></div>
 		</div>
 
@@ -45,7 +50,7 @@
       				<tr>
       					<th>Duration :</th>
       					<td>
-      						{{ $booking->bookstartdate }} to {{ $booking->bookenddate }} <br>
+      						{{ $booking->checkindatetime ? date('Y-m-d', strtotime($booking->checkindatetime)) : $booking->bookstartdate }} to {{ $booking->bookenddate }} <br>
       						<small><em>({{ $booking->duration }} {{ ($booking->duration == 1) ? 'Night' : 'Nights'}})</em></small>
       					</td>
       				</tr>
@@ -95,10 +100,24 @@
       		<table class="table table-bordered">
       			<thead>
       				<tr>
-      					<th colspan="2">Booking Status : <span class="text-primary text-capitalize">{{ $booking->status }}</span></th>
+      					<th colspan="2">Booking Status : <span class="
+                  @if ($booking->status == 'cancel')
+                    text-danger
+                  @elseif ($booking->status == 'check in')
+                    text-success
+                  @else 
+                    text-primary 
+                  @endif
+                  text-capitalize">{{ $booking->status }}</span></th>
 		      			<td colspan="4">
 			      			@if ($booking->earlycheckin)
-                    <span class="text-primary"><i class="fas fa-check"></i></span> <span class="mr-3">Early Check in</span>
+                    <span class="text-primary"><i class="fas fa-check"></i></span> Early Check in {{ ($booking->checkindatetime) ? '|' : '' }}
+                  @endif
+                  @if ($booking->checkindatetime)
+                    Check in Time: {{ date('H:i', strtotime($booking->checkindatetime)) }} | 
+                  @endif
+                  @if ($booking->checkoutdatetime)
+                    Check out Time: {{ date('H:i', strtotime($booking->checkoutdatetime)) }} | 
                   @endif
 		      			</td>
  							</tr>
@@ -277,7 +296,7 @@
 	      					@if ($booking->payment->status == "paid deposit")
 	      						(<small><em>Deposit Amount: $ {{ number_format($booking->payment->depositamount, 2) }}</em></small>)
 	      					@else
-                    (<small><em>Payment Complete</em></small>)
+                    (<small class="text-capitalize"><em>{{ $booking->payment->status }}</em></small>)
 	      					@endif
 	      				</td>
 	      			</tr>
@@ -293,12 +312,16 @@
                   <td>$ {{ number_format($totalextrabed * 10, 2) }} </td>
                 </tr>
               @endif
+           
               @if ($totalservicecost + $totalordercost)
                 <tr>
                   <th>Extra Service Cost:</th>
                   <td>$ {{ number_format($totalservicecost + $totalordercost, 2) }}</td>
                 </tr>
               @endif
+
+            @if ($booking->status == 'check out')
+                
               @if ($latecheckoutcost)
                 <tr>
                   <th>Late Checkout:</th>
@@ -339,6 +362,16 @@
                   </td>
                 </tr>
               @endif
+
+            @endif
+
+              @if ($booking->status == 'cancel')
+                <th>Note: <i class="fas fa-exclamation-circle"></i> </th>
+                <td>
+                  <span class="btn btn-danger btn-block disabled">This booking was Cancelled.</span>
+                </td>
+              @endif
+
 	      		</tbody>
 	      	</table>
 	      </div>
