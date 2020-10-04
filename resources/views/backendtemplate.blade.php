@@ -90,7 +90,7 @@
               <strong class="d-block text-uppercase headings-font-family">{{ Auth::user()->name }}</strong><small>{{ Auth::user()->getRoleNames()->first() }}</small>
             </a>
             <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">Change Password</a>
+            <a href="{{ route('changepassword') }}" class="dropdown-item">Change Password</a>
             <div class="dropdown-divider"></div>
             <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">Logout</a>

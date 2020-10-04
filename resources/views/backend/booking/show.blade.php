@@ -296,7 +296,13 @@
 	      					@if ($booking->payment->status == "paid deposit")
 	      						(<small><em>Deposit Amount: $ {{ number_format($booking->payment->depositamount, 2) }}</em></small>)
 	      					@else
-                    (<small class="text-capitalize"><em>{{ $booking->payment->status }}</em></small>)
+                    (<small class="text-capitalize"><em> 
+                      @if ($booking->payment->status == 'refunded')
+                       {{ $booking->payment->status }}: $ {{ number_format($booking->payment->depositamount, 2) }}
+                      @else
+                        Payment Complete
+                      @endif
+                    </em></small>)
 	      					@endif
 	      				</td>
 	      			</tr>

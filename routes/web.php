@@ -26,6 +26,9 @@ Route::get('admin/login', 'LoginController@login')->name('admin.login');
 Route::group(['middleware' => ['admin','role:Admin|Reservation Staff|Service Staff|Kitchen Staff']], function () {
 	Route::get('dashboard', 'BackendController@dashboard')->name('dashboard');
 
+	Route::get('changepassword', 'LoginController@changepassword')->name('changepassword')->middleware('password.confirm');;
+	Route::post('changepassword', 'LoginController@updatepassword')->name('updatepassword');
+
 	Route::resources([
 		'membertypes' => 'MemberTypeController',
 		'roomtypes' => 'RoomTypeController',
