@@ -14,7 +14,7 @@ class MemberTypeController extends Controller
      */
     public function index()
     {
-        $membertypes = Membertype::all();
+        $membertypes = Membertype::orderBy('level')->get();
         return view('backend.membertype.index', compact('membertypes'));
     }
 
@@ -25,7 +25,9 @@ class MemberTypeController extends Controller
      */
     public function create()
     {
-        return view('backend.membertype.create');
+        $maxlevel = Membertype::max('level') + 1;
+        // dd($maxlevel + 1);
+        return view('backend.membertype.create', compact('maxlevel'));
     }
 
     /**
@@ -38,7 +40,9 @@ class MemberTypeController extends Controller
     {
         $messages = [
             'name.unique' => '* This Member Type is already Existed.',
+            'level.unique' => '* This Level is already Existed.',
             'name.required' => '* Please enter Member Type Name.',
+            'level.required' => '* Please define Member Type Level.',
             'numberofstays.required' => '* Please define minimum number of stays for new member type.',
             'numberofnights.required' => '* Please define minimum number of nights for new member type.',
             'paidamount.required' => '* Please define minimum paid amount for new member type.',
@@ -47,12 +51,13 @@ class MemberTypeController extends Controller
             'fooddiscount.min' => '* Please enter 0 - 100 value.',
             'numberofstays.min' => '* Please enter 0 - 100 value.',
             'numberofnights.min' => '* Please enter 0 - 100 value.',
-            'paidamount.min' => '* Please enter positive value.'
+            'paidamount.min' => '* Please enter positive value.',
         ];
 
         $request->validate([
             'name' => 'required|unique:membertypes',
             'earnpoints' => 'min:0|max:100',
+            'level' => 'required|min:0|unique:membertypes,level',
             'laundrydiscount' => 'min:0|max:100',
             'fooddiscount' => 'min:0|max:100',
             'numberofstays' => 'required|min:0|max:100|numeric',
@@ -63,6 +68,7 @@ class MemberTypeController extends Controller
         // store data
         $membertype = new Membertype;
         $membertype->name = $request->name;
+        $membertype->level = $request->level;
         $membertype->earnpoints = ($request->earnpoints) ? $request->earnpoints : 0;
         $membertype->laundrydiscount = ($request->laundrydiscount) ? $request->laundrydiscount : 0;
         $membertype->fooddiscount = ($request->fooddiscount) ? $request->fooddiscount : 0;
@@ -109,6 +115,8 @@ class MemberTypeController extends Controller
     {
         $messages = [
             'name.required' => '* Please enter Room Type Name.',
+            'level.unique' => '* This Level is already Existed.',
+            'level.required' => '* Please define Member Type Level.',
             'numberofstays.required' => '* Please define minimum number of stays for new member type.',
             'numberofnights.required' => '* Please define minimum number of nights for new member type.',
             'paidamount.required' => '* Please define minimum paid amount for new member type.',
@@ -123,6 +131,7 @@ class MemberTypeController extends Controller
         $request->validate([
             'name' => 'required',
             'earnpoints' => 'min:0|max:100',
+            'level' => 'required|min:0|unique:membertypes,level,'.$id,
             'laundrydiscount' => 'min:0|max:100',
             'fooddiscount' => 'min:0|max:100',
             'numberofstays' => 'required|min:0|max:100|numeric',
@@ -132,6 +141,7 @@ class MemberTypeController extends Controller
 
         $membertype = Membertype::find($id);
         $membertype->name = $request->name;
+        $membertype->level = $request->level;
         $membertype->earnpoints = ($request->earnpoints) ? $request->earnpoints : 0;
         $membertype->laundrydiscount = ($request->laundrydiscount) ? $request->laundrydiscount : 0;
         $membertype->fooddiscount = ($request->fooddiscount) ? $request->fooddiscount : 0;

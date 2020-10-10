@@ -30,6 +30,7 @@
 				    		<td>No.</td>
 				    		<td>Member_Type</td>
 				    		<td>Earn_Points</td>
+                <td>Level</td>
 				    		<td>Action</td>
 				    	</tr>
 				    </thead>
@@ -41,6 +42,7 @@
 				    			<td>{{ $i }}.</td>
 				    			<td>{{ $membertype->name }}</td>
 				    			<td>{{ $membertype->earnpoints }}%</td>
+                  <td>{{ $membertype->level }}</td>
 				    			<td class="td-action">
 				    				<a href="{{ route('membertypes.edit', $membertype->id) }}" class="a-edit" data-toggle="tooltip" title="Edit"><i class="fas fa-pen"></i></a>
 				    				

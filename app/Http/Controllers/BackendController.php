@@ -40,6 +40,7 @@ class BackendController extends Controller
 
       $today = date('Y-m-d');
       $successbookingcount = Booking::where('status', 'check out')->count();
+      $cancelbookingcount = Booking::where('status', 'cancel')->count();
       $allbookingcount = Booking::where('bookstartdate', '<', $today)->count();
 
       $month = date('m');
@@ -61,18 +62,19 @@ class BackendController extends Controller
       
       $checkinrooms = array();
       for ($i=0; $i < 10; $i++) { 
-        $today = date('Y-m-d', strtotime($today . ' +1 day'));
         $roomcounts = DB::table('rooms')
                       ->join('booking_room', 'booking_room.room_id', '=', 'rooms.id')
                       ->join('bookings', 'booking_room.booking_id', '=', 'bookings.id')
                       ->select('rooms.roomno')
+                      ->where('bookings.status', '!=', 'cancel')
                       ->whereRaw('"'.$today.'" between `bookstartdate` and `bookenddate`')
                       ->get();
+        $today = date('Y-m-d', strtotime($today . ' +1 day'));
         array_push($checkinrooms, $roomcounts);
       }
 
 
-			return view('backend.dashboard', compact('bookingcount', 'roomcount', 'staffcount', 'guestcount', 'membercount', 'linearchartbookings', 'successbookingcount', 'allbookingcount', 'bestroomtypes', 'comingupbookings', 'checkinrooms'));
+			return view('backend.dashboard', compact('bookingcount', 'roomcount', 'staffcount', 'guestcount', 'membercount', 'linearchartbookings', 'successbookingcount', 'allbookingcount', 'bestroomtypes', 'comingupbookings', 'checkinrooms', 'cancelbookingcount'));
   	
   	} else if ($role == "Reservation Staff") {
   	   
@@ -92,6 +94,7 @@ class BackendController extends Controller
 
       $today = date('Y-m-d');
       $successbookingcount = Booking::where('status', 'check out')->count();
+      $cancelbookingcount = Booking::where('status', 'cancel')->count();
       $allbookingcount = Booking::where('bookstartdate', '<', $today)->count();
 
       $month = date('m');
@@ -113,18 +116,19 @@ class BackendController extends Controller
       
       $checkinrooms = array();
       for ($i=0; $i < 10; $i++) { 
-        $today = date('Y-m-d', strtotime($today . ' +1 day'));
         $roomcounts = DB::table('rooms')
                       ->join('booking_room', 'booking_room.room_id', '=', 'rooms.id')
                       ->join('bookings', 'booking_room.booking_id', '=', 'bookings.id')
                       ->select('rooms.roomno')
+                      ->where('bookings.status', '!=', 'cancel')
                       ->whereRaw('"'.$today.'" between `bookstartdate` and `bookenddate`')
                       ->get();
+        $today = date('Y-m-d', strtotime($today . ' +1 day'));
         array_push($checkinrooms, $roomcounts);
       }
 
 
-  		return view('backend.rstaffdashboard', compact('comingupbookingcount', 'roomcount', 'checkinroomcount', 'guestcount', 'membercount', 'linearchartbookings', 'successbookingcount', 'allbookingcount', 'bestroomtypes', 'comingupbookings', 'checkinrooms'));
+  		return view('backend.rstaffdashboard', compact('comingupbookingcount', 'roomcount', 'checkinroomcount', 'guestcount', 'membercount', 'linearchartbookings', 'successbookingcount', 'allbookingcount', 'bestroomtypes', 'comingupbookings', 'checkinrooms', 'cancelbookingcount'));
   	
   	} else if ($role == "Service Staff") {
   	

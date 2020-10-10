@@ -19,6 +19,27 @@ Route::prefix('roomtypes')->name('roomtypes.')->group(function () {
 	Route::get('/list', 'FrontendController@list')->name('list');
 });
 
+// frontend need login routes
+Route::middleware('auth')->group(function () {
+
+	Route::prefix('hotelservices')->name('hotelservices.')->group(function () {
+		Route::get('/', 'FrontendController@hotelservicelist')->name('index');
+
+		Route::get('/menus', 'FrontendController@menulist')->name('menu');
+		Route::get('/menus/order', 'FrontendController@orderfood')->name('orderfood');
+
+		Route::get('/roomservices', 'FrontendController@servicelist')->name('roomservice');
+	});
+
+	Route::resource('orders', 'OrderController')->only('store');
+	Route::resource('guests', 'GuestController')->only('update');
+	
+	Route::prefix('guest')->group(function () {
+		Route::get('/profile', 'FrontendController@profile')->name('profile');
+	});
+
+});
+
 Auth::routes();
 Route::get('admin/login', 'LoginController@login')->name('admin.login');
 
@@ -34,13 +55,14 @@ Route::group(['middleware' => ['admin','role:Admin|Reservation Staff|Service Sta
 		'roomtypes' => 'RoomTypeController',
 		'rooms' => 'RoomController',
 		'staff' => 'StaffController',
-		'guests' => 'GuestController',
 		'bookings' => 'BookingController',
 		'foodcategories' => 'FoodcategoryController',
 		'menus' => 'MenuController',
-		'orders' => 'OrderController',
 		'services' => 'ServiceController',
 	]); 
+
+	Route::resource('orders', 'OrderController')->only(['index', 'create', 'edit', 'show']);
+	Route::resource('guests', 'GuestController')->except('update');
 
 	// ajax
 	Route::get('getroomno/{floor}', 'RoomController@getRoomNo')->name('rooms.getroomno');

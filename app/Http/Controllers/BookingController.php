@@ -203,7 +203,7 @@ class BookingController extends Controller
         $booking = Booking::find($id);
         $roomtypes = Roomtype::all();
         $starttime = $booking->checkindatetime;
-        $endtime = $booking->checkoutdatetime;
+        $endtime = ($booking->status == 'check in') ? date('Y-m-d H:i:s') : $booking->checkoutdatetime;
         $servicerooms = Room::with('services')
                     ->whereHas('services', function ($q) use ($starttime, $endtime) {
                         $q->whereBetween('room_service.created_at', [$starttime, $endtime]); 
@@ -335,13 +335,18 @@ class BookingController extends Controller
         $booking->checkindatetime = date('Y-m-d H:i:s');
         $booking->status = 'check in';
 
-        $today = date('Y-m-d');
+        $today = date('Y-m-d'); $totalcost = 0;
         if ($booking->bookstartdate != $today) {
             $end = Carbon::createFromFormat('Y-m-d', $booking->bookenddate);
             $start = Carbon::createFromFormat('Y-m-d', (date('Y-m-d')));
             $diff = $end->diffInDays($start);
 
             $booking->duration = $diff;
+
+            foreach ($booking->rooms as $bookingroom) {
+                $totalcost += $bookingroom->roomtype->pricepernight;
+            }
+            $booking->totalcost = $totalcost * $diff;
         }
         $booking->save();
 
@@ -448,6 +453,7 @@ class BookingController extends Controller
     public function cancel($id)
     {
         $booking = Booking::find($id);
+        $booking->canceldate = date('Y-m-d');
         $booking->status = 'cancel';
         $booking->save();
 

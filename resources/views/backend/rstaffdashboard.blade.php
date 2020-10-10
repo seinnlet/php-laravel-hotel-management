@@ -72,7 +72,10 @@
         <div class="card-body">
           <div class="row align-items-center flex-row">
             <div class="col-lg-5">
-              @php $pie1percentage = $successbookingcount / $allbookingcount * 100; @endphp
+              @php 
+              $totalb = $successbookingcount + $cancelbookingcount;
+              $pie1percentage = ($totalb) ? $successbookingcount / $totalb * 100 : 0; 
+              @endphp
               <h2 class="mb-0 d-flex align-items-center"><span>{{ number_format($pie1percentage, 1) }}</span><span class="dot bg-green d-inline-block ml-3"></span></h2><span class="text-muted text-uppercase small">% Success!</span>
               <hr><small class="text-muted">Successful Bookings Pie Chart</small>
             </div>
@@ -266,7 +269,7 @@
 
 
       let up = {{ $successbookingcount }};
-      let all = {{ $allbookingcount }};
+      let cancel = {{ $cancelbookingcount }};
       
       // pie chart
       var PIECHART = $('#pieChartHome1');
@@ -284,7 +287,7 @@
                   "Cancel Bookings",
               ],
               datasets: [{
-                  data: [up, all-up],
+                  data: [up, cancel],
                   borderWidth: [0, 0],
                   backgroundColor: [
                       green,

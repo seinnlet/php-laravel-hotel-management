@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Guest;
 use App\Membertype;
 use App\Booking;
+use App\User;
+use Illuminate\Support\Facades\File;
 
 class GuestController extends Controller
 {
@@ -73,7 +75,48 @@ class GuestController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $messages = [
+            'email.unique' => '* This Email Address is already Existed.',
+            'name.required' => '* Please enter Full Name.',
+            'email.required' => '* Please enter Email Address.',
+            'phone1.required' => '* Please enter Phone Number.',
+            'city.required' => '* Please enter City.',
+        ];
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:App\User,email,'.$id,
+            'phone1' => 'required',
+            'city' => 'required',
+        ], $messages);
+
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+
+        $profile = $request->oldprofile;
+        if ($request->newprofile) {
+            $imagename = date('Ymd').time().'.'.$request->newprofile->extension();
+            $request->newprofile->move(public_path('backend/img/guest/'), $imagename);
+            $profile = 'backend/img/guest/'.$imagename;
+            // delete
+            $file = public_path($request->oldprofile);
+            if (File::exists($file) && $request->oldprofile!="backend/img/guest/user.png") {
+                File::delete($file);
+            }
+        } 
+
+        $guest = Guest::where('user_id', $id)->first();
+        $guest->profilepicture = $profile;
+        $guest->phone1 = $request->phone1;
+        $guest->phone2 = $request->phone2;
+        $guest->city = $request->city;
+        $guest->country = $request->country;
+        $guest->save();
+
+        return redirect()->route('profile')->withSuccessMessage('Your Profile is Successfully Updated.');
+
     }
 
     /**

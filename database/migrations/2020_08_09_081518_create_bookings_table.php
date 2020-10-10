@@ -38,6 +38,7 @@ class CreateBookingsTable extends Migration
             $table->text('notebystaff')->nullable();
             $table->unsignedDecimal('grandtotal', 8, 2)->default('0');  // services + member points
             
+            $table->date('canceldate')->nullable();
             $table->string('status', 20);
             $table->unsignedBigInteger('guest_id');
             $table->unsignedBigInteger('staff_id')->nullable();

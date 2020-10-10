@@ -84,7 +84,7 @@
 				     	</select>
 				     	{{-- @error('room_id') --}}
 				     	<div class="roomid-error-message text-danger pl-1 mt-1" style="display: none;">
-			     			<small>* Please select Room Type.</small>
+			     			<small>* Please select Room No.</small>
 			     		</div>
 				     	{{-- @enderror --}}
             </div>

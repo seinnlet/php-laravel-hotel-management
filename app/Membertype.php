@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Membertype extends Model
 {
     protected $fillable = [
-        'name', 'earnpoints', 'laundrydiscount', 'fooddiscount', 'additionalbenefits', 'numberofstays', 'numberofnights', 'paidamount'
+        'name', 'earnpoints', 'level', 'laundrydiscount', 'fooddiscount', 'additionalbenefits', 'numberofstays', 'numberofnights', 'paidamount'
     ];
 
     // one to many relationship

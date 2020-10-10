@@ -88,7 +88,7 @@
           <div class="dot mr-3 bg-violet"></div>
           <div class="text">
             <h6 class="mb-2">Today New Orders</h6>
-            <span class="text-gray font-italic"><small>{{ count($todayneworders) }} More {{ (!count($todayneworders) || count($todayneworders) == 1) ? 'Order' : 'Orders' }}</small></span>
+            <span class="text-gray font-italic"><small>{{ count($todayneworders) }} New {{ (!count($todayneworders) || count($todayneworders) == 1) ? 'Order' : 'Orders' }}</small></span>
           </div>
         </div>
         <div class="icon bg-violet text-white"><i class="fas fa-clipboard-list"></i></div>
@@ -132,7 +132,8 @@
       <div class="card px-5 py-4 mb-4">
         @php 
           $neworders = count($todayneworders); 
-          $piepercentage = ($todaydoneordercount / ($neworders + $todaydoneordercount)) * 100; 
+          $totalorders = $neworders + $todaydoneordercount;
+          $piepercentage = ($totalorders) ? ($todaydoneordercount / $totalorders) * 100 : 0; 
         @endphp
         <h2 class="mb-0 d-flex align-items-center"><span>{{ number_format($piepercentage, 1) }} <small>%</small></span><span class="dot bg-green d-inline-block ml-3"></span></h2><span class="text-muted">Today Orders Done</span>
         <canvas id="pieChartHome2" class="mt-4 mb-3"></canvas>
@@ -145,6 +146,10 @@
         </div>
         <div class="card-body">
           <p class="text-gray mb-5">Top Three Menus Customers Ordered</p>
+          
+          @if (count($topmenus))
+          
+          @if (count($topmenus) >= 1)
           <div class="d-flex justify-content-between align-items-start align-items-sm-center mb-5 flex-column flex-sm-row">
             <div class="left d-flex align-items-center">
               <div class="icon icon-lg shadow mr-3 text-gray"><i class="fas fa-award"></i></div>
@@ -156,6 +161,8 @@
               <h5>$ {{ $topmenus[0]->unitprice }}</h5>
             </div>
           </div>
+          @endif 
+          @if (count($topmenus) >= 2)
           <div class="d-flex justify-content-between align-items-start align-items-sm-center mb-5 flex-column flex-sm-row">
             <div class="left d-flex align-items-center">
               <div class="icon icon-lg shadow mr-3 text-gray"><i class="fas fa-award"></i></div>
@@ -167,6 +174,8 @@
               <h5>$ {{ $topmenus[1]->unitprice }}</h5>
             </div>
           </div>
+          @endif
+          @if (count($topmenus) >= 3)
           <div class="d-flex justify-content-between align-items-start align-items-sm-center mb-4 flex-column flex-sm-row">
             <div class="left d-flex align-items-center">
               <div class="icon icon-lg shadow mr-3 text-gray"><i class="fas fa-award"></i></div>
@@ -178,6 +187,9 @@
               <h5>$ {{ $topmenus[2]->unitprice }}</h5>
             </div>
           </div>
+          @endif
+          @endif
+
         </div>
       </div>
     </div>

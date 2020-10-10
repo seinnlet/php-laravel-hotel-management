@@ -372,7 +372,10 @@
             @endif
 
               @if ($booking->status == 'cancel')
-                <th>Note: <i class="fas fa-exclamation-circle"></i> </th>
+                <th>
+                  Note: <i class="fas fa-exclamation-circle"></i> <br>
+                  Cancelled Date: {{ $booking->canceldate }}
+                </th>
                 <td>
                   <span class="btn btn-danger btn-block disabled">This booking was Cancelled.</span>
                 </td>

@@ -25,6 +25,7 @@ class Booking extends Model
         'propertydamagecost',
         'notebystaff',
         'grandtotal', 
+        'canceldate', 
         'status', 
         'guest_id', 
         'staff_id'

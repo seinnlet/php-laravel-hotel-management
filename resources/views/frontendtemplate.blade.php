@@ -8,6 +8,7 @@
   <title>@yield('title')</title>
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -54,7 +55,7 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo mr-auto"><a href="{{ route('home') }}">HOTEL RIZA.</a></h1>
+      <h1 class="logo mr-auto"><a href="{{ route('home') }}">{{ __('lang.title') }}</a></h1>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
@@ -78,18 +79,28 @@
                 <a href="{{ route('login') }}">Log in</a>
             </li>
           @else
-            <li>
-              <a href="#" class="dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} </a>
+            @role('Guest')
+              <li {{ request()->routeIs('hotelservices*') ? 'class=active' : '' }}>
+                <a href="{{ route('hotelservices.index') }}">Hotel Services</a>
+              </li>
+            @endrole
+            <li class="drop-down"><a href="" onclick="return false;">{{ Auth::user()->name }}</a>
+              <ul>
+                @hasanyrole('Admin|Reservation Staff|Service Staff|Kitchen Staff')
+                  <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                @endhasanyrole
+                @role('Guest')
+                  <li><a href="{{ route('profile') }}">My Profile</a></li>
+                  <li><a href="#">My Bookings</a></li>
+                @endrole
+                <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
+            document.getElementsByName('logout-form')[0].submit();">Log out</a></li>
+              </ul>
 
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">My Profile</a>
-                <a class="dropdown-item" href="#">My Bookings</a>
-                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-            document.getElementById('logout-form').submit();">Log out</a>
-              </div>
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              <form name="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                   @csrf
               </form>
+
             </li>
           @endguest
         </ul>
@@ -198,6 +209,7 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset('frontend/js/main.js') }}"></script>
+  @include('sweetalert::alert')
   @yield('script')
 </body>
 

@@ -17,6 +17,7 @@ class CreateMembertypesTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('earnpoints');
+            $table->tinyInteger('level');
             $table->integer('laundrydiscount')->default('0');
             $table->integer('fooddiscount')->default('0');
             $table->text('additionalbenefits')->nullable();

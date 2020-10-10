@@ -34,7 +34,7 @@ class UserTableSeeder extends Seeder
      	$user = new User;
     	$user->name = 'Kazuki';
     	$user->email = 'kazuki@gmail.com';
-    	$user->password = Hash::make('staff@hotelriza');
+    	$user->password = Hash::make('12345678');
     	$user->assignRole('Reservation Staff');
     	$user->save();
 
@@ -49,7 +49,7 @@ class UserTableSeeder extends Seeder
      	$user = new User;
     	$user->name = 'Hikari';
     	$user->email = 'hikari@gmail.com';
-    	$user->password = Hash::make('staff@hotelriza');
+    	$user->password = Hash::make('12345678');
     	$user->assignRole('Service Staff');
     	$user->save();
 
@@ -64,7 +64,7 @@ class UserTableSeeder extends Seeder
      	$user = new User;
     	$user->name = 'Aruto';
     	$user->email = 'aruto@gmail.com';
-    	$user->password = Hash::make('staff@hotelriza');
+    	$user->password = Hash::make('12345678');
     	$user->assignRole('Kitchen Staff');
     	$user->save();
 
