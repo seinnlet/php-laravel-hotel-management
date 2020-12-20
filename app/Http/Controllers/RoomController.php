@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Room;
 use App\Roomtype;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class RoomController extends Controller
 {
@@ -16,7 +18,29 @@ class RoomController extends Controller
     public function index()
     {
         $rooms = Room::all();
-        return view('backend.room.index', compact('rooms'));
+
+        $day = new Carbon('first day of this month');
+        $day = $day->format('Y-m-d');
+        $lastday = new Carbon('last day of this month');
+        $lastday = (int) $lastday->format('d');
+
+        $firstsatday = new Carbon('first Saturday of this month');
+        $firstsatday = (int) $firstsatday->format('d');
+
+        $checkinrooms = array();
+        for ($i=0; $i < $lastday; $i++) { 
+            $roomcounts = DB::table('rooms')
+                        ->join('booking_room', 'booking_room.room_id', '=', 'rooms.id')
+                        ->join('bookings', 'booking_room.booking_id', '=', 'bookings.id')
+                        ->select('rooms.roomno')
+                        ->where('bookings.status', '!=', 'cancel')
+                        ->whereRaw('"'.$day.'" between `bookstartdate` and `bookenddate`')
+                        ->get();
+            $day = date('Y-m-d', strtotime($day . ' +1 day'));
+            array_push($checkinrooms, $roomcounts);
+        }
+
+        return view('backend.room.index', compact('rooms', 'checkinrooms', 'lastday', 'firstsatday'));
     }
 
     /**
@@ -169,5 +193,39 @@ class RoomController extends Controller
         }
 
         return redirect()->route('rooms.index')->withSuccessMessage('Room '. $room->roomno . ' is '.  ($isclean ? 'now being Cleaned.' : ' has been Cleaned.'));
+    }
+
+    public function getCheckinRooms($month, $year)
+    {
+        $day = $year.'-'.$month.'-01';
+        $fullnamemonth = date("F", mktime(0, 0, 0, $month, 10));
+
+        $lastday = new Carbon('last day of '.$fullnamemonth.' '.$year);
+        $lastday = (int) $lastday->format('d');
+
+        $firstsatday = new Carbon('first Saturday of '.$fullnamemonth.' '.$year);
+        $firstsatday = (int) $firstsatday->format('d');
+
+        $checkinrooms = array();
+        for ($i=0; $i < $lastday; $i++) { 
+            $roomcounts = DB::table('rooms')
+                        ->join('booking_room', 'booking_room.room_id', '=', 'rooms.id')
+                        ->join('bookings', 'booking_room.booking_id', '=', 'bookings.id')
+                        ->select('rooms.roomno')
+                        ->where('bookings.status', '!=', 'cancel')
+                        ->whereRaw('"'.$day.'" between `bookstartdate` and `bookenddate`')
+                        ->get();
+            $day = date('Y-m-d', strtotime($day . ' +1 day'));
+            array_push($checkinrooms, $roomcounts);
+        }
+
+        $rooms = Room::select('roomno')->orderBy('roomno')->get();
+
+        return response()->json([
+                'rooms' => $rooms,
+                'checkinrooms' => $checkinrooms,
+                'lastday' => $lastday,
+                'firstsatday' => $firstsatday
+            ]);
     }
 }

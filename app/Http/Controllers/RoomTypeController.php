@@ -7,6 +7,7 @@ use App\Roomtype;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class RoomTypeController extends Controller
 {
@@ -73,6 +74,7 @@ class RoomTypeController extends Controller
 
         $roomtype = new Roomtype;
         $roomtype->name = $request->name;
+        $roomtype->slug = Str::slug($request->name);
         $roomtype->pricepernight = $request->pricepernight;
         $roomtype->noofpeople = $request->noofpeople;
         $roomtype->noofbed = $request->noofbed;

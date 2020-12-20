@@ -91,7 +91,7 @@
                 @endhasanyrole
                 @role('Guest')
                   <li><a href="{{ route('profile') }}">My Profile</a></li>
-                  <li><a href="#">My Bookings</a></li>
+                  <li><a href="{{ route('mybookings') }}">My Bookings</a></li>
                 @endrole
                 <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
             document.getElementsByName('logout-form')[0].submit();">Log out</a></li>
@@ -162,7 +162,7 @@
             <ul>
               @foreach ($footerroomtypes as $froomtype)
                 <li {{ $froomtype->id == request()->segment(2) ? 'class=active' : '' }}>
-                  <i class="bx bx-chevron-right"></i> <a href="{{ route('roomtypes.detail', $froomtype->id) }}">{{ $froomtype->name }}</a>
+                  <i class="bx bx-chevron-right"></i> <a href="{{ route('roomtypes.detail', $froomtype->slug) }}">{{ $froomtype->name }}</a>
                 </li>
               @endforeach
             </ul>

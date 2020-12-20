@@ -2,6 +2,14 @@
 
 @section('title', 'Detail Roomtype')
 
+@section('css')
+	<style type="text/css">
+		.description {
+			line-height: 2rem;
+		}
+	</style>
+@endsection
+
 @section('content')
 	<section class="py-5">
 		<div class="mb-4">
@@ -62,8 +70,10 @@
       		</div>
       	</div>
 
-      	<h3 class="h6 mt-2 mt-md-5 mb-3">About {{ $roomtype->name }} Room Type</h3>
-      	{!! $roomtype->description !!}
+      	<h3 class="h6 mt-2 mt-md-5 mb-3">About {{ $roomtype->name }} :</h3>
+      	<div class="description mb-4">
+		    	{!! $roomtype->description !!}
+      	</div>
       </div>
     </div>
 

@@ -7,11 +7,14 @@ use App\Roomtype;
 use App\Food;
 use App\Foodcategory;
 use App\Booking;
+use App\Room;
+use App\Order;
 use App\Guest;
 use App\Country;
 use App\Membertype;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class FrontendController extends Controller
 {
@@ -37,9 +40,9 @@ class FrontendController extends Controller
 		return view('frontend.index', compact('bestroomtype', 'roomtypes', 'footerroomtypes'));
 }
 
-    public function roomtypedetail($id)
+    public function roomtypedetail($slug)
     {
-		$roomtype = Roomtype::find($id);
+		$roomtype = Roomtype::where('slug', $slug)->first();
 		$footerroomtypes = Roomtype::limit(5)->get();
 		return view('frontend.roomtype.detail', compact('roomtype', 'footerroomtypes'));
     }
@@ -68,7 +71,7 @@ class FrontendController extends Controller
     public function servicelist()
     {
         $footerroomtypes = Roomtype::limit(5)->get();
-        return view('frontend.hotelservice.menu', compact('footerroomtypes'));
+        return view('frontend.hotelservice.roomservice', compact('footerroomtypes'));
     }
 
     public function orderfood()
@@ -99,6 +102,47 @@ class FrontendController extends Controller
                     ->where('status', 'check out')->sum('grandtotal');
 
         return view('frontend.guest.profile', compact('footerroomtypes', 'guest', 'nextlevel', 'countries', 'totalnight', 'totalstay', 'totalamount'));
+    }
+
+    // guest bookings 
+    public function mybookings()
+    {
+        $footerroomtypes = Roomtype::limit(5)->get();
+        $date = new Carbon('first day of last month');
+        $date = $date->format('Y-m-d');
+
+        $recentbookings = Booking::where('guest_id', Auth::user()->guest->id)
+                    ->where('bookstartdate', '>=', $date)
+                    ->orderBy('bookstartdate', 'desc')
+                    ->get();
+
+        // dd($recentbookings);
+
+        $pastbookings = Booking::where('guest_id', Auth::user()->guest->id)
+                    ->where('bookstartdate', '<', $date)
+                    ->orderBy('bookstartdate', 'desc')
+                    ->get();
+
+        return view('frontend.guest.mybookings', compact('footerroomtypes', 'recentbookings', 'pastbookings'));
+    }
+
+    public function mybookingdetail($booking)
+    {
+        $footerroomtypes = Roomtype::limit(5)->get();
+        $bookingid = strtoupper($booking);
+        $booking = Booking::where('bookingid', $bookingid)->first();
+        $roomtypes = Roomtype::all();
+
+        $starttime = $booking->checkindatetime;
+        $endtime = ($booking->status == 'check in') ? date('Y-m-d H:i:s') : $booking->checkoutdatetime;
+        $servicerooms = Room::with('services')
+                    ->whereHas('services', function ($q) use ($starttime, $endtime) {
+                        $q->whereBetween('room_service.created_at', [$starttime, $endtime]); 
+                    })->get();
+
+        $orders = Order::with('food')->whereBetween('created_at', [$starttime, $endtime])->get();
+
+        return view('frontend.guest.mybookingdetail', compact('footerroomtypes', 'booking', 'roomtypes', 'servicerooms', 'orders'));
     }
 
 }

@@ -30,6 +30,15 @@
 
     <section class="inner-page">
       <div class="container">
+        <h5 class="text-theme font-weight-bold mb-4">New Feature Coming Soon</h5>
+
+        <div class="row justify-content-md-center">
+          <div class="col-md-7 text-center">
+            <img src="{{ asset('frontend/img/coming_soon.png') }}" alt="new feature developing" class="img-fluid w-50 img-notfound">
+            <p class="text-secondary mt-4 mb-5 font-italic">We are working hard on the new features which makes you easier to use. <br> Stay turned!</p>
+
+          </div>
+        </div>
 
       </div>
     </section>

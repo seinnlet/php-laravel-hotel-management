@@ -56,7 +56,6 @@ class BackendController extends Controller
                     ->get();
       
       $comingupbookings = Booking::where('status', 'booked')
-                    ->whereMonth('bookstartdate', $month)
                     ->limit(5)
                     ->get();
       
@@ -110,7 +109,6 @@ class BackendController extends Controller
                     ->get();
       
       $comingupbookings = Booking::where('status', 'booked')
-                    ->whereMonth('bookstartdate', $month)
                     ->limit(5)
                     ->get();
       

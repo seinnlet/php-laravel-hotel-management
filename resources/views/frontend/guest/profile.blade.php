@@ -212,6 +212,8 @@
                 </div>
 
                 <div class="tab-pane fade p-3 tab-memberinfo" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+                @if($guest->membertype_id)
                   
                   <div class="form-row">
                     <label class="col-4 col-md-3 font-weight-medium">Member ID: </label>
@@ -260,6 +262,10 @@
 
                     </div>
                   </div>
+
+                @else 
+                  <p>Not a Member Yet.</p>
+                @endif
 
                   <div class="form-row">
                     <label class="col-lg-3 font-weight-medium pt-3">Total: </label>

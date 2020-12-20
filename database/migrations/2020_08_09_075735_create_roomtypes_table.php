@@ -23,6 +23,7 @@ class CreateRoomtypesTable extends Migration
             $table->string('image1');
             $table->string('image2')->nullable();
             $table->string('image3')->nullable();
+            $table->string('slug');
             $table->timestamps();
         });
     }

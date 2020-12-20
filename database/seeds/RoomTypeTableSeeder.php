@@ -21,6 +21,7 @@ class RoomTypeTableSeeder extends Seeder
         $roomtype->image1 = 'backend/img/roomtype/s1.jpg';
         $roomtype->image2 = 'backend/img/roomtype/s2.jpg';
         $roomtype->image3 = 'backend/img/roomtype/s3.jpg';
+        $roomtype->slug = 'single-room';
         $roomtype->save();
 
 
@@ -33,6 +34,7 @@ class RoomTypeTableSeeder extends Seeder
         $roomtype->image1 = 'backend/img/roomtype/d1.jpg';
         $roomtype->image2 = 'backend/img/roomtype/d2.jpg';
         $roomtype->image3 = 'backend/img/roomtype/d3.jpg';
+        $roomtype->slug = 'double-room';
         $roomtype->save();
 
 
@@ -45,6 +47,7 @@ class RoomTypeTableSeeder extends Seeder
         $roomtype->image1 = 'backend/img/roomtype/t1.jpg';
         $roomtype->image2 = 'backend/img/roomtype/t2.jpg';
         $roomtype->image3 = 'backend/img/roomtype/t3.jpg';
+        $roomtype->slug = 'triple-room';
         $roomtype->save();
 
 
@@ -57,30 +60,33 @@ class RoomTypeTableSeeder extends Seeder
         $roomtype->image1 = 'backend/img/roomtype/q1.jpg';
         $roomtype->image2 = 'backend/img/roomtype/q2.jpg';
         $roomtype->image3 = 'backend/img/roomtype/q3.jpg';
+        $roomtype->slug = 'king-size-room';
         $roomtype->save();
 
 
         $roomtype = new Roomtype;
         $roomtype->name = 'Junior Suite';
         $roomtype->pricepernight = 100;
-        $roomtype->description = '<p>Suite Rooms provides guests with a classic, elegant bedroom, a sleek and well equipped bathroom plus a living area offering all necessary amenities from which to relax and take in the breathtaking Blue Lake.</p><ul style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif;"><li>Complimentary high speed wireless internet and cable and ports for wired internet</li><li>Complimentary use of our Fitness Center (including swimming pool)<br></li><li>Includes buffet breakfast</li><li>Complimentary in room refreshment bar</li><li>Daily housekeeping services</li><li>Marbel Bathroom with bath tub and separate rain shower</li><li>Iron &amp; Iron board, upon request</li><li>In-room snacks</li></ul><p><span style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif; font-weight: bolder;">Other Room&nbsp;Amenities</span><span style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif;">: Work desk, LED flat TV, DVD player, Air con, Kettle, Hairdryer,&nbsp;</span><span style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 0.9rem;">Bathrobes &amp; slippers,&nbsp;</span><span style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 0.9rem;">Smoke alarm in room, complimentary coffee/tea</span><br></p>';
+        $roomtype->description = '<p>Suite Room provides guests with a classic, elegant bedroom, a sleek and well equipped bathroom plus a living area offering all necessary amenities from which to relax and take in the breathtaking Blue Lake.</p><ul style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif;"><li>Complimentary high speed wireless internet and cable and ports for wired internet</li><li>Complimentary use of our Fitness Center (including swimming pool)<br></li><li>Includes buffet breakfast</li><li>Complimentary in room refreshment bar</li><li>Daily housekeeping services</li><li>Marbel Bathroom with bath tub and separate rain shower</li><li>Iron &amp; Iron board, upon request</li><li>In-room snacks</li></ul><p><span style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif; font-weight: bolder;">Other Room&nbsp;Amenities</span><span style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif;">: Work desk, LED flat TV, DVD player, Air con, Kettle, Hairdryer,&nbsp;</span><span style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 0.9rem;">Bathrobes &amp; slippers,&nbsp;</span><span style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 0.9rem;">Smoke alarm in room, complimentary coffee/tea</span><br></p>';
         $roomtype->noofpeople = 2;
         $roomtype->noofbed = 1;
         $roomtype->image1 = 'backend/img/roomtype/js1.jpg';
         $roomtype->image2 = 'backend/img/roomtype/js2.jpg';
         $roomtype->image3 = 'backend/img/roomtype/js3.jpg';
+        $roomtype->slug = 'junior-suite-room';
         $roomtype->save();
 
 
         $roomtype = new Roomtype;
         $roomtype->name = 'Superior Suite';
         $roomtype->pricepernight = 150;
-        $roomtype->description = '<p>Suite Rooms provides guests with a classic, elegant bedroom, a sleek and well equipped bathroom plus a living area offering all necessary amenities from which to relax and take in the breathtaking Blue Lake.</p><p>This rooms are the best choice for Business purpose travellers.</p><ul style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif;"><li>Complimentary high speed wireless internet and cable and ports for wired internet</li><li>Luxurious double bed</li><li>Complimentary use of our Fitness Center (including swimming pool)<br></li><li>Includes buffet breakfast</li><li>Complimentary in room refreshment bar</li><li>Daily housekeeping services</li><li>Marbel Bathroom with bath tub and separate rain shower</li><li>Iron &amp; Iron board, upon request</li><li>In-room snacks</li></ul><p><span style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif; font-weight: bolder;">Other Room&nbsp;Amenities</span><span style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif;">: Work desk, LED flat TV with premium channels, DVD player, Air con, Kettle, Hairdryer and Makeup Mirror,&nbsp;</span><span style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 0.9rem;">Bathrobes &amp; slippers, Branded bathroom amenities,&nbsp;</span><span style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 0.9rem;">Smoke alarm in room, complimentary coffee/tea, in-room electronic safe</span><br></p>';
+        $roomtype->description = '<p>Suite Rooms provides guests with a classic, elegant bedroom, a sleek and well-equipped bathroom plus a living area offering all necessary amenities from which to relax and take in the breathtaking Blue Lake.</p><p>This rooms are the best choice for Business purpose travellers.</p><ul style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif;"><li>Complimentary high speed wireless internet and cable and ports for wired internet</li><li>Luxurious double bed</li><li>Complimentary use of our Fitness Center (including swimming pool)<br></li><li>Includes buffet breakfast</li><li>Complimentary in room refreshment bar</li><li>Daily housekeeping services</li><li>Marbel Bathroom with bath tub and separate rain shower</li><li>Iron &amp; Iron board, upon request</li><li>In-room snacks</li></ul><p><span style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif; font-weight: bolder;">Other Room&nbsp;Amenities</span><span style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif;">: Work desk, LED flat TV with premium channels, DVD player, Air con, Kettle, Hairdryer and Makeup Mirror,&nbsp;</span><span style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 0.9rem;">Bathrobes &amp; slippers, Branded bathroom amenities,&nbsp;</span><span style="color: rgb(12, 11, 9); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 0.9rem;">Smoke alarm in room, complimentary coffee/tea, in-room electronic safe</span><br></p>';
         $roomtype->noofpeople = 2;
         $roomtype->noofbed = 1;
         $roomtype->image1 = 'backend/img/roomtype/ss1.jpg';
         $roomtype->image2 = 'backend/img/roomtype/ss2.jpg';
         $roomtype->image3 = 'backend/img/roomtype/ss3.jpg';
+        $roomtype->slug = 'superior-suite-room';
         $roomtype->save();
 
         

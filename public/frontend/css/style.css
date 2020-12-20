@@ -2284,3 +2284,59 @@ progress bar
   0%{ width: 0; }
 }
 
+/*-------------------------
+my bookings
+-------------------------*/
+.inner-page .booking-card {
+  box-shadow: 0 .25rem .5rem rgba(0,0,0,.1);
+  border-radius: 10px;
+  overflow: hidden;
+  border-top: 3px solid #cda45e;
+}
+.inner-page .booking-card .booking-card-top {
+  padding: 2rem;
+  background: url('../img/booking_card_background.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: #523D19;
+}
+.inner-page .booking-card .booking-card-top h6 {
+  font-weight: bold;
+  color: #523D19;
+  font-size: 1.2rem;
+  font-family: "Open Sans", sans-serif;
+}
+.inner-page .booking-card .booking-card-top h6.text-theme {
+  color: #cda45e;
+}
+.inner-page .booking-card .booking-card-bottom {
+  text-align: center;
+}
+.inner-page .booking-card .booking-card-bottom .recent-detail {
+  font-size: .9rem;
+  display: block;
+  padding: 2rem;
+}
+.inner-page .booking-card .booking-card-bottom a:nth-child(2){ 
+  border-left: 1px dashed #f1f1f1;
+}
+.inner-page .booking-card .booking-card-bottom .btn-detail,
+.inner-page .booking-card .booking-card-bottom .btn-receipt {
+  display: inline-block;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  font-size: .8rem;
+  color: #656C75;
+  width: 49%;
+}
+.inner-page .booking-card .booking-card-bottom .recent-detail:hover,
+.inner-page .booking-card .booking-card-bottom .btn-detail:hover,
+.inner-page .booking-card .booking-card-bottom .btn-receipt:hover,
+.inner-page .booking-card .booking-card-bottom .recent-detail:focus,
+.inner-page .booking-card .booking-card-bottom .btn-detail:focus,
+.inner-page .booking-card .booking-card-bottom .btn-receipt:focus {
+  text-decoration: underline;
+  background-color: #fdfdfd;
+}

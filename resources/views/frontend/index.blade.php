@@ -208,7 +208,7 @@
 
         <div class="row inner">
           <div class="col-lg-6 inner-col border mb-5">
-            <a href="{{ route('roomtypes.detail', $bestroomtype->id) }}">
+            <a href="{{ route('roomtypes.detail', $bestroomtype->slug) }}">
               <div class="img-wrap">
                 <img src="{{ asset($bestroomtype->image1) }}" class="img-fluid">
                 <span class="img-text"><i class="icofont-star"></i> Best Room of the Month</span>
@@ -235,7 +235,7 @@
               @php $i = 1; @endphp
               @foreach ($roomtypes as $roomtype)
                 <div class="col-6 {{ $i!=4 ? 'mb-5' : '' }} {{ $i==3 ? 'mb-sm-0' : '' }}">
-                  <a href="{{ route('roomtypes.detail', $roomtype->id) }}">
+                  <a href="{{ route('roomtypes.detail', $roomtype->slug) }}">
                     <div class="square border">
                       <div class="content">
                         <img src="{{ asset($roomtype->image1) }}">

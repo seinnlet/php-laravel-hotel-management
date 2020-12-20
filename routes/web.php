@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'FrontendController@index')->name('home');
-Route::prefix('roomtypes')->name('roomtypes.')->group(function () {
-	Route::get('/{id}/detail', 'FrontendController@roomtypedetail')->name('detail');
-	Route::get('/list', 'FrontendController@list')->name('list');
+Route::prefix('roomtype')->name('roomtypes.')->group(function () {
+	Route::get('/{slug}', 'FrontendController@roomtypedetail')->name('detail');
+	Route::get('/', 'FrontendController@list')->name('list');
 });
 
 // frontend need login routes
@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
 	
 	Route::prefix('guest')->group(function () {
 		Route::get('/profile', 'FrontendController@profile')->name('profile');
+		Route::get('/mybookings', 'FrontendController@mybookings')->name('mybookings');
+		Route::get('/mybookings/{booking}', 'FrontendController@mybookingdetail')->name('mybookingdetail');
 	});
 
 });
@@ -69,6 +71,7 @@ Route::group(['middleware' => ['admin','role:Admin|Reservation Staff|Service Sta
 	Route::get('getguestdata/{id}', 'BookingController@getGuestData')->name('bookings.getguestdata');
 	Route::get('getavailablerooms/{startdate}/{enddate}', 'BookingController@getAvailableRooms')->name('bookings.getavailablerooms');
 	Route::get('gettotalcost', 'BookingController@getTotalCost')->name('bookings.gettotalcost');
+	Route::get('getcheckinrooms/{month}/{year}', 'RoomController@getCheckinRooms')->name('rooms.getcheckinrooms');
 
 	// booking check in, check out routes
 	Route::prefix('checkin')->name('bookings.')->group(function () {
